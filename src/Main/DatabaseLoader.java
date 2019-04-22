@@ -16,6 +16,7 @@ public class DatabaseLoader {
             statement = con.createStatement();
             connected = true;
         } catch (SQLException ex){
+            //most likely need to set up Connector/j classpath
             System.out.println("DB-Connection failed");
             connected = false;
         }
