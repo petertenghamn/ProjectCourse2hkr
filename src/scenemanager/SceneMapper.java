@@ -1,22 +1,22 @@
 package scenemanager;
 
 import javafx.fxml.Initializable;
-import org.w3c.dom.Node;
+import javafx.scene.Parent;
 
-public class SceneMapper<T extends Initializable, K extends Node> {
+public class SceneMapper<T extends Initializable, K extends Parent> {
     private T controller;
-    private K scene;
+    private K root;
 
-    SceneMapper(T controller, K scene){
+    SceneMapper(T controller, K root){
         this.controller = controller;
-        this.scene = scene;
+        this.root = root;
     }
 
     public T getController(){
         return controller;
     }
 
-    public K getScene(){
-        return scene;
+    public K getParent(){
+        return root;
     }
 }

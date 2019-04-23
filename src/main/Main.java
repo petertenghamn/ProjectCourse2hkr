@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import scenemanager.SceneManager;
 
 public class Main extends Application {
 
     DatabaseLoader pokeDB;
+    SceneManager manager;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -16,10 +18,9 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeDB.TestFunction();
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+        manager = new SceneManager(primaryStage);
+        manager.loadScenes();
+        manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
     }
 
     public static void main(String[] args) {

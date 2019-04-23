@@ -42,7 +42,7 @@ public class DatabaseLoader {
 
             //remove pokemon made
             try {
-                statement.executeUpdate("Delete from pokemon where pokemon_id = 1;");
+                statement.executeUpdate("Delete from pokemon where pokemon_id = 999;");
             } catch (SQLException ex) {
                 System.out.println("Error executing the update - delete!");
             }

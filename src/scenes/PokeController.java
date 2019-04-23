@@ -1,6 +1,7 @@
-package pokemon;
+package scenes;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,8 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import pokemon.Pokemon;
 
-public class PokeController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PokeController implements Initializable {
 
     // This is used to change the scene ***** NOT YET IMPLEMENTED
     private Parent root;
@@ -18,6 +23,12 @@ public class PokeController {
         primaryStage.setTitle("pokemon");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        //for now empty (needed for "implements Initializable")
+        //can assign variables here that need to be assigned after variables are declared
     }
 
     // The following are used in the selectStarter Method
