@@ -1,4 +1,4 @@
-package Pokemon;
+package pokemon;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -15,7 +15,7 @@ public class PokeController {
     private Parent root;
 
     public void activeStage(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Pokemon");
+        primaryStage.setTitle("pokemon");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

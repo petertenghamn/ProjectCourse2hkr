@@ -7,22 +7,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pokemon.PokeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokemon.PokeController">
    <children>
       <Text fx:id="txtStarterMain" layoutX="96.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It's Dangerous to go Alone! Take a companion to guard you on your journey!" />
       <ImageView fx:id="FireCat" fitHeight="157.0" fitWidth="137.0" layoutX="50.0" layoutY="122.0" onMouseClicked="#selectStarter">
          <image>
-            <Image url="@PokePictures/Growly.png" />
+            <Image url="@pokepictures/Growly.png" />
          </image>
       </ImageView>
       <ImageView fx:id="GrassOwl" fitHeight="144.0" fitWidth="124.0" layoutX="251.0" layoutY="128.0" onMouseClicked="#selectStarter">
          <image>
-            <Image url="@PokePictures/OwlStarter.png" />
+            <Image url="@pokepictures/OwlStarter.png" />
          </image>
       </ImageView>
       <ImageView fx:id="WaterSeal" layoutX="453.0" layoutY="141.0" onMouseClicked="#selectStarter">
          <image>
-            <Image url="@PokePictures/Water.png" />
+            <Image url="@pokepictures/Water.png" />
          </image>
       </ImageView>
       <TextField fx:id="fieldNickname" layoutX="207.0" layoutY="66.0" promptText="Give your friend a Name!" visible="false" />

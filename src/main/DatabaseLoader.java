@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.sql.*;
 
@@ -24,7 +24,7 @@ public class DatabaseLoader {
         if (connected) {
             //create a pokemon to print
             try {
-                statement.executeUpdate("INSERT into pokemon values (1, 'ElectroRat', 9001, 999, 999, 1000);");
+                statement.executeUpdate("INSERT into pokemon values (999, 'ElectroRat', 9001, 999, 999, 1000);");
             } catch (SQLException ex) {
                 System.out.println("Error executing the update - insert!");
             }
@@ -34,7 +34,7 @@ public class DatabaseLoader {
                 ResultSet rs = statement.executeQuery("SELECT name FROM pokemon;");
 
                 while (rs.next()) {
-                    System.out.println("Pokemon name: " + rs.getString(1));
+                    System.out.println("pokemon name: " + rs.getString(1));
                 }
             } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
