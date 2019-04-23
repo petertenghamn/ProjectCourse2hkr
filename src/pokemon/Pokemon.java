@@ -1,4 +1,4 @@
-package Main.Pokemon;
+package pokemon;
 
 import java.util.ArrayList;
 
