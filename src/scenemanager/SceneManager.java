@@ -20,6 +20,7 @@ public class SceneManager {
             return sceneName.SELECTSTARTER;
         }
         else {
+            System.out.println("Missing enum assignment in SceneManager: " + id);
             return sceneName.MISSING;
         }
     }
