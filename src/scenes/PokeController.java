@@ -16,15 +16,6 @@ import java.util.ResourceBundle;
 
 public class PokeController implements Initializable {
 
-    // This is used to change the scene ***** NOT YET IMPLEMENTED
-    private Parent root;
-
-    public void activeStage(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("pokemon");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //for now empty (needed for "implements Initializable")

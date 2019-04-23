@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class DatabaseLoader {
 
-    String url = "jdbc:mysql://127.0.0.1:3306/pokedb?user=root&password=root";
-    Statement statement;
+    private String url = "jdbc:mysql://127.0.0.1:3306/pokedb?user=root&password=root";
+    private Statement statement;
 
     private Connection con;
     private boolean connected;

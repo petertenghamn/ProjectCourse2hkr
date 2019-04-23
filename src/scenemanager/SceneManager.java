@@ -19,6 +19,9 @@ public class SceneManager {
         if (id.equalsIgnoreCase("poke")){
             return sceneName.SELECTSTARTER;
         }
+        else if (id.equalsIgnoreCase("login")){
+            return sceneName.LOGIN;
+        }
         else {
             System.out.println("Missing enum assignment in SceneManager: " + id);
             return sceneName.MISSING;
