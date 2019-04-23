@@ -1,6 +1,6 @@
 package Users;
 
-import Main.Pokemon.Pokemon;
+import Pokemon.Pokemon;
 
 public class Trainer extends User {
 
