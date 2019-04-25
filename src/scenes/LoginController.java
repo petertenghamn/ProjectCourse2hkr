@@ -32,7 +32,9 @@ public class LoginController implements Controller {
     ImageView imgView;
 
     public void loginRequest(){
-        main.loginRequested();
+        String email = txtFieldUsername.getText();
+        String password = txtFieldPassword.getText();
+        main.AuthenticateLogin(email, password);
     }
 
     public void newUser(){

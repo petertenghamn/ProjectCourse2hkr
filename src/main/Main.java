@@ -33,14 +33,18 @@ public class Main extends Application {
         manager.changeScene(scene);
     }
 
-    public void loginRequested(){
+    public void AuthenticateLogin(String email, String password){
         //check the user login details before changing scenes
-        System.out.println("Login request made!");
-
-        //have temp hardcoded professor user and trainer user to log on to, later make it check vs database
+        //*****TEMPORARY
+        if (email.equalsIgnoreCase("student@hkr") && password.equalsIgnoreCase("12345")){
+            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        }
+        else {
+            System.out.println("Temporary: Email = student@hkr, Password = 12345");
+        }
+        //check vs database
         //change to trainer controller if that is the user logged into
         //change to professor controller if that is the user logged into
-
     }
 
     public void createNewUser(String email, String password){
