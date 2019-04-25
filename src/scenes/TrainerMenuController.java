@@ -11,6 +11,10 @@ public class TrainerMenuController implements Controller {
         main = m;
     }
 
+    public void reset(){
+
+    }
+
     private Main main;
 
     public void logoutButton(){

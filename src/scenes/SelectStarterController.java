@@ -16,6 +16,11 @@ public class SelectStarterController implements Controller {
         main = m;
     }
 
+    @Override
+    public void reset(){
+        //reset the selected starter and nickname
+    }
+
     private Main main;
     private Pokemon starter;
 

@@ -42,6 +42,7 @@ public class SceneManager {
         }
     }
     private Map<sceneName, SceneMapper> sceneMap;
+    private SceneMapper currentScene;
 
     public SceneManager(Main m, Stage ps){
         main = m;
@@ -78,9 +79,12 @@ public class SceneManager {
     }
 
     public void changeScene(sceneName request) {
+        //reset previous scene
+        currentScene.getController().reset();
+
         //change the scene view and controller to requested scene
-        SceneMapper scene = sceneMap.get(request);
-        scene.getController().setMain(main);
-        primaryScene.setRoot(scene.getParent());
+        currentScene = sceneMap.get(request);
+        currentScene.getController().setMain(main);
+        primaryScene.setRoot(currentScene.getParent());
     }
 }

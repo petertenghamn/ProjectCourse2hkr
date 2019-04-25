@@ -10,13 +10,19 @@ import scenemanager.SceneManager;
 
 public class LoginController implements Controller {
 
+    private Main main;
+
     @Override
     public void setMain(Main m){
         //set the main so that you can call upon it to change scenes
         main = m;
     }
-
-    private Main main;
+    
+    @Override
+    public void reset(){
+        txtFieldUsername.setText("");
+        txtFieldPassword.setText("");
+    }
 
     @FXML
     Button btnLogin;
