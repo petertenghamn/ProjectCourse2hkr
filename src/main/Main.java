@@ -20,9 +20,14 @@ public class Main extends Application {
         manager = new SceneManager(primaryStage);
         manager.loadScenes();
         manager.changeScene(SceneManager.sceneName.LOGIN);
+        manager.setMainToController(this);
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void loginRequested(){
+        System.out.println("Login request made!");
     }
 }
