@@ -1,10 +1,12 @@
 package scenemanager;
 
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.Main;
 import scenemanager.loader.FileLoader;
+import scenes.Controller;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,14 +31,14 @@ public class SceneManager {
     }
     private Map<sceneName, SceneMapper> sceneMap;
 
-    private sceneName currentScene;
+    private SceneMapper currentScene;
 
     public SceneManager(Stage ps){
         primaryStage = ps;
         sceneMap = new HashMap<>();
     }
 
-    public <T extends Initializable,K extends Parent> void addScene(String id, K scene, T controller){
+    public <T extends Controller,K extends Parent> void addScene(String id, K scene, T controller){
         sceneName enumID = getEnumFromID(id);
 
         sceneMap.put(
@@ -49,17 +51,21 @@ public class SceneManager {
 
     }
 
-    public void changeScene(sceneName request){
-        //change the scene view and controller to requested scene
-            primaryStage.setTitle(request.toString());
-            primaryStage.setScene(new Scene(sceneMap.get(request).getParent()));
-            primaryStage.show();
-
-            currentScene = request;
-    }
-
+    //loads all scenes in the folder labeled scenes
     public void loadScenes(){
         fileLoader = new FileLoader("fxml", this);
         fileLoader.collect();
+    }
+
+    public void changeScene(sceneName request){
+        //change the scene view and controller to requested scene
+            primaryStage.setTitle(request.toString());
+            currentScene = sceneMap.get(request);
+            primaryStage.setScene(new Scene(currentScene.getParent()));
+            primaryStage.show();
+    }
+
+    public void setMainToController(Main m){
+        currentScene.getController().setMain(m);
     }
 }

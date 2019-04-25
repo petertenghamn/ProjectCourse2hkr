@@ -1,26 +1,22 @@
 package scenes;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import main.Main;
 import pokemon.Pokemon;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class PokeController implements Initializable {
+public class PokeController implements Controller {
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
-        //for now empty (needed for "implements Initializable")
-        //can assign variables here that need to be assigned after variables are declared
+    public void setMain(Main m){
+        //set the main so that you can call upon it to change scenes
+        main = m;
     }
+
+    private Main main;
 
     // The following are used in the selectStarter Method
     @FXML
