@@ -6,23 +6,35 @@ import javafx.stage.Stage;
 import main.Main;
 import scenemanager.loader.FileLoader;
 import scenes.Controller;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class SceneManager {
 
+    private Main main;
+
     private FileLoader fileLoader;
-    private Stage primaryStage;
+    private Stage root;
+    private Scene primaryScene;
 
     //enum to store all the names of possible scenes to change to
     public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU }
     private sceneName getEnumFromID(String id){
-        if (id.equalsIgnoreCase("poke")){
+        //setup each menu to an enum so its easier to call on them later
+        if (id.equalsIgnoreCase("login")){
+            return sceneName.LOGIN;
+        }
+        else if (id.equalsIgnoreCase("newuser")){
+            return sceneName.NEWUSER;
+        }
+        else if (id.equalsIgnoreCase("selectstarter")){
             return sceneName.SELECTSTARTER;
         }
-        else if (id.equalsIgnoreCase("login")){
-            return sceneName.LOGIN;
+        else if (id.equalsIgnoreCase("trainermenu")){
+            return sceneName.TRAINERMENU;
+        }
+        else if (id.equalsIgnoreCase("professormenu")){
+            return sceneName.PROFESSORMENU;
         }
         else {
             System.out.println("Missing enum assignment in SceneManager: " + id);
@@ -31,11 +43,19 @@ public class SceneManager {
     }
     private Map<sceneName, SceneMapper> sceneMap;
 
-    private SceneMapper currentScene;
+    public SceneManager(Main m, Stage ps){
+        main = m;
 
-    public SceneManager(Stage ps){
-        primaryStage = ps;
+        root = ps;
         sceneMap = new HashMap<>();
+        loadScenes();
+
+        root.setTitle("PokeDB");
+        SceneMapper scene = sceneMap.get(sceneName.LOGIN);
+        scene.getController().setMain(main);
+        primaryScene = new Scene(scene.getParent());
+        root.setScene(primaryScene);
+        root.show();
     }
 
     public <T extends Controller,K extends Parent> void addScene(String id, K scene, T controller){
@@ -52,20 +72,15 @@ public class SceneManager {
     }
 
     //loads all scenes in the folder labeled scenes
-    public void loadScenes(){
+    private void loadScenes(){
         fileLoader = new FileLoader("fxml", this);
         fileLoader.collect();
     }
 
-    public void changeScene(sceneName request){
+    public void changeScene(sceneName request) {
         //change the scene view and controller to requested scene
-            primaryStage.setTitle(request.toString());
-            currentScene = sceneMap.get(request);
-            primaryStage.setScene(new Scene(currentScene.getParent()));
-            primaryStage.show();
-    }
-
-    public void setMainToController(Main m){
-        currentScene.getController().setMain(m);
+        SceneMapper scene = sceneMap.get(request);
+        scene.getController().setMain(main);
+        primaryScene.setRoot(scene.getParent());
     }
 }

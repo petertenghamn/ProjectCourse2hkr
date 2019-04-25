@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import main.Main;
+import scenemanager.SceneManager;
 
 public class LoginController implements Controller {
 
@@ -32,5 +33,9 @@ public class LoginController implements Controller {
 
     public void loginRequest(){
         main.loginRequested();
+    }
+
+    public void newUser(){
+        main.requestSceneChange(SceneManager.sceneName.NEWUSER);
     }
 }

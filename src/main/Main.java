@@ -4,12 +4,16 @@ package main;
 import main.DatabaseLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import pokemon.Pokemon;
 import scenemanager.SceneManager;
+import users.User;
 
 public class Main extends Application {
 
     private DatabaseLoader pokeDB;
     private SceneManager manager;
+
+    private User currentUser;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -17,17 +21,39 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeDB.TestFunction();
 
-        manager = new SceneManager(primaryStage);
-        manager.loadScenes();
-        manager.changeScene(SceneManager.sceneName.LOGIN);
-        manager.setMainToController(this);
+        manager = new SceneManager(this, primaryStage);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    //if the scene request is simple and just wants to transition with no checks
+    public void requestSceneChange(SceneManager.sceneName scene){
+        manager.changeScene(scene);
+    }
+
     public void loginRequested(){
+        //check the user login details before changing scenes
         System.out.println("Login request made!");
+
+        //have temp hardcoded professor user and trainer user to log on to, later make it check vs database
+        //change to trainer controller if that is the user logged into
+        //change to professor controller if that is the user logged into
+
+    }
+
+    public void createNewUser(String email, String password){
+        //creates a new user class of trainer to store info in, then transitions to selecting a starter
+        System.out.println("TODO: need logic to make info into a new user and set all other defaults");
+
+        manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
+    }
+
+    public void selectedStarter(Pokemon starter){
+        //attach the selected started to the trainer that choose it, then proceed to trainer menu
+        System.out.println("TODO: need logic to attach starter selected to the user");
+
+        manager.changeScene(SceneManager.sceneName.TRAINERMENU);
     }
 }
