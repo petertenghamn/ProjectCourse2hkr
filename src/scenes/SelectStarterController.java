@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import main.Main;
 import pokemon.Pokemon;
 
-public class PokeController implements Controller {
+public class SelectStarterController implements Controller {
 
     @Override
     public void setMain(Main m){
@@ -17,6 +17,7 @@ public class PokeController implements Controller {
     }
 
     private Main main;
+    private Pokemon starter;
 
     // The following are used in the selectStarter Method
     @FXML
@@ -50,20 +51,20 @@ public class PokeController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, nickname,"Fire");
+                starter = new Pokemon(10,10,10,10, nickname,"Fire");
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, nickname, "Grass");
+                starter = new Pokemon(10,10,10,10, nickname, "Grass");
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, nickname, "Water");
+                starter = new Pokemon(10,10,10,10, nickname, "Water");
 
             }
         }
@@ -72,23 +73,26 @@ public class PokeController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, "FireCat","Fire");
+                starter = new Pokemon(10,10,10,10, "FireCat","Fire");
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, "GrassOwl", "Grass");
+                starter = new Pokemon(10,10,10,10, "GrassOwl", "Grass");
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                Pokemon starter = new Pokemon(10,10,10,10, "WaterSeal", "Water");
+                starter = new Pokemon(10,10,10,10, "WaterSeal", "Water");
 
             }
         }
     }
 
+    public void finishedSelecting(){
+        main.selectedStarter(starter);
+    }
 }

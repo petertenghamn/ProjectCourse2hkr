@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.PokeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.SelectStarterController">
    <children>
       <Text fx:id="txtStarterMain" layoutX="96.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It's Dangerous to go Alone! Take a companion to guard you on your journey!" />
       <ImageView fx:id="FireCat" fitHeight="157.0" fitWidth="137.0" layoutX="50.0" layoutY="122.0" onMouseClicked="#selectStarter">
@@ -26,6 +26,6 @@
          </image>
       </ImageView>
       <TextField fx:id="fieldNickname" layoutX="207.0" layoutY="66.0" promptText="Give your friend a Name!" visible="false" />
-      <Button fx:id="btnNickname" layoutX="369.0" layoutY="66.0" mnemonicParsing="false" text="OK" visible="false" />
+      <Button fx:id="btnNickname" layoutX="369.0" layoutY="66.0" mnemonicParsing="false" onAction="#finishedSelecting" text="OK" visible="false" />
    </children>
 </AnchorPane>

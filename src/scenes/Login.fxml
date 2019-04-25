@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="anc" prefHeight="400.0" prefWidth="600.0" stylesheets="@pokepictures/login.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.LoginController">
     <children>
-        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="216.0" layoutY="255.0" mnemonicParsing="false" text="Create new account" />
+        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="216.0" layoutY="255.0" mnemonicParsing="false" onAction="#newUser" text="Create new account" />
         <TextField fx:id="txtFieldUsername" layoutX="225.0" layoutY="76.0" opacity="0.15" />
         <TextField fx:id="txtFieldPassword" layoutX="226.0" layoutY="118.0" opacity="0.18" />
         <Label layoutX="225.0" layoutY="59.0" text="Username:" />
