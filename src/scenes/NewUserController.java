@@ -15,6 +15,12 @@ public class NewUserController implements Controller {
 
     private Main main;
 
+    @Override
+    public void reset(){
+        email.setText("");
+        password.setText("");
+    }
+
     @FXML
     TextField email;
     @FXML
