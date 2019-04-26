@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import pokemon.Pokemon;
 import scenemanager.SceneManager;
+import users.Professor;
+import users.Trainer;
 import users.User;
 
 public class Main extends Application {
@@ -15,11 +17,19 @@ public class Main extends Application {
 
     private User currentUser;
 
+    public Pokemon[] getAllPokemon(){
+        return pokeDB.getAllPokemon();
+    }
+    public Pokemon getPokemon(int id){
+        return pokeDB.getPokemon(id);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         //create connection with server
         pokeDB = new DatabaseLoader();
-        pokeDB.TestFunction();
+        pokeDB.loadAllPokemon();
+        pokeDB.testFunction();
 
         manager = new SceneManager(this, primaryStage);
     }
@@ -33,31 +43,49 @@ public class Main extends Application {
         manager.changeScene(scene);
     }
 
-    public void AuthenticateLogin(String email, String password){
-        //check the user login details before changing scenes
-        //*****TEMPORARY
-        if (email.equalsIgnoreCase("student@hkr") && password.equalsIgnoreCase("12345")){
-            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+    public void logoutUser(){
+        //reset current user then return to the login screen;
+        if (currentUser != null) {
+            currentUser = null;
+        }
+        manager.changeScene(SceneManager.sceneName.LOGIN);
+    }
+
+    public void authenticateLogin(String email, String password){
+        //check login details vs database
+        currentUser = pokeDB.authenticateLogin(email, password);
+        if (currentUser != null) {
+            //change to trainer controller if that is the user logged into
+            if (currentUser instanceof Trainer){
+                manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+            }
+            //change to professor controller if that is the user logged into
+            else if (currentUser instanceof Professor){
+                manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
+            }
         }
         else {
-            System.out.println("Temporary: Email = student@hkr, Password = 12345");
+            System.out.println("Information entered was incorrect!");
         }
-        //check vs database
-        //change to trainer controller if that is the user logged into
-        //change to professor controller if that is the user logged into
     }
 
     public void createNewUser(String email, String password){
         //creates a new user class of trainer to store info in, then transitions to selecting a starter
-        System.out.println("TODO: need logic to make info into a new user and set all other defaults");
+        if (pokeDB.checkIfEmailAvailable(email)) {
+            currentUser = new Trainer(email, 0, 0, 0, new Pokemon[0], new Pokemon[0]);
+            ((Trainer) currentUser).setNewUserPassword(password);
 
-        manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
+            manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
+        }
+        else {
+            System.out.println("Email already in use!");
+        }
     }
 
     public void selectedStarter(Pokemon starter){
         //attach the selected started to the trainer that choose it, then proceed to trainer menu
-        System.out.println("TODO: need logic to attach starter selected to the user");
-
+        ((Trainer) currentUser).addToCollection(starter);
+        pokeDB.createNewUser(currentUser);
         manager.changeScene(SceneManager.sceneName.TRAINERMENU);
     }
 }

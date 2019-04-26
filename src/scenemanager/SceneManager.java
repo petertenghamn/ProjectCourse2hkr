@@ -52,9 +52,9 @@ public class SceneManager {
         loadScenes();
 
         root.setTitle("PokeDB");
-        SceneMapper scene = sceneMap.get(sceneName.LOGIN);
-        scene.getController().setMain(main);
-        primaryScene = new Scene(scene.getParent());
+        currentScene = sceneMap.get(sceneName.LOGIN);
+        currentScene.getController().setMain(main);
+        primaryScene = new Scene(currentScene.getParent());
         root.setScene(primaryScene);
         root.show();
     }

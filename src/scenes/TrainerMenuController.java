@@ -18,6 +18,6 @@ public class TrainerMenuController implements Controller {
     private Main main;
 
     public void logoutButton(){
-        main.requestSceneChange(SceneManager.sceneName.LOGIN);
+        main.logoutUser();
     }
 }
