@@ -10,13 +10,25 @@ public class Trainer extends User {
     private Pokemon[] collection;
     private Pokemon[] team;
 
-
-    public Trainer(int currency, int winCount, int loseCount, Pokemon[] collection, Pokemon[] team) {
+    public Trainer(String email, int currency, int winCount, int loseCount, Pokemon[] collection, Pokemon[] team) {
+        super(email);
         this.currency = currency;
         this.winCount = winCount;
         this.loseCount = loseCount;
         this.collection = collection;
         this.team = team;
+    }
+
+    public String getEmail(){
+        return super.email;
+    }
+
+    public void setNewUserPassword(String password){
+        super.setPassword(password);
+    }
+
+    public String getNewUserPassword(){
+        return super.getPassword();
     }
 
     public int getCurrency() {
@@ -47,8 +59,12 @@ public class Trainer extends User {
         return collection;
     }
 
-    public void setCollection(Pokemon[] collection) {
-        this.collection = collection;
+    public void addToCollection(Pokemon newPokemon){
+        Pokemon[] newCollection = new Pokemon[collection.length + 1];
+        for (int i = 0; i < collection.length; i++){
+            newCollection[i] = collection[i];
+        }
+        newCollection[newCollection.length - 1] = newPokemon;
     }
 
     public Pokemon[] getTeam() {

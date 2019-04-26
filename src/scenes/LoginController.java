@@ -40,7 +40,7 @@ public class LoginController implements Controller {
     public void loginRequest(){
         String email = txtFieldUsername.getText();
         String password = txtFieldPassword.getText();
-        main.AuthenticateLogin(email, password);
+        main.authenticateLogin(email, password);
     }
 
     public void newUser(){

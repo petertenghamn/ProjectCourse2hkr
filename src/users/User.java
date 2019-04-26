@@ -1,6 +1,18 @@
 package users;
 
 public abstract class User {
+    protected String email;
+    private String password;
 
-    protected int IdTag;
+    public User(String email){
+        this.email = email;
+    }
+
+    protected void setPassword(String password){
+        this.password = password;
+    }
+
+    protected String getPassword(){
+        return password;
+    }
 }

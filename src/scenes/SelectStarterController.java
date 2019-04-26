@@ -56,20 +56,20 @@ public class SelectStarterController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, nickname,"Fire");
+                starter = new Pokemon(1,10,10,10,10, nickname,"Fire");
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, nickname, "Grass");
+                starter = new Pokemon(2,10,10,10,10, nickname, "Grass");
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, nickname, "Water");
+                starter = new Pokemon(3,10,10,10,10, nickname, "Water");
 
             }
         }
@@ -78,20 +78,20 @@ public class SelectStarterController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, "FireCat","Fire");
+                starter = new Pokemon(1,10,10,10,10, "FireCat","Fire");
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, "GrassOwl", "Grass");
+                starter = new Pokemon(2,10,10,10,10, "GrassOwl", "Grass");
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(10,10,10,10, "WaterSeal", "Water");
+                starter = new Pokemon(3,10,10,10,10, "WaterSeal", "Water");
 
             }
         }

@@ -18,6 +18,6 @@ public class ProfessorMenuController implements Controller {
     private Main main;
 
     public void logoutButton(){
-        main.requestSceneChange(SceneManager.sceneName.LOGIN);
+        main.logoutUser();
     }
 }

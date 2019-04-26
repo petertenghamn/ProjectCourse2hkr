@@ -1,24 +1,21 @@
 package pokemon;
 
-import java.util.ArrayList;
-
 public class Pokemon {
 
-    public ArrayList idArray = new ArrayList<>();
     private int idTag, health, speed, attack, defense;
     private String name, type;
 
     // Constructor calls the "GenerateTag" Method in order to make sure it's a unique tag
-    public Pokemon(int health, int speed, int attack, int defense, String name, String type) {
+    public Pokemon(int id, int health, int speed, int attack, int defense, String name, String type) {
+        idTag = id;
         this.health = health;
         this.speed = speed;
         this.attack = attack;
         this.defense = defense;
         this.name = name;
         this.type = type;
-        generateTag(this);
     }
-
+    /*
     // Generate tag is used by the constructor to give a unique tag to each object.
     private void generateTag(Pokemon pokemon){
         for(int gt = 0; gt <= idArray.size(); gt++){
@@ -27,6 +24,7 @@ public class Pokemon {
             }
         }
     }
+    */
 
     // Getter Methods After this Comment
 
