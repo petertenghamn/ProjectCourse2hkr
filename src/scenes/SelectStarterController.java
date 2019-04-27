@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.Main;
-import pokemon.Pokemon;
 
 public class SelectStarterController implements Controller {
 
@@ -22,7 +21,7 @@ public class SelectStarterController implements Controller {
     }
 
     private Main main;
-    private Pokemon starter;
+    private int starterID;
 
     // The following are used in the selectStarter Method
     @FXML
@@ -56,20 +55,20 @@ public class SelectStarterController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                starter = new Pokemon(1,10,10,10,10, nickname,"Fire");
+                starterID = 1;
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(2,10,10,10,10, nickname, "Grass");
+                starterID = 2;
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(3,10,10,10,10, nickname, "Water");
+                starterID = 3;
 
             }
         }
@@ -78,26 +77,26 @@ public class SelectStarterController implements Controller {
                 GrassOwl.setVisible(false);
                 WaterSeal.setVisible(false);
 
-                starter = new Pokemon(1,10,10,10,10, "FireCat","Fire");
+                starterID = 1;
             }
             else if (GrassOwl.isPressed()){
                 WaterSeal.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(2,10,10,10,10, "GrassOwl", "Grass");
+                starterID = 2;
 
             }
             else if (WaterSeal.isPressed()){
                 GrassOwl.setVisible(false);
                 FireCat.setVisible(false);
 
-                starter = new Pokemon(3,10,10,10,10, "WaterSeal", "Water");
+                starterID = 3;
 
             }
         }
     }
 
     public void finishedSelecting(){
-        main.selectedStarter(starter);
+        main.selectedStarter(starterID);
     }
 }

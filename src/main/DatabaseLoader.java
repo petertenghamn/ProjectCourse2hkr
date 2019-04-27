@@ -37,20 +37,6 @@ public class DatabaseLoader {
         }
     }
 
-    private Pokemon[] allPokemon;
-    public Pokemon[] getAllPokemon(){
-        return allPokemon;
-    }
-    public Pokemon getPokemon(int id){
-        //get the pokemon from the array of allPokemon to return
-        for (Pokemon p : allPokemon){
-            if (id == p.getIdTag()){
-                return p;
-            }
-        }
-        return null;
-    }
-
     public void testFunction(){
         System.out.println();
         System.out.println("-------------------------------------------");
@@ -92,7 +78,7 @@ public class DatabaseLoader {
         System.out.println();
     }
 
-    public void loadAllPokemon(){
+    public Pokemon[] loadAllPokemon(){
         //Load up all pokemon in the database
         connectToDB();
 
@@ -109,10 +95,11 @@ public class DatabaseLoader {
             } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
             }
-            allPokemon = pokemon.toArray(new Pokemon[pokemon.size()]);
-
             disconnectFromDB();
+
+            return pokemon.toArray(new Pokemon[pokemon.size()]);
         }
+        return null;
     }
 
     public User authenticateLogin(String email, String password) {
@@ -146,19 +133,25 @@ public class DatabaseLoader {
                                     System.out.println("Empty stats");
                                 }
 
-                                ResultSet userCollection = statement.executeQuery("SELECT * FROM user_collection WHERE user_id = " + userID + ";");
-                                List<Pokemon> c = new ArrayList<>();
-                                while (userCollection.next()) {
-                                    c.add(getPokemon(userCollection.getInt(2)));
+                                int[] collection = new int[0];
+                                try {
+                                    ResultSet userCollection = statement.executeQuery("SELECT * FROM user_collection WHERE user_id = " + userID + ";");
+                                    Array c = userCollection.getArray(2);
+                                    collection = (int[]) c.getArray();
+                                } catch (Exception e) {
+                                    //result set may be empty if error occurred here
+                                    System.out.println("Error executing user_collection query");
                                 }
-                                Pokemon[] collection = c.toArray(new Pokemon[c.size()]);
 
-                                ResultSet userTeam = statement.executeQuery("SELECT * FROM user_has_team WHERE user_id = " + userID + ";");
-                                List<Pokemon> t = new ArrayList<>();
-                                while (userTeam.next()) {
-                                    t.add(getPokemon(userTeam.getInt(3)));
+                                int[] team = new int[0];
+                                try {
+                                    ResultSet userTeam = statement.executeQuery("SELECT * FROM user_has_team WHERE user_id = " + userID + ";");
+                                    Array t = userTeam.getArray(3);
+                                    team = (int[]) t.getArray();
+                                } catch (Exception e) {
+                                    //result set may be empty if error occurred here
+                                    System.out.println("Error executing user_has_team query");
                                 }
-                                Pokemon[] team = t.toArray(new Pokemon[t.size()]);
 
                                 loginUser = new Trainer(email, 0, wins, losses, collection, team);
                             }
@@ -186,7 +179,7 @@ public class DatabaseLoader {
             try {
                 ResultSet rs = statement.executeQuery("SELECT email FROM user;");
                 while (rs.next()) {
-                    if (rs.getString(2).equalsIgnoreCase(email)){
+                    if (rs.getString(1).equalsIgnoreCase(email)){
                         disconnectFromDB();
                         return false;
                     }

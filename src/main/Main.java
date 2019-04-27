@@ -17,18 +17,24 @@ public class Main extends Application {
 
     private User currentUser;
 
+    private Pokemon[] allPokemon;
     public Pokemon[] getAllPokemon(){
-        return pokeDB.getAllPokemon();
+        return allPokemon;
     }
     public Pokemon getPokemon(int id){
-        return pokeDB.getPokemon(id);
+        for (Pokemon p : allPokemon){
+            if (p.getIdTag() == id){
+                return p;
+            }
+        }
+        return null;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         //create connection with server
         pokeDB = new DatabaseLoader();
-        pokeDB.loadAllPokemon();
+        allPokemon = pokeDB.loadAllPokemon();
         pokeDB.testFunction();
 
         manager = new SceneManager(this, primaryStage);
@@ -72,7 +78,7 @@ public class Main extends Application {
     public void createNewUser(String email, String password){
         //creates a new user class of trainer to store info in, then transitions to selecting a starter
         if (pokeDB.checkIfEmailAvailable(email)) {
-            currentUser = new Trainer(email, 0, 0, 0, new Pokemon[0], new Pokemon[0]);
+            currentUser = new Trainer(email, 0, 0, 0, new int[0], new int[0]);
             ((Trainer) currentUser).setNewUserPassword(password);
 
             manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
@@ -82,9 +88,9 @@ public class Main extends Application {
         }
     }
 
-    public void selectedStarter(Pokemon starter){
+    public void selectedStarter(int starterID){
         //attach the selected started to the trainer that choose it, then proceed to trainer menu
-        ((Trainer) currentUser).addToCollection(starter);
+        ((Trainer) currentUser).addToCollectionIDs(starterID);
         pokeDB.createNewUser(currentUser);
         manager.changeScene(SceneManager.sceneName.TRAINERMENU);
     }
