@@ -1,22 +1,20 @@
 package users;
 
-import pokemon.Pokemon;
-
 public class Trainer extends User {
 
     private int currency;
     private int winCount;
     private int loseCount;
-    private Pokemon[] collection;
-    private Pokemon[] team;
+    private int[] collectionIDs;
+    private int[] teamIDs;
 
-    public Trainer(String email, int currency, int winCount, int loseCount, Pokemon[] collection, Pokemon[] team) {
+    public Trainer(String email, int currency, int winCount, int loseCount, int[] collectionIDs, int[] teamIDs) {
         super(email);
         this.currency = currency;
         this.winCount = winCount;
         this.loseCount = loseCount;
-        this.collection = collection;
-        this.team = team;
+        this.collectionIDs = collectionIDs;
+        this.teamIDs = teamIDs;
     }
 
     public String getEmail(){
@@ -55,23 +53,23 @@ public class Trainer extends User {
         this.loseCount = loseCount;
     }
 
-    public Pokemon[] getCollection() {
-        return collection;
+    public int[] getCollectionIDs() {
+        return collectionIDs;
     }
 
-    public void addToCollection(Pokemon newPokemon){
-        Pokemon[] newCollection = new Pokemon[collection.length + 1];
-        for (int i = 0; i < collection.length; i++){
-            newCollection[i] = collection[i];
+    public void addToCollectionIDs(int newPokemonID){
+        int[] newCollection = new int[collectionIDs.length + 1];
+        for (int i = 0; i < collectionIDs.length; i++){
+            newCollection[i] = collectionIDs[i];
         }
-        newCollection[newCollection.length - 1] = newPokemon;
+        newCollection[newCollection.length - 1] = newPokemonID;
     }
 
-    public Pokemon[] getTeam() {
-        return team;
+    public int[] getTeam() {
+        return teamIDs;
     }
 
-    public void setTeam(Pokemon[] team) {
-        this.team = team;
+    public void setTeamIDs(int[] teamIDs) {
+        this.teamIDs = teamIDs;
     }
 }
