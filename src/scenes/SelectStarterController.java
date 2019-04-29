@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.Main;
+import pokemon.Pokemon;
 
 public class SelectStarterController implements Controller {
 
@@ -21,82 +22,98 @@ public class SelectStarterController implements Controller {
     }
 
     private Main main;
-    private int starterID;
+    private int starterID, starterSelected; // Starter Selected should only be values 1 -3
+    private String nickname;
 
     // The following are used in the selectStarter Method
     @FXML
     TextField fieldNickname;
 
     @FXML
-    Button btnNickname;
+    Button btnNickname, btnNoNickname;
 
     @FXML
     Text txtStarterMain;
 
     @FXML
-    ImageView FireCat, GrassOwl, WaterSeal;
+    ImageView leftStarter, middleStarter, rightStarter;
 
-    public void selectStarter(){
-        txtStarterMain.setVisible(false);
+    // This just rewrites the scene it doesn't actually change it to a new scene disregard the name!
+    private void sceneChange(){
         fieldNickname.setVisible(true);
         btnNickname.setVisible(true);
+        btnNoNickname.setVisible(true);
 
-        String nickname = "NoName";
-        boolean wantNickname = false;
+        txtStarterMain.setText("\t\t\t\tGive Your New Friend a Name!");
+    }
 
-        if (btnNickname.isPressed()) {
-            wantNickname = true;
+    public void setNickname(){
+        nickname = fieldNickname.getText();
+    }
 
-            nickname = fieldNickname.getText();
-        }
+    public void leftStarterPressed(){
+        sceneChange();
+        middleStarter.setVisible(false);
+        rightStarter.setVisible(false);
 
-        if (wantNickname){
-            if (FireCat.isPressed()) {
-                GrassOwl.setVisible(false);
-                WaterSeal.setVisible(false);
+        leftStarter.setLayoutX(225);
 
-                starterID = 1;
-            }
-            else if (GrassOwl.isPressed()){
-                WaterSeal.setVisible(false);
-                FireCat.setVisible(false);
+        starterSelected = 1;
+    }
 
-                starterID = 2;
+    public void middleStarterPressed(){
+        sceneChange();
+        rightStarter.setVisible(false);
+        leftStarter.setVisible(false);
 
-            }
-            else if (WaterSeal.isPressed()){
-                GrassOwl.setVisible(false);
-                FireCat.setVisible(false);
+        starterSelected = 2;
+    }
 
-                starterID = 3;
+    public void rightStarterPressed(){
+        sceneChange();
+        leftStarter.setVisible(false);
+        middleStarter.setVisible(false);
 
-            }
-        }
-        else{
-            if (FireCat.isPressed()) {
-                GrassOwl.setVisible(false);
-                WaterSeal.setVisible(false);
+        rightStarter.setLayoutX(225);
 
-                starterID = 1;
-            }
-            else if (GrassOwl.isPressed()){
-                WaterSeal.setVisible(false);
-                FireCat.setVisible(false);
-
-                starterID = 2;
-
-            }
-            else if (WaterSeal.isPressed()){
-                GrassOwl.setVisible(false);
-                FireCat.setVisible(false);
-
-                starterID = 3;
-
-            }
-        }
+        starterSelected = 3;
     }
 
     public void finishedSelecting(){
         main.selectedStarter(starterID);
+
+        if (nickname != null){
+            if (starterSelected == 1){
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(1,10,10,10,10, nickname,"Left");
+            }
+            if (starterSelected == 2){
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(2, 10, 10, 10, 10, nickname, "Middle");
+                main.addPokemon(starter);
+            }
+            else if (starterSelected == 3) {
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(3, 10, 10, 10, 10, nickname, "Middle");
+                main.addPokemon(starter);
+            }
+        }
+        else {
+            if (starterSelected == 1){
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(1, 10, 10, 10, 10, "Fitty", "Middle");
+                main.addPokemon(starter);
+            }
+            if (starterSelected == 2){
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(2, 10, 10, 10, 10, "Owly", "Middle");
+                main.addPokemon(starter);
+            }
+            else if (starterSelected == 3) {
+                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
+                Pokemon starter = new Pokemon(3, 10, 10, 10, 10, "Wety", "Middle");
+                main.addPokemon(starter);
+            }
+        }
     }
 }

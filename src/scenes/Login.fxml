@@ -2,23 +2,28 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anc" prefHeight="400.0" prefWidth="600.0" stylesheets="@pokepictures/login.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.LoginController">
+<AnchorPane fx:id="anc" prefHeight="400.0" prefWidth="600.0" stylesheets="@pokepictures/login.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.LoginController">
     <children>
-        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="216.0" layoutY="255.0" mnemonicParsing="false" onAction="#newUser" text="Create new account" />
-        <TextField fx:id="txtFieldUsername" layoutX="225.0" layoutY="76.0" opacity="0.15" />
-        <TextField fx:id="txtFieldPassword" layoutX="226.0" layoutY="118.0" opacity="0.18" />
-        <Label layoutX="225.0" layoutY="59.0" text="Username:" />
-        <Label layoutX="227.0" layoutY="101.0" text="Password:" />
-        <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="276.0" layoutY="154.0" mnemonicParsing="false" onAction="#loginRequest" text="Login" />
-        <ImageView fx:id="imgView" fitHeight="109.0" fitWidth="121.0" layoutY="4.0" opacity="0.52" pickOnBounds="true" preserveRatio="true">
+        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="226.0" layoutY="317.0" mnemonicParsing="false" onAction="#newUser" text="Create new account" />
+        <Label layoutX="212.0" layoutY="140.0" text="Email:" />
+        <TextField fx:id="txtFieldUsername" layoutX="212.0" layoutY="157.0" />
+        <Label layoutX="214.0" layoutY="182.0" text="Password:" />
+      <PasswordField fx:id="txtFieldPassword" layoutX="213.0" layoutY="199.0" />
+        <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="263.0" layoutY="235.0" mnemonicParsing="false" onAction="#loginRequest" text="Login" />
+        <ImageView fx:id="imgView" fitHeight="109.0" fitWidth="121.0" layoutX="232.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@pokepictures/pokeLogo.png" />
             </image>
+         <effect>
+            <Blend />
+         </effect>
         </ImageView>
     </children>
 </AnchorPane>
