@@ -10,6 +10,8 @@ import users.Professor;
 import users.Trainer;
 import users.User;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     private DatabaseLoader pokeDB;
@@ -28,6 +30,15 @@ public class Main extends Application {
             }
         }
         return null;
+    }
+
+    // **************** WORKAROUND *********** IMPLEMENT DATABASE *******************
+    private ArrayList<Pokemon> pokemonArrayList = new ArrayList<>();
+    public void addPokemon(Pokemon pokemon){
+        pokemonArrayList.add(pokemon);
+    }
+    public ArrayList getPokemonArray(){
+        return pokemonArrayList;
     }
 
     @Override
