@@ -19,6 +19,7 @@ public class SelectStarterController implements Controller {
     @Override
     public void reset(){
         //reset the selected starter and nickname
+        fieldNickname.setText("");
     }
 
     private Main main;
@@ -28,13 +29,10 @@ public class SelectStarterController implements Controller {
     // The following are used in the selectStarter Method
     @FXML
     TextField fieldNickname;
-
     @FXML
     Button btnNickname, btnNoNickname;
-
     @FXML
     Text txtStarterMain;
-
     @FXML
     ImageView leftStarter, middleStarter, rightStarter;
 

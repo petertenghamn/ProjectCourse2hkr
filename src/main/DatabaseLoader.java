@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DatabaseLoader {
 
-    private String url = "jdbc:mysql://127.0.0.1:3306/pokedb?user=root&password=root";
+    private String url = "jdbc:mysql://localhost:3306/pokedb?user=root&password=root?serverTimezone=UTF-8";
     private Statement statement;
 
     private Connection con;
@@ -25,7 +25,7 @@ public class DatabaseLoader {
         } catch (SQLException ex){
             //most likely need to set up Connector/j classpath
             //try removing and adding Connector/j if bug is occuring with connector/j already there
-            System.out.println("DB-Connection failed");
+            System.out.println(ex.getMessage());
             connected = false;
         }
     }
