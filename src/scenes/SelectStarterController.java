@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.Main;
-import pokemon.Pokemon;
 
 public class SelectStarterController implements Controller {
 
@@ -23,7 +22,7 @@ public class SelectStarterController implements Controller {
     }
 
     private Main main;
-    private int starterID, starterSelected; // Starter Selected should only be values 1 -3
+    private int starterSelected; // Starter Selected should only be values 1 -3
     private String nickname;
 
     // The following are used in the selectStarter Method
@@ -78,40 +77,7 @@ public class SelectStarterController implements Controller {
     }
 
     public void finishedSelecting(){
-        main.selectedStarter(starterID);
-
-        if (nickname != null){
-            if (starterSelected == 1){
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(1,10,10,10,10, nickname,"Left");
-            }
-            if (starterSelected == 2){
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(2, 10, 10, 10, 10, nickname, "Middle");
-                main.addPokemon(starter);
-            }
-            else if (starterSelected == 3) {
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(3, 10, 10, 10, 10, nickname, "Middle");
-                main.addPokemon(starter);
-            }
-        }
-        else {
-            if (starterSelected == 1){
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(1, 10, 10, 10, 10, "Fitty", "Middle");
-                main.addPokemon(starter);
-            }
-            if (starterSelected == 2){
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(2, 10, 10, 10, 10, "Owly", "Middle");
-                main.addPokemon(starter);
-            }
-            else if (starterSelected == 3) {
-                // ************* THIS WILL BE REPLACED BY THE DATABASE ***************************************************
-                Pokemon starter = new Pokemon(3, 10, 10, 10, 10, "Wety", "Middle");
-                main.addPokemon(starter);
-            }
-        }
+        //sends the pokemonID that the player selected to the main to assign it to their collection
+        main.selectedStarter(starterSelected, nickname);
     }
 }

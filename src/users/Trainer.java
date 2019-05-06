@@ -1,24 +1,30 @@
 package users;
 
+import pokemon.PokemonMapper;
+
 public class Trainer extends User {
 
-    private int currency;
-    private int winCount;
-    private int loseCount;
-    private int[] collectionIDs;
-    private int[] teamIDs;
+    private String username;
+    private int currency, winCount, lossCount;
+    private PokemonMapper[] collection, team;
 
-    public Trainer(String email, int currency, int winCount, int loseCount, int[] collectionIDs, int[] teamIDs) {
+    public Trainer(String email, String username, int currency, int winCount, int lossCount, PokemonMapper[] collection, PokemonMapper[] team) {
         super(email);
+        this.username = username;
         this.currency = currency;
         this.winCount = winCount;
-        this.loseCount = loseCount;
-        this.collectionIDs = collectionIDs;
-        this.teamIDs = teamIDs;
+        this.lossCount = lossCount;
+
+        this.collection = collection;
+        this.team = team;
     }
 
     public String getEmail(){
         return super.email;
+    }
+
+    public String getUsername(){
+        return username;
     }
 
     public void setNewUserPassword(String password){
@@ -45,31 +51,29 @@ public class Trainer extends User {
         this.winCount = winCount;
     }
 
-    public int getLoseCount() {
-        return loseCount;
+    public int getLossCount() {
+        return lossCount;
     }
 
-    public void setLoseCount(int loseCount) {
-        this.loseCount = loseCount;
+    public void setLossCount(int lossCount) {
+        this.lossCount = lossCount;
     }
 
-    public int[] getCollectionIDs() {
-        return collectionIDs;
+    public PokemonMapper[] getCollection() {
+        return collection;
     }
 
-    public void addToCollectionIDs(int newPokemonID){
-        int[] newCollection = new int[collectionIDs.length + 1];
-        for (int i = 0; i < collectionIDs.length; i++){
-            newCollection[i] = collectionIDs[i];
-        }
-        newCollection[newCollection.length - 1] = newPokemonID;
+    public void addToCollection(PokemonMapper newPokemon){
+        PokemonMapper[] newCollection = new PokemonMapper[collection.length + 1];
+        System.arraycopy(collection, 0, newCollection, 0, collection.length);
+        newCollection[newCollection.length - 1] = newPokemon;
     }
 
-    public int[] getTeam() {
-        return teamIDs;
+    public PokemonMapper[] getTeam() {
+        return team;
     }
 
-    public void setTeamIDs(int[] teamIDs) {
-        this.teamIDs = teamIDs;
+    public void setTeam(PokemonMapper[] team) {
+        this.team = team;
     }
 }

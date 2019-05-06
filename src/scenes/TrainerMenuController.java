@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import main.Main;
-import pokemon.Pokemon;
-import scenemanager.SceneManager;
+import pokemon.PokemonMapper;
+import users.Trainer;
+import users.User;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class TrainerMenuController implements Controller {
 
@@ -30,9 +31,15 @@ public class TrainerMenuController implements Controller {
     private Main main;
 
     public void showPokemonCollection(){
-        ArrayList<Pokemon> pokemons = main.getPokemonArray();
-        Pokemon pokemon = pokemons.get(0);
-        listView.getItems().addAll(pokemon.getName());
+        User user = main.getCurrentUser();
+        if (user instanceof Trainer){
+            PokemonMapper[] collection = ((Trainer) user).getCollection();
+            ArrayList<String> pokeNames = new ArrayList<>();
+            for (PokemonMapper poke : collection){
+                pokeNames.add(main.getPokemon(poke.getId()).getName());
+            }
+            listView.getItems().setAll(pokeNames);
+        }
     }
 
     public void logoutButton(){
