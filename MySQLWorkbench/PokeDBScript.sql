@@ -167,7 +167,21 @@ insert into pokemon (pokemon_id, name, health, attack, defense, speed) values
 (25, 'Pikachu', 100, 10, 10, 10),
 (26, 'Raichu', 100, 10, 10, 10);
 
+-- Insert some pokemon for the Trainer Ash to own
+insert into user_collection (user_id, pokemon_id, nickname) values
+((SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'), 25, 'ElectroRat');
+
+-- some select commands to test and use in the database loader
+
 select * from user;
 select * from user_info;
 
 select is_professor, email, password, user_id from user, user_info where user.user_info_email like user_info.email;
+select email, username, login_bonus, win_count, loss_count from user_info where email like 'ash@trainer';
+select pokemon_id, nickname from user_collection where user_id = (select user.user_id from user where user_info_email like 'ash@trainer');
+
+select * from user_collection;
+select user_collection.pokemon_id, nickname from user_has_team, user_collection where user_has_team.user_id = user_collection.user_id and user_collection.user_id = 2;
+
+SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer';
+SELECT win_count, loss_count FROM user_info WHERE email LIKE 'ash@trainer';

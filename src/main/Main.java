@@ -5,12 +5,11 @@ import main.DatabaseLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pokemon.Pokemon;
+import pokemon.PokemonMapper;
 import scenemanager.SceneManager;
 import users.Professor;
 import users.Trainer;
 import users.User;
-
-import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -20,9 +19,12 @@ public class Main extends Application {
     private User currentUser;
 
     private Pokemon[] allPokemon;
+
+    //all getter methods
     public Pokemon[] getAllPokemon(){
         return allPokemon;
     }
+
     public Pokemon getPokemon(int id){
         for (Pokemon p : allPokemon){
             if (p.getIdTag() == id){
@@ -32,13 +34,8 @@ public class Main extends Application {
         return null;
     }
 
-    // **************** WORKAROUND *********** IMPLEMENT DATABASE *******************
-    private ArrayList<Pokemon> pokemonArrayList = new ArrayList<>();
-    public void addPokemon(Pokemon pokemon){
-        pokemonArrayList.add(pokemon);
-    }
-    public ArrayList getPokemonArray(){
-        return pokemonArrayList;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     @Override
@@ -46,8 +43,6 @@ public class Main extends Application {
         //create connection with server
         pokeDB = new DatabaseLoader();
         allPokemon = pokeDB.loadAllPokemon();
-        pokeDB.testFunction();
-
         manager = new SceneManager(this, primaryStage);
     }
 
@@ -86,10 +81,10 @@ public class Main extends Application {
         }
     }
 
-    public void createNewUser(String email, String password){
+    public void createNewUser(String email, String username, String password){
         //creates a new user class of trainer to store info in, then transitions to selecting a starter
         if (pokeDB.checkIfEmailAvailable(email)) {
-            currentUser = new Trainer(email, 0, 0, 0, new int[0], new int[0]);
+            currentUser = new Trainer(email, username, 0, 0, 0, new PokemonMapper[0], new PokemonMapper[0]);
             ((Trainer) currentUser).setNewUserPassword(password);
 
             manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
@@ -99,9 +94,10 @@ public class Main extends Application {
         }
     }
 
-    public void selectedStarter(int starterID){
+    public void selectedStarter(int starterID, String nickname){
         //attach the selected started to the trainer that choose it, then proceed to trainer menu
-        ((Trainer) currentUser).addToCollectionIDs(starterID);
+        PokemonMapper starter = new PokemonMapper(starterID, nickname);
+        ((Trainer) currentUser).addToCollection(starter);
         pokeDB.createNewUser(currentUser);
         manager.changeScene(SceneManager.sceneName.TRAINERMENU);
     }

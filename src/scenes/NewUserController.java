@@ -31,7 +31,7 @@ public class NewUserController implements Controller {
         //verify that fields are not empty then send to main
         if (!email.getText().isEmpty() && !password.getText().isEmpty() && !passwordConfirm.getText().isEmpty()){
             if (password.getText().equals(passwordConfirm.getText())) {
-                main.createNewUser(email.getText(), password.getText());
+                main.createNewUser(email.getText(), "UsernameInputMissing", password.getText());
             }
             else {
                 System.out.println("Passwords DO NOT match!");
