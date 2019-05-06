@@ -37,47 +37,6 @@ public class DatabaseLoader {
         }
     }
 
-    public void testFunction(){
-        System.out.println();
-        System.out.println("-------------------------------------------");
-        System.out.println("Test Function to test the DB-Loader + query");
-
-        connectToDB();
-
-        if (connected) {
-            //create a pokemon to print
-            try {
-                statement.executeUpdate("INSERT into pokemon values (999, 'ElectroRat', 9001, 999, 999, 1000);");
-            } catch (SQLException ex) {
-                System.out.println("Error executing the update - insert!");
-            }
-
-            //print out test pokemon
-            try {
-                ResultSet rs = statement.executeQuery("SELECT name FROM pokemon;");
-
-                while (rs.next()) {
-                    System.out.println("pokemon name: " + rs.getString(1));
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error executing the query!");
-            }
-
-            //remove pokemon made
-            try {
-                statement.executeUpdate("Delete from pokemon where pokemon_id = 999;");
-            } catch (SQLException ex) {
-                System.out.println("Error executing the update - delete!");
-            }
-
-            disconnectFromDB();
-        }
-
-        System.out.println("---------- End of Test Function! ----------");
-        System.out.println("-------------------------------------------");
-        System.out.println();
-    }
-
     public Pokemon[] loadAllPokemon(){
         //Load up all pokemon in the database
         connectToDB();
@@ -89,8 +48,9 @@ public class DatabaseLoader {
                 ResultSet rs = statement.executeQuery("SELECT * FROM pokemon;");
                 while (rs.next()) {
                     //int id, int health, int speed, int attack, int defense, String name, String type
-                    pokemon.add(new Pokemon(rs.getInt(1), rs.getInt(3), rs.getInt(6),
-                            rs.getInt(4), rs.getInt(5), rs.getNString(2), "Working on types"));
+                    pokemon.add(new Pokemon(rs.getInt(1), rs.getNString(2), rs.getInt(3),
+                            rs.getInt(4), rs.getInt(5), rs.getInt(6), "Working on types"));
+                    System.out.println("Pokemon Loaded: " + rs.getString(2));
                 }
             } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
@@ -108,7 +68,7 @@ public class DatabaseLoader {
         if (connected) {
             //print out all user names, just there for testing, doesn't need to print in full version
             try {
-                ResultSet rs = statement.executeQuery("SELECT * FROM user;");
+                ResultSet rs = statement.executeQuery("select is_professor, email, password from user, user_info where user.user_info_email like user_info.email and user_info.email");
 
                 while (rs.next()) {
                     System.out.println("user name: " + rs.getString(2));
@@ -117,18 +77,18 @@ public class DatabaseLoader {
                             //load all information pertaining to user
                             User loginUser;
                             System.out.println("  ---> User/Pass: Matched!");
-                            if (rs.getBoolean(4)) {
+                            if (rs.getBoolean(1)) {
                                 //is_professor
-                                loginUser = new Professor(email);
+                                loginUser = new Professor(rs.getString(2));
                             } else {
                                 //retrieve all of the users stats
+                                ResultSet userStats = statement.executeQuery("select user_id, win_count, loss_count from user, user_info where user.user_info_email like user_info.email and user_info.email like " + email + ";");
                                 int userID = rs.getInt(1);
-                                ResultSet userStats = statement.executeQuery("SELECT * FROM user_stats WHERE user_id = " + userID + ";");
                                 int wins = 0;
                                 int losses = 0;
                                 try {
-                                    wins = userStats.getInt(3);
-                                    losses = userStats.getInt(4);
+                                    wins = userStats.getInt(2);
+                                    losses = userStats.getInt(3);
                                 } catch (Exception e) {
                                     System.out.println("Empty stats");
                                 }

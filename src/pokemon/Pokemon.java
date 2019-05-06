@@ -6,7 +6,7 @@ public class Pokemon {
     private String name, type;
 
     // Constructor calls the "GenerateTag" Method in order to make sure it's a unique tag
-    public Pokemon(int id, int health, int speed, int attack, int defense, String name, String type) {
+    public Pokemon(int id, String name, int health, int attack, int defense, int speed, String type) {
         idTag = id;
         this.health = health;
         this.speed = speed;

@@ -15,14 +15,34 @@ CREATE SCHEMA IF NOT EXISTS `pokeDB` DEFAULT CHARACTER SET utf8 ;
 USE `pokeDB` ;
 
 -- -----------------------------------------------------
+-- Table `pokeDB`.`user_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pokeDB`.`user_info` (
+  `email` VARCHAR(30) NOT NULL,
+  `password` VARCHAR(30) NOT NULL,
+  `username` VARCHAR(16) NULL,
+  `login_bonus` DATE NULL,
+  `win_count` INT NULL,
+  `loss_count` INT NULL,
+  PRIMARY KEY (`email`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `pokeDB`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pokeDB`.`user` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(30) NOT NULL,
   `is_professor` TINYINT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`user_id`))
+  `user_info_email` VARCHAR(30) NOT NULL,
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
+  PRIMARY KEY (`user_id`),
+  INDEX `fk_user_user_info1_idx` (`user_info_email` ASC) VISIBLE,
+  CONSTRAINT `fk_user_user_info1`
+    FOREIGN KEY (`user_info_email`)
+    REFERENCES `pokeDB`.`user_info` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -46,24 +66,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pokeDB`.`pokemon_type` (
   `type` ENUM('bug', 'dragon', 'electric', 'fighting', 'fire', 'flying', 'ghost', 'grass', 'ground', 'ice', 'normal', 'poison', 'psychic', 'rock', 'water') NOT NULL,
   PRIMARY KEY (`type`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pokeDB`.`user_stats`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pokeDB`.`user_stats` (
-  `user_id` INT NOT NULL,
-  `login_bonus` DATE NULL,
-  `win_count` INT NULL,
-  `loss_count` INT NULL,
-  INDEX `fk_user_stats_user1_idx` (`user_id` ASC) VISIBLE,
-  PRIMARY KEY (`user_id`),
-  CONSTRAINT `fk_user_stats_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `pokeDB`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -138,3 +140,34 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Insert users into the database
+insert into user_info (email, password) values 
+('oak@professor', '12345');
+
+insert into user_info (email, password, username, login_bonus, win_count, loss_count) values
+('ash@trainer', '12345', 'Ash', curdate(), 0, 0);
+
+-- Create stats for the test users to use
+insert into user (is_professor, user_info_email) values
+(true, 'oak@professor'),
+(false, 'ash@trainer');
+
+-- Insert pokemon to use
+insert into pokemon (pokemon_id, name, health, attack, defense, speed) values
+(1, 'Bulbasaur', 100, 10, 10, 10),
+(2, 'Ivysaur', 100, 10, 10, 10),
+(3, 'Venusaur', 100, 10, 10, 10),
+(4, 'Charmander', 100, 10, 10, 10),
+(5, 'Charmeleon', 100, 10, 10, 10),
+(6, 'Charizard', 100, 10, 10, 10),
+(7, 'Squirtle', 100, 10, 10, 10),
+(8, 'Wartortle', 100, 10, 10, 10),
+(9, 'Blastoise', 100, 10, 10, 10),
+(25, 'Pikachu', 100, 10, 10, 10),
+(26, 'Raichu', 100, 10, 10, 10);
+
+select * from user;
+select * from user_info;
+
+select is_professor, email, password, user_id from user, user_info where user.user_info_email like user_info.email;
