@@ -11,10 +11,10 @@
 
 <AnchorPane fx:id="anc" prefHeight="400.0" prefWidth="600.0" stylesheets="@pokepictures/login.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.LoginController">
     <children>
-        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="226.0" layoutY="317.0" mnemonicParsing="false" onAction="#newUser" text="Create new account" />
-        <Label layoutX="212.0" layoutY="140.0" text="Email:" />
-        <TextField fx:id="txtFieldUsername" layoutX="212.0" layoutY="157.0" />
-        <Label layoutX="214.0" layoutY="182.0" text="Password:" />
+        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="225.0" layoutY="284.0" mnemonicParsing="false" onAction="#newUser" text="Create new account" />
+        <Label layoutX="216.0" layoutY="138.0" text="Email:" />
+        <TextField fx:id="txtFieldUsername" layoutX="212.0" layoutY="156.0" />
+        <Label layoutX="216.0" layoutY="181.0" text="Password:" />
       <PasswordField fx:id="txtFieldPassword" layoutX="213.0" layoutY="199.0" />
         <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="263.0" layoutY="235.0" mnemonicParsing="false" onAction="#loginRequest" text="Login" />
         <ImageView fx:id="imgView" fitHeight="109.0" fitWidth="121.0" layoutX="232.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

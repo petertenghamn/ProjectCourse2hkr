@@ -1,6 +1,7 @@
 package scenes;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.Main;
@@ -20,8 +21,11 @@ public class NewUserController implements Controller {
     public void reset(){
         email.setText("");
         password.setText("");
+        passwordConfirm.setText("");
+        errorLabel.setText("");
     }
-
+    @FXML
+    Label errorLabel;
     @FXML
     TextField email;
     @FXML
@@ -29,16 +33,19 @@ public class NewUserController implements Controller {
 
     public void goButton(){
         //verify that fields are not empty then send to main
-        if (!email.getText().isEmpty() && !password.getText().isEmpty() && !passwordConfirm.getText().isEmpty()){
+        if (!email.getText().isEmpty() && !password.getText().isEmpty() && !passwordConfirm.getText().isEmpty() && email.getText().contains("@")){
             if (password.getText().equals(passwordConfirm.getText())) {
                 main.createNewUser(email.getText(), "UsernameInputMissing", password.getText());
             }
             else {
-                System.out.println("Passwords DO NOT match!");
+                errorLabel.setText("Passwords DO NOT match!");
             }
         }
+        else if(!email.getText().contains("@")){
+            errorLabel.setText("The email needs to contain a @");
+        }
         else {
-            System.out.println("Either email or password is empty");
+            errorLabel.setText("Either email or password is empty");
         }
     }
 

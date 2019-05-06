@@ -1,5 +1,6 @@
 #anc{
     -fx-background-size: 600,400;
+    /*-fx-background-image: url("loginBackground.jpg");*/
 }
 #imgView{
     -fx-background-image: url("pokeLogo.png");
