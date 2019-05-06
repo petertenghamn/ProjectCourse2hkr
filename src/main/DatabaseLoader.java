@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DatabaseLoader {
 
-    private String url = "jdbc:mysql://localhost:3306/pokedb?user=root&password=root?serverTimezone=UTF-8";
+    private String url = "jdbc:mysql://localhost:3306/pokedb?user=root&password=root"; //re-add for Viktor... sorry "?serverTimezone=UTF-8"
     private Statement statement;
 
     private Connection con;
