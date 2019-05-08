@@ -3,11 +3,22 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ProfessorMenuController">
+<AnchorPane fx:id="professorMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@pokepictures/ProfessorMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ProfessorMenuController">
    <children>
-      <Label layoutX="175.0" layoutY="47.0" text="&lt;PlaceHolder&gt; Professor Menu &lt;PlaceHolder&gt;" />
-      <Label layoutX="248.0" layoutY="154.0" text="Fill with things later" />
-      <Button layoutX="272.0" layoutY="340.0" mnemonicParsing="false" onAction="#logoutButton" text="LogOut" />
+      <Pane fx:id="pane1" layoutY="30.0" prefHeight="88.0" prefWidth="1200.0">
+         <children>
+            <Label fx:id="labelWelcomeProfessor" layoutX="331.0" layoutY="3.0" text="Welcome professor!" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane2" layoutX="108.0" layoutY="288.0" prefHeight="427.0" prefWidth="489.0">
+         <children>
+            <Button fx:id="btnShowTrainers" blendMode="OVERLAY" layoutX="45.0" layoutY="79.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Show trainers" />
+            <Button fx:id="btnViewPokemon" blendMode="OVERLAY" layoutX="45.0" layoutY="189.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="View all Pokémon" />
+            <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="45.0" layoutY="303.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout" />
+         </children>
+      </Pane>
+      <Label fx:id="labelQuestion" layoutX="58.0" layoutY="172.0" text="What would you like to do today?" />
    </children>
 </AnchorPane>

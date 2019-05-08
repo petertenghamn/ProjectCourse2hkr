@@ -1,0 +1,54 @@
+#trainerMenuAnc{
+    -fx-background-size: 1200, 800;
+    -fx-background-image: url("trainerBackground.png");
+}
+#pane1{
+    -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 2);
+}
+#labelWelcomeTrainer{
+    -fx-font: 70px Garamond;
+}
+#labelQuestion{
+    -fx-font: 45px Garamond;
+}
+#pane2{
+    -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 2);
+}
+#btnCollection{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnCollection:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnBattle{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnBattle:hover {
+     -fx-background-color: white;
+     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+ }
+#btnFindPokemon{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnFindPokemon:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnLogout{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+#btnLogout:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
