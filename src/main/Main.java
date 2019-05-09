@@ -20,37 +20,14 @@ public class Main extends Application {
 
     private Pokemon[] allPokemon;
 
-    // ***********************************************************************************************************
-    //This might not be needed but it's a workaround as no parameter can be sent to Controllers
-    // ***********************************************************************************************************
-    private  int pokemonIDGlobal;
-    private String pokemonNicknameGlobal;
-
-    public int getPokemonIDGlobal() {
-        return pokemonIDGlobal;
-    }
-
-    public void setPokemonIDGlobal(int pokemonIDGlobal) {
-        this.pokemonIDGlobal = pokemonIDGlobal;
-    }
-
-    public String getPokemonNicknameGlobal() {
-        return pokemonNicknameGlobal;
-    }
-
-    public void setPokemonNicknameGlobal(String pokemonNicknameGlobal) {
-        this.pokemonNicknameGlobal = pokemonNicknameGlobal;
-    }
-    // *********************************************************************************************************
-
     //all getter methods
-    public Pokemon[] getAllPokemon() {
+    public Pokemon[] getAllPokemon(){
         return allPokemon;
     }
 
-    public Pokemon getPokemon(int id) {
-        for (Pokemon p : allPokemon) {
-            if (p.getIdTag() == id) {
+    public Pokemon getPokemon(int id){
+        for (Pokemon p : allPokemon){
+            if (p.getIdTag() == id){
                 return p;
             }
         }
@@ -62,7 +39,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception{
         //create connection with server
         pokeDB = new DatabaseLoader();
         allPokemon = pokeDB.loadAllPokemon();
@@ -74,11 +51,11 @@ public class Main extends Application {
     }
 
     //if the scene request is simple and just wants to transition with no checks
-    public void requestSceneChange(SceneManager.sceneName scene) {
+    public void requestSceneChange(SceneManager.sceneName scene){
         manager.changeScene(scene);
     }
 
-    public void logoutUser() {
+    public void logoutUser(){
         //reset current user then return to the login screen;
         if (currentUser != null) {
             currentUser = null;
@@ -86,31 +63,33 @@ public class Main extends Application {
         manager.changeScene(SceneManager.sceneName.LOGIN);
     }
 
-    public void authenticateLogin(String email, String password) {
+    public void authenticateLogin(String email, String password){
         //check login details vs database
         currentUser = pokeDB.authenticateLogin(email, password);
         if (currentUser != null) {
             //change to trainer controller if that is the user logged into
-            if (currentUser instanceof Trainer) {
+            if (currentUser instanceof Trainer){
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
             }
             //change to professor controller if that is the user logged into
-            else if (currentUser instanceof Professor) {
+            else if (currentUser instanceof Professor){
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
-        } else {
+        }
+        else {
             System.out.println("Information entered was incorrect!");
         }
     }
 
-    public void createNewUser(String email, String username, String password) {
+    public void createNewUser(String email, String username, String password){
         //creates a new user class of trainer to store info in, then transitions to selecting a starter
         if (pokeDB.checkIfEmailAvailable(email)) {
             currentUser = new Trainer(email, username, 0, 0, 0, new PokemonMapper[0], new PokemonMapper[0]);
             ((Trainer) currentUser).setNewUserPassword(password);
 
             manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
-        } else {
+        }
+        else {
             System.out.println("Email already in use!");
         }
     }
