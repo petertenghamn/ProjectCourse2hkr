@@ -1,14 +1,9 @@
 package scenes;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import main.Main;
-import pokemon.Pokemon;
 import pokemon.PokemonMapper;
 import scenes.Controller;
 import users.Trainer;
@@ -22,6 +17,13 @@ public class TrainerMenuController implements Controller {
 
     private Main main;
 
+    @FXML
+    Button btnCollection;
+
+    @FXML
+    ListView listView;
+
+
     @Override
     public void setMain(Main m){
         //set the main so that you can call upon it to change scenes
@@ -34,6 +36,7 @@ public class TrainerMenuController implements Controller {
 
     @FXML
     Button btnCollection, btnBattle, btnFindPokemon;
+
 
     // All of these methods change the Scene to a new one!
 
@@ -58,7 +61,6 @@ public class TrainerMenuController implements Controller {
     @FXML
     Label labelTop;
 
-
     public void showPokemonCollection(){
         User user = main.getCurrentUser();
         if (user instanceof Trainer){
@@ -67,11 +69,12 @@ public class TrainerMenuController implements Controller {
             for (PokemonMapper poke : collection){
                 pokeNames.add(main.getPokemon(poke.getId()).getName());
             }
-
+          
             // Needed for a ListView in JavaFX for some reason
             ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNames);
 
             listCollection.setItems(collectionPokemon);
+
         }
     }
 
