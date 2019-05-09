@@ -1,7 +1,10 @@
 package scenes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import main.Main;
 import pokemon.PokemonMapper;
@@ -16,12 +19,6 @@ public class TrainerMenuController implements Controller {
     // The Trainer Menu is just that a menu that contains different buttons that take you to new scenes
 
     private Main main;
-
-    @FXML
-    Button btnCollection;
-
-    @FXML
-    ListView listView;
 
 
     @Override
@@ -61,6 +58,9 @@ public class TrainerMenuController implements Controller {
     @FXML
     Label labelTop;
 
+    @FXML
+    ListView listView;
+
     public void showPokemonCollection(){
         User user = main.getCurrentUser();
         if (user instanceof Trainer){
@@ -78,8 +78,8 @@ public class TrainerMenuController implements Controller {
         }
     }
 
-    private int pokemonSelected = main.getPokemonIDGlobal(); // Pokemon Selected should be max value the number of Pokemon in our database!!
-    private String nickname = main.getPokemonNicknameGlobal();
+    private int pokemonSelected; // Pokemon Selected should be max value the number of Pokemon in our database!!
+    private String nickname;
 
     // Once it has been named use this method to store it
     public void acquirePokemon(){
