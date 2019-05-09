@@ -95,6 +95,11 @@ public class Main extends Application {
     }
 
     public void selectedStarter(int starterID, String nickname){
+        //cannot have a null name when inserting into DB
+        if (nickname == null) {
+            nickname = getPokemon(starterID).getName();
+        }
+
         //attach the selected started to the trainer that choose it, then proceed to trainer menu
         PokemonMapper starter = new PokemonMapper(starterID, nickname);
         ((Trainer) currentUser).addToCollection(starter);

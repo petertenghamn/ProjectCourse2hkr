@@ -18,19 +18,20 @@ public class DatabaseLoader {
     private Connection con;
     private boolean connected;
 
-    private void connectToDB(){
+    private void connectToDB() {
         try {
             con = (Connection) DriverManager.getConnection(url);
             statement = con.createStatement();
             connected = true;
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             //most likely need to set up Connector/j classpath
             //try removing and adding Connector/j if bug is occuring with connector/j already there
             System.out.println(ex.getMessage());
             connected = false;
         }
     }
-    private void disconnectFromDB(){
+
+    private void disconnectFromDB() {
         try {
             con.close();
         } catch (Exception e) {
@@ -38,7 +39,7 @@ public class DatabaseLoader {
         }
     }
 
-    public Pokemon[] loadAllPokemon(){
+    public Pokemon[] loadAllPokemon() {
         //Load up all pokemon in the database
         connectToDB();
 
@@ -74,7 +75,7 @@ public class DatabaseLoader {
                 //print out all the emails available to select from
                 System.out.println();
                 System.out.println("--- Users in DB ---");
-                while (rs.next()){
+                while (rs.next()) {
                     System.out.println("user name: " + rs.getString(1));
                 }
                 System.out.println("--- ----------- ---");
@@ -102,7 +103,7 @@ public class DatabaseLoader {
         return null; //login information given was wrong so return null
     }
 
-    private User getUserInfo(boolean isProfessor ,String email) {
+    private User getUserInfo(boolean isProfessor, String email) {
         //load all information pertaining to user
         User loginUser;
 
@@ -125,7 +126,7 @@ public class DatabaseLoader {
                 ArrayList<PokemonMapper> collection = new ArrayList<>();
                 try {
                     ResultSet userCollection = statement.executeQuery("SELECT pokemon_id, nickname FROM user_collection WHERE user_id = " + userID + ";");
-                    while (userCollection.next()){
+                    while (userCollection.next()) {
                         PokemonMapper pokeID = new PokemonMapper(userCollection.getInt(1), userCollection.getString(2));
                         collection.add(pokeID);
                     }
@@ -138,7 +139,7 @@ public class DatabaseLoader {
                 ArrayList<PokemonMapper> team = new ArrayList<>();
                 try {
                     ResultSet userTeam = statement.executeQuery("select user_collection.pokemon_id, nickname from user_has_team, user_collection where user_has_team.user_id = user_collection.user_id and user_collection.user_id = " + userID + ";");
-                    while (userTeam.next()){
+                    while (userTeam.next()) {
                         PokemonMapper pokeID = new PokemonMapper(userTeam.getInt(1), userTeam.getString(2));
                         team.add(pokeID);
                     }
@@ -168,13 +169,12 @@ public class DatabaseLoader {
             try {
                 ResultSet rs = statement.executeQuery("SELECT user_info_email FROM user;");
                 while (rs.next()) {
-                    if (rs.getString(1).equalsIgnoreCase(email)){
+                    if (rs.getString(1).equals(email)) {
                         disconnectFromDB();
                         return false;
                     }
                 }
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
             }
 
@@ -187,30 +187,41 @@ public class DatabaseLoader {
         connectToDB();
 
         if (connected) {
-            try {
-                if (user instanceof Trainer) {
-                    //insert all of the data in the user class into the database as a new user
+            if (user instanceof Trainer) {
+                //insert all of the data in the user class into the database as a new user
+                try {
                     statement.executeUpdate("INSERT INTO user_info (email, password, username, login_bonus, win_count, loss_count) VALUES" +
                             "('" + ((Trainer) user).getEmail() + "', '" +
                             ((Trainer) user).getNewUserPassword() + "', '" +
-                            ((Trainer) user).getUsername() + "', '" +
-                            "curdate()" + "', '" +
-                            ((Trainer) user).getWinCount() + "', '" +
-                            ((Trainer) user).getLossCount() + "');");
-                    //create a user with the email to give the user a user_id to relate to all the other tables
-                    statement.executeUpdate("INSERT INTO user (email) VALUES" +
+                            ((Trainer) user).getUsername() + "', " +
+                            "curdate()" + ", " +
+                            ((Trainer) user).getWinCount() + ", " +
+                            ((Trainer) user).getLossCount() + ");");
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the update - insert into user_info!");
+                    System.out.println(ex);
+                }
+                //create a user with the email to give the user a user_id to relate to all the other tables
+                try {
+                    statement.executeUpdate("INSERT INTO user (user_info_email) VALUES" +
                             "('" + ((Trainer) user).getEmail() + "');");
-                    //create a collection for the trainer in the database
-                    PokemonMapper[] collection = ((Trainer) user).getCollection();
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the update - insert into user!");
+                    System.out.println(ex);
+                }
+                //create a collection for the trainer in the database
+                ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+                try {
                     for (PokemonMapper p : collection) {
                         statement.executeUpdate("INSERT INTO user_collection (user_id, pokemon_id, nickname) VALUES " +
-                                "((SELECT user_id FROM user WHERE user_info_email LIKE " + ((Trainer) user).getEmail() + "), " +
+                                "((SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'), " +
                                 p.getId() + ", '" +
                                 p.getNickname() + "');");
                     }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the update - insert into user_collection!");
+                    System.out.println(ex);
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error executing the update - insert!");
             }
 
             disconnectFromDB();

@@ -27,15 +27,15 @@ public class NewUserController implements Controller {
     @FXML
     Label errorLabel;
     @FXML
-    TextField email;
+    TextField username, email;
     @FXML
     PasswordField password, passwordConfirm;
 
     public void goButton(){
         //verify that fields are not empty then send to main
-        if (!email.getText().isEmpty() && !password.getText().isEmpty() && !passwordConfirm.getText().isEmpty() && email.getText().contains("@")){
+        if (!username.getText().isEmpty() && !email.getText().isEmpty() && !password.getText().isEmpty() && !passwordConfirm.getText().isEmpty() && email.getText().contains("@")){
             if (password.getText().equals(passwordConfirm.getText())) {
-                main.createNewUser(email.getText(), "UsernameInputMissing", password.getText());
+                main.createNewUser(email.getText(), username.getText(), password.getText());
             }
             else {
                 errorLabel.setText("Passwords DO NOT match!");
@@ -45,7 +45,7 @@ public class NewUserController implements Controller {
             errorLabel.setText("The email needs to contain a @");
         }
         else {
-            errorLabel.setText("Either email or password is empty");
+            errorLabel.setText("Either username, email or password is empty");
         }
     }
 

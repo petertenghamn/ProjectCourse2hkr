@@ -35,10 +35,35 @@ public class SelectStarterController implements Controller {
     @Override
     public void reset() {
         //reset the selected starter and nickname
-        fieldNickname.setText("");
+        fieldNickname.setVisible(false);
+        btnNickname.setVisible(false);
+        btnNoNickname.setVisible(false);
+
+        leftStarter.setVisible(true);
+        leftStarter.setLayoutX(61);
+        leftStarter.setLayoutY(152);
+        labelCharmander.setVisible(true);
+        labelCharmander.setLayoutX(115);
+        labelCharmander.setLayoutY(444);
+
+        middleStarter.setVisible(true);
+        middleStarter.setLayoutX(339);
+        middleStarter.setLayoutY(444);
+        labelBulbasaur.setVisible(true);
+        labelBulbasaur.setLayoutX(434);
+        labelBulbasaur.setLayoutY(726);
+
+        rightStarter.setVisible(true);
+        rightStarter.setLayoutX(623);
+        rightStarter.setLayoutY(152);
+        labelSquirtle.setVisible(true);
+        labelSquirtle.setLayoutX(718);
+        labelSquirtle.setLayoutY(444);
+        btnBack.setVisible(false);
+        fieldNickname.clear();
     }
 
-    // This just rewrites the scene it doesn't actually change it to a new scene disregard the name!
+    // Changes internal scene within this controller, does not full switch scene
     private void sceneChange() {
         fieldNickname.setVisible(true);
         btnNickname.setVisible(true);
@@ -98,39 +123,13 @@ public class SelectStarterController implements Controller {
     }
 
     public void backToStarters(){
-        fieldNickname.setVisible(false);
-        btnNickname.setVisible(false);
-        btnNoNickname.setVisible(false);
-
-        leftStarter.setVisible(true);
-        leftStarter.setLayoutX(61);
-        leftStarter.setLayoutY(152);
-        labelCharmander.setVisible(true);
-        labelCharmander.setLayoutX(115);
-        labelCharmander.setLayoutY(444);
-
-        middleStarter.setVisible(true);
-        middleStarter.setLayoutX(339);
-        middleStarter.setLayoutY(444);
-        labelBulbasaur.setVisible(true);
-        labelBulbasaur.setLayoutX(434);
-        labelBulbasaur.setLayoutY(726);
-
-        rightStarter.setVisible(true);
-        rightStarter.setLayoutX(623);
-        rightStarter.setLayoutY(152);
-        labelSquirtle.setVisible(true);
-        labelSquirtle.setLayoutX(718);
-        labelSquirtle.setLayoutY(444);
-        btnBack.setVisible(false);
-        fieldNickname.clear();
-
-
+        reset();
     }
 
     public void finishedSelecting() {
         //sends the pokemonID that the player selected to the main to assign it to their collection
-        main.selectedStarter(starterSelected, nickname);
+        int starterID = (starterSelected == 1)?4:(starterSelected == 2)?1:7;
+        main.selectedStarter(starterID, nickname);
     }
 
 }
