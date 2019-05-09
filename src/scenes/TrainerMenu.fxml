@@ -15,9 +15,9 @@
       <Label fx:id="labelQuestion" layoutX="27.0" layoutY="170.0" text="What would you like to do today?" />
       <Pane fx:id="pane2" layoutX="42.0" layoutY="293.0" prefHeight="430.0" prefWidth="487.0">
          <children>
-            <Button fx:id="btnFindPokemon" blendMode="OVERLAY" layoutX="48.0" layoutY="230.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Find new Pokémon" />
-            <Button fx:id="btnBattle" blendMode="OVERLAY" layoutX="48.0" layoutY="142.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Battle!" />
-            <Button fx:id="btnCollection" blendMode="OVERLAY" layoutX="48.0" layoutY="49.0" mnemonicParsing="false" onAction="#showPokemonCollection" prefHeight="50.0" prefWidth="400.0" text="View your collection" />
+            <Button fx:id="btnCollection" blendMode="OVERLAY" layoutX="48.0" layoutY="49.0" mnemonicParsing="false" onAction="#viewCollection" prefHeight="50.0" prefWidth="400.0" text="View your collection" />
+            <Button fx:id="btnBattle" blendMode="OVERLAY" layoutX="48.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewBattle" prefHeight="50.0" prefWidth="400.0" text="Battle!" />
+            <Button fx:id="btnFindPokemon" blendMode="OVERLAY" layoutX="44.0" layoutY="230.0" mnemonicParsing="false" onAction="#viewFindPokemon" prefHeight="50.0" prefWidth="400.0" text="Find new Pokémon" />
             <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="44.0" layoutY="324.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout" />
          </children>
       </Pane>

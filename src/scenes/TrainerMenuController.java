@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import main.Main;
 import pokemon.Pokemon;
 import pokemon.PokemonMapper;
+import scenes.Controller;
 import users.Trainer;
 import users.User;
 
@@ -17,14 +18,9 @@ import java.util.*;
 
 public class TrainerMenuController implements Controller {
 
-    @FXML
-    Label lblTop;
+    // The Trainer Menu is just that a menu that contains different buttons that take you to new scenes
 
-    @FXML
-    Button btnCollection, btnAddPokemon, btnSelect;
-
-    @FXML
-    ListView<String> lvCollection ;
+    private Main main;
 
     @Override
     public void setMain(Main m){
@@ -36,40 +32,37 @@ public class TrainerMenuController implements Controller {
 
     }
 
-    private Main main;
+    @FXML
+    Button btnCollection, btnBattle, btnFindPokemon;
 
+    // All of these methods change the Scene to a new one!
 
-    // This method should be hidden behind the "buy" feature later on
-    public void showAllPokemon(){
-        // Re-Arranges the scene to the selecting a new pokemon
-        btnSelect.setVisible(true);
-        lblTop.setText("Here are the Available Pokemons!");
-
-        lvCollection.setOrientation(Orientation.VERTICAL);
-
-        Pokemon[] pokemons = main.getAllPokemon();
-        ArrayList<String> tempNameString = new ArrayList<>();
-
-        for (int showAll = 0; showAll < pokemons.length; showAll++){
-            tempNameString.add(pokemons[showAll].getName());
-        }
-
-        // Observable Lists are the only list available to be used by the ListView so...
-        ObservableList<String>  pokemonNames = FXCollections.observableArrayList(tempNameString);
-
-        lvCollection.getItems().addAll(pokemonNames);
-    }
-
-    // Opens the Scene AcquirePokemon
-    public void boughtPokemon(){
+    public void viewCollection(){
 
     }
+
+    public void viewBattle(){
+
+    }
+
+    public void viewFindPokemon(){
+
+    }
+
+    // *********************************************************************************
+    // THIS WILL MOVE TO A NEW SCENE
+
+    @FXML
+    ListView<String> listCollection ;
+
+    @FXML
+    Label labelTop;
+
 
     public void showPokemonCollection(){
         User user = main.getCurrentUser();
-        /*
         if (user instanceof Trainer){
-            PokemonMapper[] collection = ((Trainer) user).getCollection();
+            ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
             ArrayList<String> pokeNames = new ArrayList<>();
             for (PokemonMapper poke : collection){
                 pokeNames.add(main.getPokemon(poke.getId()).getName());
@@ -78,10 +71,27 @@ public class TrainerMenuController implements Controller {
             // Needed for a ListView in JavaFX for some reason
             ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNames);
 
-            lvCollection.setItems(collectionPokemon);
+            listCollection.setItems(collectionPokemon);
         }
-        */
     }
+
+    private int pokemonSelected = main.getPokemonIDGlobal(); // Pokemon Selected should be max value the number of Pokemon in our database!!
+    private String nickname = main.getPokemonNicknameGlobal();
+
+    // Once it has been named use this method to store it
+    public void acquirePokemon(){
+        User user = main.getCurrentUser();
+        if (user instanceof Trainer){
+            // Added for extra security change the values depending on highest ID number of pokemon the database has!  CURRENT HIGHEST = RAICHU 26
+            if (pokemonSelected > 0 && pokemonSelected <= 26) {
+                // Taken from the main ********************************************* MIGHT NOT BE THE CORRECT WAY TO ADD
+                PokemonMapper pokemon = new PokemonMapper(pokemonSelected, nickname);
+                ((Trainer) user).addToCollection(pokemon);
+            }
+        }
+    }
+
+    // ********************************************************************************************
 
     public void logoutButton(){
         main.logoutUser();
