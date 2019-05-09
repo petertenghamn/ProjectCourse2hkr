@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.SelectStarterController">
-   <children>
-      <Text fx:id="txtStarterMain" layoutX="96.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="It's Dangerous to go Alone! Take a companion to guard you on your journey!" />
-      <ImageView fx:id="leftStarter" fitHeight="150.0" fitWidth="150.0" layoutX="36.0" layoutY="122.0" onMouseClicked="#leftStarterPressed" smooth="false">
-         <image>
-            <Image url="@pokepictures/Growly.png" />
-         </image>
-         <effect>
-            <Blend />
-         </effect>
-      </ImageView>
-      <ImageView fx:id="middleStarter" fitHeight="150.0" fitWidth="150.0" layoutX="225.0" layoutY="125.0" onMouseClicked="#middleStarterPressed">
-         <image>
-            <Image url="@pokepictures/OwlStarter.png" />
-         </image>
-         <effect>
-            <Blend />
-         </effect>
-      </ImageView>
-      <ImageView fx:id="rightStarter" fitHeight="150.0" fitWidth="150.0" layoutX="417.0" layoutY="122.0" onMouseClicked="#rightStarterPressed">
-         <image>
-            <Image url="@pokepictures/Water.png" />
-         </image>
-         <effect>
-            <Blend />
-         </effect>
-      </ImageView>
-      <TextField fx:id="fieldNickname" layoutX="207.0" layoutY="66.0" promptText="Give your friend a Name!" visible="false" />
-      <Button fx:id="btnNickname" layoutX="369.0" layoutY="66.0" mnemonicParsing="false" onAction="#setNickname" text="OK" visible="false" />
-      <Button fx:id="btnNoNickname" layoutX="254.0" layoutY="305.0" mnemonicParsing="false" onAction="#finishedSelecting" text="I like it's name" visible="false" />
-   </children>
+<AnchorPane fx:id="SelectStarterAnc" prefHeight="800.0" prefWidth="1200.0" stylesheets="@pokepictures/SelectStarter.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.SelectStarterController">
+    <children>
+        <Pane fx:id="pane" layoutY="30.0" prefHeight="90.0" prefWidth="1200.0">
+            <children>
+                <Text fx:id="txtStarterMain" fill="WHITE" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pick your companion and start your journey!" textAlignment="CENTER" wrappingWidth="1200.0000128149986" />
+            </children>
+        </Pane>
+        <ImageView fx:id="leftStarter" fitHeight="284.0" fitWidth="278.0" layoutX="61.0" layoutY="152.0" onMouseClicked="#leftStarterPressed" preserveRatio="true" smooth="false">
+            <image>
+                <Image url="@pokepictures/charmander.png" />
+            </image>
+            <effect>
+                <Blend />
+            </effect>
+        </ImageView>
+        <ImageView fx:id="middleStarter" fitHeight="269.0" fitWidth="284.0" layoutX="339.0" layoutY="444.0" onMouseClicked="#middleStarterPressed">
+            <image>
+                <Image url="@pokepictures/bulbasaur.png" />
+            </image>
+            <effect>
+                <Blend />
+            </effect>
+        </ImageView>
+        <ImageView fx:id="rightStarter" fitHeight="284.0" fitWidth="278.0" layoutX="623.0" layoutY="152.0" onMouseClicked="#rightStarterPressed">
+            <image>
+                <Image url="@pokepictures/squirtle.png" />
+            </image>
+            <effect>
+                <Blend />
+            </effect>
+        </ImageView>
+        <Button fx:id="btnNoNickname" blendMode="SOFT_LIGHT" layoutX="404.0" layoutY="330.0" mnemonicParsing="false" onAction="#finishedSelecting" prefHeight="70.0" prefWidth="175.0" text="Keep it's name" visible="false" />
+        <Button fx:id="btnNickname" blendMode="SOFT_LIGHT" layoutX="455.0" layoutY="271.0" mnemonicParsing="false" onAction="#setNickname" prefHeight="46.0" prefWidth="67.0" text="Ok" visible="false" />
+        <TextField fx:id="fieldNickname" layoutX="339.0" layoutY="209.0" prefHeight="25.0" prefWidth="305.0" promptText="Enter name" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+      <Label fx:id="labelCharmander" layoutX="115.0" layoutY="444.0" text="Charmander" textFill="WHITE" />
+      <Label fx:id="labelBulbasaur" layoutX="434.0" layoutY="726.0" text="Bulbasaur" textFill="WHITE" />
+      <Label fx:id="labelSquirtle" layoutX="718.0" layoutY="444.0" text="Squirtle" textFill="WHITE" />
+      <Button fx:id="btnBack" blendMode="SOFT_LIGHT" layoutX="61.0" layoutY="643.0" mnemonicParsing="false" onAction="#backToStarters" prefHeight="70.0" prefWidth="130.0" text="Back" visible="false" />
+    </children>
 </AnchorPane>

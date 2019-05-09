@@ -1,3 +1,5 @@
+DROP SCHEMA IF EXISTS pokedb;
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -185,3 +187,6 @@ insert into pokemon (pokemon_id, name, health, attack, defense, speed) values
 
 -- SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer';
 -- SELECT win_count, loss_count FROM user_info WHERE email LIKE 'ash@trainer';
+
+-- INSERT INTO user_collection (user_id, pokemon_id, nickname) VALUES
+-- ((SELECT user_id FROM user WHERE user_info_email LIKE 'peter@hkr'), 4, 'Charmander')

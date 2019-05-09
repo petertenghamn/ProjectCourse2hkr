@@ -1,18 +1,28 @@
-#anc {
+#newAccountAnc {
     -fx-background-size: 1200, 800;
-    -fx-background-image: url("login.jpg");
+    -fx-background-image: url("pikachuBackground.jpg");
 }
 
-#pane {
+#pane1 {
     -fx-background-color: rgba(255, 255, 255, .2);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#imgView {
-    -fx-background-image: url("pokeLogo2.png");
+#pane2 {
+    -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#labelPassword {
+#pane3 {
+    -fx-background-color: rgba(255, 255, 255, .2);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#labelCreateAccount {
+    -fx-font: 70px Garamond;
+}
+
+#labelUsername {
     -fx-font: 30px Garamond;
 }
 
@@ -20,24 +30,32 @@
     -fx-font: 30px Garamond;
 }
 
-#btnLogin {
+#labelPassword {
+    -fx-font: 30px Garamond;
+}
+
+#labelPassword2 {
+    -fx-font: 30px Garamond;
+}
+
+#backButton {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-#btnLogin:hover {
+#backButton:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-#btnCreateNA {
+#goButton {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-#btnCreateNA:hover {
+#goButton:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }

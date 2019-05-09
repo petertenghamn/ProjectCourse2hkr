@@ -67,6 +67,7 @@ public class TrainerMenuController implements Controller {
 
     public void showPokemonCollection(){
         User user = main.getCurrentUser();
+        /*
         if (user instanceof Trainer){
             PokemonMapper[] collection = ((Trainer) user).getCollection();
             ArrayList<String> pokeNames = new ArrayList<>();
@@ -79,6 +80,7 @@ public class TrainerMenuController implements Controller {
 
             lvCollection.setItems(collectionPokemon);
         }
+        */
     }
 
     public void logoutButton(){
