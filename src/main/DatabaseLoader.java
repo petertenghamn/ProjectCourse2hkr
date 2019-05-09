@@ -26,6 +26,7 @@ public class DatabaseLoader {
         } catch (SQLException ex){
             //most likely need to set up Connector/j classpath
             //try removing and adding Connector/j if bug is occuring with connector/j already there
+            System.out.println("Error 1: ");
             System.out.println(ex.getMessage());
             connected = false;
         }
