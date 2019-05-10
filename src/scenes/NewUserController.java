@@ -19,13 +19,16 @@ public class NewUserController implements Controller {
 
     @Override
     public void reset(){
+        username.setText("");
         email.setText("");
         password.setText("");
         passwordConfirm.setText("");
-        errorLabel.setText("");
+        errorLabelEmail.setText("");
+        errorLabelPassword.setText("");
+        errorLabelUsername.setText("");
     }
     @FXML
-    Label errorLabel;
+    Label errorLabelUsername, errorLabelEmail, errorLabelPassword;
     @FXML
     TextField username, email;
     @FXML
@@ -38,14 +41,23 @@ public class NewUserController implements Controller {
                 main.createNewUser(email.getText(), username.getText(), password.getText());
             }
             else {
-                errorLabel.setText("Passwords DO NOT match!");
+                errorLabelPassword.setText("Passwords DO NOT match!");
             }
         }
-        else if(!email.getText().contains("@")){
-            errorLabel.setText("The email needs to contain a @");
+        if(!email.getText().contains("@")){
+            errorLabelEmail.setText("The email needs to contain an @");
         }
-        else {
-            errorLabel.setText("Either username, email or password is empty");
+        if (username.getText().isEmpty()){
+            errorLabelUsername.setText("Username is empty!");
+        }
+        if (email.getText().isEmpty()){
+            errorLabelEmail.setText("Email is empty!");
+        }
+        if (password.getText().isEmpty() && !passwordConfirm.getText().isEmpty()){
+            errorLabelPassword.setText("Password is empty!");
+        }
+        if (passwordConfirm.getText().isEmpty() && !password.getText().isEmpty()){
+            errorLabelPassword.setText("Password Confirm is empty!");
         }
     }
 
