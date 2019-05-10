@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ShowAllPokemonController">
+    <children>
+        <Label fx:id="labelTop" layoutX="229.0" layoutY="55.0" text="Pokemons in our Database" />
+        <ListView fx:id="listView" layoutX="200.0" layoutY="100.0" onEditStart="#showPokemon" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="201.0" layoutY="308.0" mnemonicParsing="false" onAction="#showPokemonCollection" text="Refresh List" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="706.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pokepictures/pokeLogo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="348.0" layoutY="309.0" mnemonicParsing="false" onAction="#showPokemon" text="Select" />
+      <Label fx:id="lblName" layoutX="662.0" layoutY="313.0" text="Label" />
+      <Label layoutX="510.0" layoutY="303.0" text="Name:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblHP" layoutX="655.0" layoutY="511.0" text="Label" />
+      <Label layoutX="503.0" layoutY="493.0" text="Health:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="503.0" layoutY="564.0" text="Attack:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="849.0" layoutY="573.0" text="Defence: " underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAtk" layoutX="655.0" layoutY="582.0" text="Label" />
+      <Label fx:id="lblDf" layoutX="1013.0" layoutY="583.0" text="Label" />
+      <Label layoutX="674.0" layoutY="400.0" text="Type:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="866.0" layoutY="312.0" text="ID:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblType" layoutX="819.0" layoutY="418.0" text="Label" />
+      <Label fx:id="lblID" layoutX="996.0" layoutY="330.0" text="Label" />
+      <Label layoutX="866.0" layoutY="502.0" text="Speed:" underline="true">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSpeed" layoutX="1027.0" layoutY="512.0" text="Label" />
+    </children>
+</AnchorPane>
