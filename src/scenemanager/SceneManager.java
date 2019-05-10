@@ -37,12 +37,11 @@ public class SceneManager {
         }
 
         // This one is shared by both trainer and professor
-        /*
         else if (id.equalsIgnoreCase("showallpokemon")){
             return sceneName.SHOWALLPOKEMON;
         }
-        */
 
+        // Start of the Professor Scenes
         else if (id.equalsIgnoreCase("professormenu")){
             return sceneName.PROFESSORMENU;
         }

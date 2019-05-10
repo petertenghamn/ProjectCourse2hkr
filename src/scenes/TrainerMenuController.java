@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import main.Main;
 import pokemon.PokemonMapper;
+import scenemanager.SceneManager;
 import scenes.Controller;
 import users.Trainer;
 import users.User;
@@ -46,55 +47,8 @@ public class TrainerMenuController implements Controller {
     }
 
     public void viewFindPokemon(){
-
+        main.requestSceneChange(SceneManager.sceneName.SHOWALLPOKEMON);
     }
-
-    // *********************************************************************************
-    // THIS WILL MOVE TO A NEW SCENE
-
-    @FXML
-    ListView<String> listCollection ;
-
-    @FXML
-    Label labelTop;
-
-    @FXML
-    ListView listView;
-
-    public void showPokemonCollection(){
-        User user = main.getCurrentUser();
-        if (user instanceof Trainer){
-            ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
-            ArrayList<String> pokeNames = new ArrayList<>();
-            for (PokemonMapper poke : collection){
-                pokeNames.add(main.getPokemon(poke.getId()).getName());
-            }
-          
-            // Needed for a ListView in JavaFX for some reason
-            ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNames);
-
-            listCollection.setItems(collectionPokemon);
-
-        }
-    }
-
-    private int pokemonSelected; // Pokemon Selected should be max value the number of Pokemon in our database!!
-    private String nickname;
-
-    // Once it has been named use this method to store it
-    public void acquirePokemon(){
-        User user = main.getCurrentUser();
-        if (user instanceof Trainer){
-            // Added for extra security change the values depending on highest ID number of pokemon the database has!  CURRENT HIGHEST = RAICHU 26
-            if (pokemonSelected > 0 && pokemonSelected <= 26) {
-                // Taken from the main ********************************************* MIGHT NOT BE THE CORRECT WAY TO ADD
-                PokemonMapper pokemon = new PokemonMapper(pokemonSelected, nickname);
-                ((Trainer) user).addToCollection(pokemon);
-            }
-        }
-    }
-
-    // ********************************************************************************************
 
     public void logoutButton(){
         main.logoutUser();
