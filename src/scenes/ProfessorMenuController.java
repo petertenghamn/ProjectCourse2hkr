@@ -18,6 +18,14 @@ public class ProfessorMenuController implements Controller {
 
     private Main main;
 
+    public void showTrainers(){
+
+    }
+
+    public void viewAllPokemon(){
+        main.requestSceneChange(SceneManager.sceneName.SHOWALLPOKEMON);
+    }
+
     public void logoutButton(){
         main.logoutUser();
     }

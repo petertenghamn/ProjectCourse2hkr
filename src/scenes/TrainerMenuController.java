@@ -38,8 +38,23 @@ public class TrainerMenuController implements Controller {
 
     // All of these methods change the Scene to a new one!
 
+    // NOT YET IMPLEMENTED
     public void viewCollection(){
+        // This will go inside the scene not here!
+                /*
+        User user = main.getCurrentUser();
 
+        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+        ArrayList<String> pokeNames = new ArrayList<>();
+        for (PokemonMapper poke : collection) {
+            pokeNames.add(main.getPokemon(poke.getId()).getName());
+        }
+
+        // Needed for a ListView in JavaFX for some reason
+        ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNames);
+
+        listView.setItems(collectionPokemon);
+        */
     }
 
     public void viewBattle(){
@@ -53,4 +68,5 @@ public class TrainerMenuController implements Controller {
     public void logoutButton(){
         main.logoutUser();
     }
+
 }
