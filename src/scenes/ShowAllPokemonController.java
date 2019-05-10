@@ -85,7 +85,8 @@ public class ShowAllPokemonController implements Controller {
         }
         else {
             // Might Want to change to a label later
-            System.out.println("No pokemon Selected!");
+            System.out.println("No pokemon Selected");
+            System.out.println("Or Pokemon doesn't have a Picture");
         }
 
         try {

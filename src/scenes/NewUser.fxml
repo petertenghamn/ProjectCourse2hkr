@@ -24,6 +24,9 @@
                 <PasswordField fx:id="password" layoutX="21.0" layoutY="261.0" prefHeight="25.0" prefWidth="441.0" promptText="Password" />
                 <Label fx:id="labelPassword2" layoutX="27.0" layoutY="316.0" text="Confirm password" />
                 <PasswordField fx:id="passwordConfirm" layoutX="21.0" layoutY="360.0" prefHeight="25.0" prefWidth="441.0" promptText="Password" />
+            <Label fx:id="errorLabelEmail" layoutX="281.0" layoutY="205.0" prefHeight="25.0" prefWidth="182.0" textFill="RED" />
+            <Label fx:id="errorLabelPassword" layoutX="281.0" layoutY="304.0" prefHeight="25.0" prefWidth="182.0" textFill="RED" />
+              <Label fx:id="errorLabelUsername" layoutX="286.0" layoutY="109.0" textFill="RED" />
             </children>
         </Pane>
         <Pane fx:id="pane3" layoutY="697.0" prefHeight="83.0" prefWidth="1200.0">
@@ -32,6 +35,5 @@
                 <Button fx:id="goButton" blendMode="MULTIPLY" layoutX="807.0" layoutY="12.0" mnemonicParsing="false" onAction="#goButton" prefHeight="60.0" prefWidth="250.0" text="GO!" />
             </children>
         </Pane>
-        <Label fx:id="errorLabel" layoutX="279.0" layoutY="301.0" />
     </children>
 </AnchorPane>
