@@ -9,6 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 import pokemon.Pokemon;
+import scenemanager.SceneManager;
+import users.Professor;
+import users.Trainer;
+import users.User;
 
 import java.util.ArrayList;
 
@@ -54,56 +58,37 @@ public class ShowAllPokemonController implements Controller {
     public void showPokemon() {
         // THE ONLY POKEMON IMPLEMENTED FULLY SO FAR ARE THE THREE STARTERS! AS A PROOF OF CONCEPT
         showStats(listView.getSelectionModel().getSelectedIndex() + 1);
+        // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
         showImage(listView.getSelectionModel().getSelectedIndex() + 1);
     }
 
+    // Shows the Image of the Pokemon based on the pokemon's ID
     private void showImage(Integer selection) {
-        // Sets the image before any pokemon has been selected
-        Image image = new Image("scenes/pokepictures/pokeLogo.png");
-
-        // ******************* THIS IS NOT COMPLETE ************ SOME POKEMON DON'T HAVE AN IMAGE YET! **************
-        // Can later be changed to be based on the Index of selected Item once database is more complete and the index represents the pokemonID
-        // Bulbasaur is the only one that works correctly! Later on you won't have to put the name of the pokemon
-        if (selection == 1) {
-            try {
-                image = new Image("scenes/pokepictures/bulbasaur.png");
-            } catch (Exception e) {
-                System.out.println("Error finding Image Path!");
-            }
-        } else if (listView.getSelectionModel().getSelectedItem().equalsIgnoreCase("charmander")) {
-            try {
-                image = new Image("scenes/pokepictures/charmander.png");
-            } catch (Exception e) {
-                System.out.println("Error finding Image Path!");
-            }
-        } else if (listView.getSelectionModel().getSelectedItem().equalsIgnoreCase("squirtle")){
-            try {
-                image = new Image("scenes/pokepictures/squirtle.png");
-            } catch (Exception e) {
-                System.out.println("Error finding Image Path!");
-            }
-        }
-        else {
-            // Might Want to change to a label later
-            System.out.println("No pokemon Selected");
-            System.out.println("Or Pokemon doesn't have a Picture");
-        }
-
-        try {
-            imageView.setImage(image);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        // Moved the code to main so it could be used by other methods around the application
+        imageView.setImage(main.getPokemonImage(selection));
     }
 
+    // Would be great if we could figure out how to reuse this code instead of re writing it again.
+    // This won't work if the pokemons stats change by level and not by evolution!
     private void showStats(Integer selection) {
-        lblName.setText(main.getPokemon(selection).getName());
-        lblType.setText(main.getPokemon(selection).getType());
-        lblID.setText(Integer.toString(main.getPokemon(selection).getIdTag()));
-        lblHP.setText(Integer.toString(main.getPokemon(selection).getHealth()));
-        lblAtk.setText(Integer.toString(main.getPokemon(selection).getAttack()));
-        lblDf.setText(Integer.toString(main.getPokemon(selection).getDefense()));
-        lblSpeed.setText(Integer.toString(main.getPokemon(selection).getSpeed()));
+        lblName.setText(main.getPokemonById(selection).getName());
+        lblType.setText(main.getPokemonById(selection).getType());
+        lblID.setText(Integer.toString(main.getPokemonById(selection).getIdTag()));
+        lblHP.setText(Integer.toString(main.getPokemonById(selection).getHealth()));
+        lblAtk.setText(Integer.toString(main.getPokemonById(selection).getAttack()));
+        lblDf.setText(Integer.toString(main.getPokemonById(selection).getDefense()));
+        lblSpeed.setText(Integer.toString(main.getPokemonById(selection).getSpeed()));
+    }
+
+    public void backButton() {
+        User user = main.getCurrentUser();
+        if (user instanceof Trainer) {
+            main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
+        } else if (user instanceof Professor) {
+            main.requestSceneChange(SceneManager.sceneName.PROFESSORMENU);
+        } else {
+            System.out.println("Something is very wrong! User is not a Trainer or Professor!");
+        }
     }
 
     // THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER!

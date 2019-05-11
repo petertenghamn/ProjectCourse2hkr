@@ -1,6 +1,7 @@
 package main;
 
 //not importing database loader caused errors... not sure why...
+import javafx.scene.image.Image;
 import main.DatabaseLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -25,10 +26,19 @@ public class Main extends Application {
         return allPokemon;
     }
 
-    public Pokemon getPokemon(int id){
-        for (Pokemon p : allPokemon){
-            if (p.getIdTag() == id){
-                return p;
+    public Pokemon getPokemonById(int id){
+        for (Pokemon pID : allPokemon){
+            if (pID.getIdTag() == id){
+                return pID;
+            }
+        }
+        return null;
+    }
+
+    public Pokemon getPokemonByName(String name){
+        for (Pokemon pN: allPokemon){
+            if(pN.getName() == name) {
+                return pN;
             }
         }
         return null;
@@ -97,13 +107,44 @@ public class Main extends Application {
     public void selectedStarter(int starterID, String nickname){
         //cannot have a null name when inserting into DB
         if (nickname == null) {
-            nickname = getPokemon(starterID).getName();
+            nickname = getPokemonById(starterID).getName();
         }
 
-        //attach the selected started to the trainer that choose it, then proceed to trainer menu
+        //attach the selected starter to the trainer that choose it, then proceed to trainer menu
         PokemonMapper starter = new PokemonMapper(starterID, nickname);
         ((Trainer) currentUser).addToCollection(starter);
         pokeDB.createNewUser(currentUser);
         manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+    }
+
+    public Image getPokemonImage(Integer pokemonID){
+        // Sets the image to a pokemon without an image to the application logo
+        Image image = new Image("scenes/pokepictures/pokeLogo.png");
+
+        // ******************* THIS IS NOT COMPLETE ************ SOME POKEMON DON'T HAVE AN IMAGE YET! **************
+        if (pokemonID == 1) {
+            try {
+                image = new Image("scenes/pokepictures/bulbasaur.png");
+            } catch (Exception e) {
+                System.out.println("Error finding Image Path!");
+            }
+        } else if (pokemonID == 4) {
+            try {
+                image = new Image("scenes/pokepictures/charmander.png");
+            } catch (Exception e) {
+                System.out.println("Error finding Image Path!");
+            }
+        } else if (pokemonID == 7) {
+            try {
+                image = new Image("scenes/pokepictures/squirtle.png");
+            } catch (Exception e) {
+                System.out.println("Error finding Image Path!");
+            }
+        } else {
+            System.out.println("No pokemon Selected");
+            System.out.println("Or Pokemon doesn't have a Picture");
+        }
+
+        return image;
     }
 }

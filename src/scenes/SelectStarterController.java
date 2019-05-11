@@ -76,6 +76,7 @@ public class SelectStarterController implements Controller {
 
     public void setNickname() {
         nickname = fieldNickname.getText();
+        finishedSelecting();
     }
 
     public void leftStarterPressed() {
