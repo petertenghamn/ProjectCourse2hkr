@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import main.Main;
-import pokemon.PokemonMapper;
-import scenemanager.SceneManager;
-import users.Trainer;
-import users.User;
+import main.pokemon.PokemonMapper;
+import main.scenemanager.SceneManager;
+import main.users.Trainer;
+import main.users.User;
 
 import java.util.ArrayList;
 

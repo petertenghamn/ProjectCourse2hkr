@@ -2,15 +2,14 @@ package main;
 
 //not importing database loader caused errors... not sure why...
 import javafx.scene.image.Image;
-import main.DatabaseLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import pokemon.Pokemon;
-import pokemon.PokemonMapper;
-import scenemanager.SceneManager;
-import users.Professor;
-import users.Trainer;
-import users.User;
+import main.pokemon.Pokemon;
+import main.pokemon.PokemonMapper;
+import main.scenemanager.SceneManager;
+import main.users.Professor;
+import main.users.Trainer;
+import main.users.User;
 
 public class Main extends Application {
 
@@ -119,29 +118,29 @@ public class Main extends Application {
 
     public Image getPokemonImage(Integer pokemonID){
         // Sets the image to a pokemon without an image to the application logo
-        Image image = new Image("scenes/pokepictures/pokeLogo.png");
+        Image image = new Image("scenes/images/pokeLogo.png");
 
         // ******************* THIS IS NOT COMPLETE ************ SOME POKEMON DON'T HAVE AN IMAGE YET! **************
         if (pokemonID == 1) {
             try {
-                image = new Image("scenes/pokepictures/bulbasaur.png");
+                image = new Image("scenes/images/bulbasaur.png");
             } catch (Exception e) {
                 System.out.println("Error finding Image Path!");
             }
         } else if (pokemonID == 4) {
             try {
-                image = new Image("scenes/pokepictures/charmander.png");
+                image = new Image("scenes/images/charmander.png");
             } catch (Exception e) {
                 System.out.println("Error finding Image Path!");
             }
         } else if (pokemonID == 7) {
             try {
-                image = new Image("scenes/pokepictures/squirtle.png");
+                image = new Image("scenes/images/squirtle.png");
             } catch (Exception e) {
                 System.out.println("Error finding Image Path!");
             }
         } else {
-            System.out.println("No pokemon Selected");
+            System.out.println("No main.pokemon Selected");
             System.out.println("Or Pokemon doesn't have a Picture");
         }
 

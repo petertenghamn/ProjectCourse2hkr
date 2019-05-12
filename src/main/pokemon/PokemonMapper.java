@@ -1,4 +1,4 @@
-package pokemon;
+package main.pokemon;
 
 public class PokemonMapper {
 

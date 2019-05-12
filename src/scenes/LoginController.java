@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import main.Main;
-import scenemanager.SceneManager;
+import main.scenemanager.SceneManager;
 
 public class LoginController implements Controller {
 

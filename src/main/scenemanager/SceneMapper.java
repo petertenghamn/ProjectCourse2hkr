@@ -1,4 +1,4 @@
-package scenemanager;
+package main.scenemanager;
 
 import javafx.scene.Parent;
 import scenes.Controller;

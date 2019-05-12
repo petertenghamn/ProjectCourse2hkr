@@ -1,4 +1,4 @@
-package users;
+package main.users;
 
 public class Professor extends User {
 

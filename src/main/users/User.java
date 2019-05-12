@@ -1,4 +1,4 @@
-package users;
+package main.users;
 
 public abstract class User {
     protected String email;

@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.Main;
-import scenes.Controller;
 
 public class SelectStarterController implements Controller {
 

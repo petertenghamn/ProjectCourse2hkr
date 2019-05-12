@@ -5,14 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
-import pokemon.Pokemon;
-import scenemanager.SceneManager;
-import users.Professor;
-import users.Trainer;
-import users.User;
+import main.pokemon.Pokemon;
+import main.scenemanager.SceneManager;
+import main.users.Professor;
+import main.users.Trainer;
+import main.users.User;
 
 import java.util.ArrayList;
 

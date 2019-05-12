@@ -15,7 +15,7 @@
       <Button layoutX="201.0" layoutY="308.0" mnemonicParsing="false" onAction="#showPokemonCollection" text="Refresh List" />
       <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="706.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@pokepictures/pokeLogo.png" />
+            <Image url="@images/pokeLogo.png" />
          </image>
       </ImageView>
       <Button layoutX="348.0" layoutY="309.0" mnemonicParsing="false" onAction="#showPokemon" text="Select" />

@@ -1,8 +1,7 @@
 package scenes;
 
 import main.Main;
-import scenemanager.SceneManager;
-import scenes.Controller;
+import main.scenemanager.SceneManager;
 
 public class ProfessorMenuController implements Controller {
 

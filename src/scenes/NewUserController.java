@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.Main;
-import scenemanager.SceneManager;
+import main.scenemanager.SceneManager;
 
 public class NewUserController implements Controller {
 

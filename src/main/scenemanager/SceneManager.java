@@ -1,10 +1,10 @@
-package scenemanager;
+package main.scenemanager;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Main;
-import scenemanager.loader.FileLoader;
+import main.scenemanager.loader.FileLoader;
 import scenes.Controller;
 import java.util.HashMap;
 import java.util.Map;
