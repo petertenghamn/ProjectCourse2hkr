@@ -1,18 +1,17 @@
-package scenes;
+package scenes.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
-import pokemon.Pokemon;
-import scenemanager.SceneManager;
-import users.Professor;
-import users.Trainer;
-import users.User;
+import main.pokemon.Pokemon;
+import main.scenemanager.SceneManager;
+import main.users.Professor;
+import main.users.Trainer;
+import main.users.User;
 
 import java.util.ArrayList;
 
@@ -57,27 +56,27 @@ public class ShowAllPokemonController implements Controller {
 
     public void showPokemon() {
         // THE ONLY POKEMON IMPLEMENTED FULLY SO FAR ARE THE THREE STARTERS! AS A PROOF OF CONCEPT
-        showStats(listView.getSelectionModel().getSelectedIndex() + 1);
+        showStats(listView.getSelectionModel().getSelectedItem());
         // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
-        showImage(listView.getSelectionModel().getSelectedIndex() + 1);
+        showImage(listView.getSelectionModel().getSelectedItem());
     }
 
     // Shows the Image of the Pokemon based on the pokemon's ID
-    private void showImage(Integer selection) {
+    private void showImage(String selection) {
         // Moved the code to main so it could be used by other methods around the application
         imageView.setImage(main.getPokemonImage(selection));
     }
 
     // Would be great if we could figure out how to reuse this code instead of re writing it again.
     // This won't work if the pokemons stats change by level and not by evolution!
-    private void showStats(Integer selection) {
-        lblName.setText(main.getPokemonById(selection).getName());
-        lblType.setText(main.getPokemonById(selection).getType());
-        lblID.setText(Integer.toString(main.getPokemonById(selection).getIdTag()));
-        lblHP.setText(Integer.toString(main.getPokemonById(selection).getHealth()));
-        lblAtk.setText(Integer.toString(main.getPokemonById(selection).getAttack()));
-        lblDf.setText(Integer.toString(main.getPokemonById(selection).getDefense()));
-        lblSpeed.setText(Integer.toString(main.getPokemonById(selection).getSpeed()));
+    private void showStats(String selection) {
+        lblName.setText(main.getPokemonByName(selection).getName());
+        lblType.setText(main.getPokemonByName(selection).getType());
+        lblID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
+        lblHP.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
+        lblAtk.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
+        lblDf.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
+        lblSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
     }
 
     public void backButton() {

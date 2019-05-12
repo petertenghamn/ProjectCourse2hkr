@@ -1,7 +1,7 @@
-package scenemanager;
+package main.scenemanager;
 
 import javafx.scene.Parent;
-import scenes.Controller;
+import scenes.controller.Controller;
 
 public class SceneMapper<T extends Controller, K extends Parent> {
     private T controller;

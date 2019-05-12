@@ -1,4 +1,4 @@
-package scenes;
+package scenes.controller;
 
 import main.Main;
 

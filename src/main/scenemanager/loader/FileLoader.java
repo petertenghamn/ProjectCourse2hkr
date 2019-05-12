@@ -1,8 +1,7 @@
-package scenemanager.loader;
+package main.scenemanager.loader;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import scenemanager.SceneManager;
+import main.scenemanager.SceneManager;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,17 +14,16 @@ public class FileLoader {
     private SceneManager manager;
     private String dir = "", ext;
 
-    public FileLoader(String ext) {
+    private FileLoader(String ext) {
         this.ext = ext;
         try {
-//            Class clazz = sun.reflect.Reflection.getCallerClass(2);
+            //Class clazz = sun.reflect.Reflection.getCallerClass(2);
             Class clazz = Class.forName(new Throwable().getStackTrace()[3].getClassName());
             dir = new File(clazz.getProtectionDomain().getCodeSource().getLocation().getPath()).toString().replace("%20"," ");
-            dir += new File("/scenes");
+            dir += new File("/scenes/view");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     //ext extension of the type of files needed to be loaded

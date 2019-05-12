@@ -1,9 +1,9 @@
-package scenes;
+package scenes.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import main.Main;
-import scenemanager.SceneManager;
+import main.scenemanager.SceneManager;
 
 public class TrainerMenuController implements Controller {
 

@@ -1,4 +1,4 @@
-package scenes;
+package scenes.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import main.Main;
-import pokemon.PokemonMapper;
-import scenemanager.SceneManager;
-import users.Trainer;
-import users.User;
+import main.pokemon.PokemonMapper;
+import main.scenemanager.SceneManager;
+import main.users.Trainer;
+import main.users.User;
 
 import java.util.ArrayList;
 
@@ -77,7 +77,7 @@ public class TrainerCollectionController implements Controller {
 
         for (PokemonMapper pokemon : collection) {
             if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
-                imageView.setImage(main.getPokemonImage(pokemon.getId()));
+                imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
 
                 // prints the stats to the scene
                 lblName.setText(pokemon.getNickname());
@@ -117,7 +117,7 @@ public class TrainerCollectionController implements Controller {
 
         for (PokemonMapper pokemon : team) {
             if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
-                imageView.setImage(main.getPokemonImage(pokemon.getId()));
+                imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
 
                 // prints the stats to the scene
                 lblName.setText(pokemon.getNickname());

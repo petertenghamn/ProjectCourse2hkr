@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="SelectStarterAnc" prefHeight="800.0" prefWidth="1200.0" stylesheets="@pokepictures/SelectStarter.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.SelectStarterController">
+<AnchorPane fx:id="SelectStarterAnc" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/SelectStarter.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.SelectStarterController">
     <children>
         <Pane fx:id="pane" layoutY="30.0" prefHeight="90.0" prefWidth="1200.0">
             <children>
@@ -20,7 +20,7 @@
         </Pane>
         <ImageView fx:id="leftStarter" fitHeight="284.0" fitWidth="278.0" layoutX="61.0" layoutY="152.0" onMouseClicked="#leftStarterPressed" preserveRatio="true" smooth="false">
             <image>
-                <Image url="@pokepictures/charmander.png" />
+                <Image url="@images/charmander.png" />
             </image>
             <effect>
                 <Blend />
@@ -28,7 +28,7 @@
         </ImageView>
         <ImageView fx:id="middleStarter" fitHeight="269.0" fitWidth="284.0" layoutX="339.0" layoutY="444.0" onMouseClicked="#middleStarterPressed">
             <image>
-                <Image url="@pokepictures/bulbasaur.png" />
+                <Image url="@images/bulbasaur.png" />
             </image>
             <effect>
                 <Blend />
@@ -36,7 +36,7 @@
         </ImageView>
         <ImageView fx:id="rightStarter" fitHeight="284.0" fitWidth="278.0" layoutX="623.0" layoutY="152.0" onMouseClicked="#rightStarterPressed">
             <image>
-                <Image url="@pokepictures/squirtle.png" />
+                <Image url="@images/squirtle.png" />
             </image>
             <effect>
                 <Blend />

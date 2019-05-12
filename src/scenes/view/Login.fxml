@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anc" prefHeight="835.0" prefWidth="1200.0"
-            stylesheets="@pokepictures/Login.css" xmlns="http://javafx.com/javafx/10.0.1"
-            fx:controller="scenes.LoginController">
+            stylesheets="@images/Login.css" xmlns="http://javafx.com/javafx/10.0.1"
+            fx:controller="scenes.controller.LoginController">
     <children>
         <Label fx:id="labelEmail" layoutX="361.0" layoutY="466.0" text="Email:"/>
         <TextField fx:id="txtFieldUsername" layoutX="355.0" layoutY="507.0" prefHeight="25.0" prefWidth="476.0"
@@ -24,7 +24,7 @@
         <ImageView fx:id="imgView" fitHeight="129.0" fitWidth="136.0" layoutX="521.0" layoutY="117.0"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@pokepictures/pokeLogo2.png"/>
+                <Image url="@images/pokeLogo2.png"/>
             </image>
             <effect>
                 <Blend/>

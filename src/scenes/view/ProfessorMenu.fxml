@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="professorMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@pokepictures/ProfessorMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.ProfessorMenuController">
+<AnchorPane fx:id="professorMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ProfessorMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ProfessorMenuController">
    <children>
       <Pane fx:id="pane1" layoutY="30.0" prefHeight="88.0" prefWidth="1200.0">
          <children>

@@ -1,10 +1,10 @@
 package main;
 
-import pokemon.Pokemon;
-import pokemon.PokemonMapper;
-import users.Professor;
-import users.Trainer;
-import users.User;
+import main.pokemon.Pokemon;
+import main.pokemon.PokemonMapper;
+import main.users.Professor;
+import main.users.Trainer;
+import main.users.User;
 
 import java.sql.*;
 import java.util.ArrayList;
