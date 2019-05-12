@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="newAccountAnc" prefHeight="835.0" prefWidth="1200.0" stylesheets="@images/NewUser.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.NewUserController">
+<AnchorPane fx:id="newAccountAnc" prefHeight="835.0" prefWidth="1200.0" stylesheets="@images/NewUser.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.NewUserController">
     <children>
         <Pane fx:id="pane1" layoutY="30.0" prefHeight="83.0" prefWidth="1200.0">
             <children>

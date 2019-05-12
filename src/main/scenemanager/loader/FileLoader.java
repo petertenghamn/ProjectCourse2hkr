@@ -20,7 +20,7 @@ public class FileLoader {
             //Class clazz = sun.reflect.Reflection.getCallerClass(2);
             Class clazz = Class.forName(new Throwable().getStackTrace()[3].getClassName());
             dir = new File(clazz.getProtectionDomain().getCodeSource().getLocation().getPath()).toString().replace("%20"," ");
-            dir += new File("/scenes");
+            dir += new File("/scenes/view");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Main;
 import main.scenemanager.loader.FileLoader;
-import scenes.Controller;
+import scenes.controller.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,7 +84,7 @@ public class SceneManager {
 
     }
 
-    //loads all scenes in the folder labeled scenes
+    //loads all FXML files along with their controllers
     private void loadScenes(){
         fileLoader = new FileLoader("fxml", this);
         fileLoader.collect();

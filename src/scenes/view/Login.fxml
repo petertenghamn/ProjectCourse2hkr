@@ -11,7 +11,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anc" prefHeight="835.0" prefWidth="1200.0"
             stylesheets="@images/Login.css" xmlns="http://javafx.com/javafx/10.0.1"
-            fx:controller="scenes.LoginController">
+            fx:controller="scenes.controller.LoginController">
     <children>
         <Label fx:id="labelEmail" layoutX="361.0" layoutY="466.0" text="Email:"/>
         <TextField fx:id="txtFieldUsername" layoutX="355.0" layoutY="507.0" prefHeight="25.0" prefWidth="476.0"
