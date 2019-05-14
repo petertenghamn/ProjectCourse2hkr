@@ -126,20 +126,20 @@ public class DatabaseLoader {
                 //get the collection the player owns
                 ArrayList<PokemonMapper> collection = new ArrayList<>();
                 try {
-                    ResultSet userCollection = statement.executeQuery("SELECT pokemon_id, nickname FROM user_collection WHERE user_id = " + userID + ";");
+                    ResultSet userCollection = statement.executeQuery("SELECT pokemon_id, nickname FROM collection WHERE user_id = " + userID + ";");
                     while (userCollection.next()) {
                         PokemonMapper pokeID = new PokemonMapper(userCollection.getInt(1), userCollection.getString(2));
                         collection.add(pokeID);
                     }
                 } catch (Exception e) {
                     //result set may be empty if error occurred here
-                    System.out.println("Error executing user_collection query");
+                    System.out.println("Error executing collection query");
                 }
 
                 //get the team the player has selected
                 ArrayList<PokemonMapper> team = new ArrayList<>();
                 try {
-                    ResultSet userTeam = statement.executeQuery("select user_collection.pokemon_id, nickname from user_has_team, user_collection where user_has_team.user_id = user_collection.user_id and user_collection.user_id = " + userID + ";");
+                    ResultSet userTeam = statement.executeQuery("select collection.pokemon_id, nickname from user_has_team, collection where user_has_team.user_id = collection.user_id and collection.user_id = " + userID + ";");
                     while (userTeam.next()) {
                         PokemonMapper pokeID = new PokemonMapper(userTeam.getInt(1), userTeam.getString(2));
                         team.add(pokeID);
@@ -214,13 +214,13 @@ public class DatabaseLoader {
                 ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
                 try {
                     for (PokemonMapper p : collection) {
-                        statement.executeUpdate("INSERT INTO user_collection (user_id, pokemon_id, nickname) VALUES " +
+                        statement.executeUpdate("INSERT INTO collection (user_id, pokemon_id, nickname) VALUES " +
                                 "((SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'), " +
                                 p.getId() + ", '" +
                                 p.getNickname() + "');");
                     }
                 } catch (SQLException ex) {
-                    System.out.println("Error executing the update - insert into user_collection!");
+                    System.out.println("Error executing the update - insert into collection!");
                     System.out.println(ex);
                 }
             }
