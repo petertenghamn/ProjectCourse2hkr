@@ -5,8 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
+import main.pokemon.Pokemon;
 import main.pokemon.PokemonMapper;
 import main.scenemanager.SceneManager;
 import main.users.Trainer;
@@ -44,6 +46,20 @@ public class TrainerCollectionController implements Controller {
     public void reset() {
         updateListCollection();
         updateListTeam();
+
+        listCollection.getSelectionModel().clearSelection();
+        listTeam.getSelectionModel().clearSelection();
+
+        Image image = new Image("scenes/view/images/pokeLogo.png");
+        imageView.setImage(image);
+
+        lblName.setText("");
+        lblAtk.setText("");
+        lblDf.setText("");
+        lblType.setText("");
+        lblID.setText("");
+        lblSpeed.setText("");
+        lblHP.setText("");
     }
 
     public void backTrainerMenu() {
@@ -59,8 +75,6 @@ public class TrainerCollectionController implements Controller {
     @FXML
     Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed;
 
-
-    // Start of the Collection List Code -------------------------------------------------------------------------------------------------
     public void updateListCollection() {
         User user = main.getCurrentUser();
 
@@ -98,9 +112,6 @@ public class TrainerCollectionController implements Controller {
         }
     }
 
-    // End of Collection List Code ****************************************************
-
-    // Start of Team List Code ----------------------------------------------------------------------------------------------------------
     public void updateListTeam() {
         User user = main.getCurrentUser();
 
@@ -114,7 +125,7 @@ public class TrainerCollectionController implements Controller {
         // Needed for a ListView in JavaFX for some reason
         ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
 
-        listCollection.setItems(collectionPokemon);
+        listTeam.setItems(collectionPokemon);
     }
 
     public void showSelectedTeam() {
@@ -138,16 +149,26 @@ public class TrainerCollectionController implements Controller {
         }
     }
 
+    // This adds the selected pokemon from the collection to the team
+    // ** DOES NOT UPDATE THE DATABASE YET
     public void addTeam(){
         User user = main.getCurrentUser();
 
+        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
-        for (PokemonMapper mapper : team){
-
+        for (PokemonMapper mapper : collection){
+            if (mapper.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+                // Makes sure that the pokemon isn't already in the team
+                if (!mapper.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+                    ((Trainer) user).setTeam(team);
+                } else {
+                    // Add this as a Label in the Scene
+                    System.out.println("You already have that pokemon in your team");
+                }
+            }
         }
-    }
-    // End of Team List Code  *********************************************************
 
-    
+        updateListTeam();
+    }
 }

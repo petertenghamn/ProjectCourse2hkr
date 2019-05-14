@@ -135,7 +135,7 @@ public class SelectStarterController implements Controller {
     public void finishedSelecting() {
         //sends the pokemonID that the player selected to the main to assign it to their collection
         int starterID = (starterSelected == 1)?4:(starterSelected == 2)?1:7;
-        main.selectedStarter(starterID, nickname);
+        main.acquirePokemon(starterID, nickname);
     }
 
 }

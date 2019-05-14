@@ -32,7 +32,7 @@
                   <Image url="@images/pokeLogo.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnAddToTeam" layoutX="27.0" layoutY="254.0" mnemonicParsing="false" text="Add To Battle Team" />
+            <Button fx:id="btnAddToTeam" layoutX="27.0" layoutY="254.0" mnemonicParsing="false" onAction="#addTeam" text="Add To Battle Team" />
          </children>
       </Pane>
       <Button fx:id="btnBack" layoutX="30.0" layoutY="744.0" mnemonicParsing="false" onAction="#backTrainerMenu" text="Back" />

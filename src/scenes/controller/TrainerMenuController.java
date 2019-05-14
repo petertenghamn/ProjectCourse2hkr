@@ -39,7 +39,7 @@ public class TrainerMenuController implements Controller {
     }
 
     public void viewBattle() {
-
+        main.requestSceneChange(SceneManager.sceneName.BATTLEMAIN);
     }
 
     public void viewFindPokemon() {
