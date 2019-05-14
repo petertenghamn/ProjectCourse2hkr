@@ -17,6 +17,11 @@ public class LoginController implements Controller {
         //set the main so that you can call upon it to change scenes
         main = m;
     }
+
+    @Override
+    public void setUp(){
+
+    }
     
     @Override
     public void reset(){

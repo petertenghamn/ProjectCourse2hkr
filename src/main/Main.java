@@ -142,7 +142,7 @@ public class Main extends Application {
     /*
      * Assign the selected pokemon to the new trainer and finalize by adding the trainer to the DB
      */
-    public void selectedStarter(int starterID, String nickname){
+    public void acquirePokemon(int starterID, String nickname){
         //cannot have a null name when inserting into DB
         if (nickname == null) {
             nickname = getPokemonById(starterID).getName();
@@ -151,8 +151,12 @@ public class Main extends Application {
         //attach the selected starter to the trainer that choose it, then proceed to trainer menu
         PokemonMapper starter = new PokemonMapper(starterID, nickname);
         ((Trainer) currentUser).addToCollection(starter);
-        pokeDB.createNewUser(currentUser);
-        manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+
+        // Later will move this part of the code
+        if (((Trainer) currentUser).getCollection().size() == 0){
+            pokeDB.createNewUser(currentUser);
+            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        }
     }
 
     /*

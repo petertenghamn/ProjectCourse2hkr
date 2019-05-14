@@ -33,6 +33,11 @@ public class SelectStarterController implements Controller {
     }
 
     @Override
+    public void setUp(){
+
+    }
+
+    @Override
     public void reset() {
         //reset the selected starter and nickname
         fieldNickname.setVisible(false);

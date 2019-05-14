@@ -98,5 +98,7 @@ public class SceneManager {
         currentScene = sceneMap.get(request);
         currentScene.getController().setMain(main);
         primaryScene.setRoot(currentScene.getParent());
+
+        currentScene.getController().setUp();
     }
 }

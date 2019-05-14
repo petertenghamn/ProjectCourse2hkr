@@ -35,8 +35,15 @@ public class TrainerCollectionController implements Controller {
     }
 
     @Override
-    public void reset() {
+    public void setUp(){
+        updateListCollection();
+        updateListTeam();
+    }
 
+    @Override
+    public void reset() {
+        updateListCollection();
+        updateListTeam();
     }
 
     public void backTrainerMenu() {
@@ -128,6 +135,16 @@ public class TrainerCollectionController implements Controller {
                 lblDf.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getDefense()));
                 lblSpeed.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getSpeed()));
             }
+        }
+    }
+
+    public void addTeam(){
+        User user = main.getCurrentUser();
+
+        ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
+
+        for (PokemonMapper mapper : team){
+
         }
     }
     // End of Team List Code  *********************************************************

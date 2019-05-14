@@ -18,6 +18,12 @@ public class TrainerMenuController implements Controller {
         main = m;
     }
 
+    @Override
+    public void setUp(){
+
+    }
+
+    @Override
     public void reset() {
 
     }
