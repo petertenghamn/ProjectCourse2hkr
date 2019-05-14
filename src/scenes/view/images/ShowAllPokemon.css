@@ -1,85 +1,86 @@
-#showAllPokemonAnc{
+#showAllPokemonAnc {
     -fx-background-size: 1200, 800;
     -fx-background-image: url("mewtwoBackground.png");
 }
 
-#pane1{
+#pane1 {
     -fx-background-color: rgba(255, 255, 255, .3);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#pane2{
+#pane2 {
     -fx-background-color: rgba(255, 255, 255, .3);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#listView{
+#listView {
     -fx-font: 25px Garamond;
 }
 
-#labelName{
+#labelName {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblName{
+#lblName {
     -fx-font: 20px Garamond;
 }
 
-#labelType{
+#labelType {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblType{
+#lblType {
     -fx-font: 20px Garamond;
 }
-#labelID{
+
+#labelID {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblID{
+#lblID {
     -fx-font: 20px Garamond;
 }
 
-#labelHealth{
+#labelHealth {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblHP{
+#lblHP {
     -fx-font: 20px Garamond;
 }
 
-#labelAttack{
+#labelAttack {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblAtk{
+#lblAtk {
     -fx-font: 20px Garamond;
 }
 
-#labelSpeed{
+#labelSpeed {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblSpeed{
+#lblSpeed {
     -fx-font: 20px Garamond;
 }
 
-#labelDefence{
+#labelDefence {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblDf{
+#lblDf {
     -fx-font: 20px Garamond;
 }
 
-#btnShowAllPokemon{
+#btnShowAllPokemon {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
@@ -90,7 +91,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-#btnSelect{
+#btnSelect {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);

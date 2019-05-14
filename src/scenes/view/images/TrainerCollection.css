@@ -1,100 +1,106 @@
-#trainerCollectionAnc{
+#trainerCollectionAnc {
     -fx-background-size: 1200, 800;
     -fx-background-image: url("jigglypuffBackground.jpg");
 }
 
-#pane1{
+#pane1 {
     -fx-background-color: rgba(255, 255, 255, .3);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#pane2{
+#pane2 {
     -fx-background-color: rgba(255, 255, 255, .3);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#pane3{
+#pane3 {
     -fx-background-color: rgba(255, 255, 255, .3);
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
-#listCollection{
+#pane4 {
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#listCollection {
     -fx-font: 25px Garamond;
 }
 
-#listTeam{
+#listTeam {
     -fx-font: 25px Garamond;
 }
 
-#labelMyCollection{
+#labelMyCollection {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#labelMyTeam{
+#labelMyTeam {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#labelName{
+#labelName {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblName{
+#lblName {
     -fx-font: 20px Garamond;
 }
 
-#labelType{
+#labelType {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblType{
-    -fx-font: 20px Garamond;
-}
-#labelID{
-    -fx-font: 30px Garamond;
-    -fx-font-weight: bold;
-}
-
-#lblID{
+#lblType {
     -fx-font: 20px Garamond;
 }
 
-#labelHealth{
+#labelID {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblHP{
+#lblID {
     -fx-font: 20px Garamond;
 }
 
-#labelAttack{
+#labelHealth {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblAtk{
+#lblHP {
     -fx-font: 20px Garamond;
 }
 
-#labelSpeed{
+#labelAttack {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblSpeed{
+#lblAtk {
     -fx-font: 20px Garamond;
 }
 
-#labelDefence{
+#labelSpeed {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
 }
 
-#lblDf{
+#lblSpeed {
+    -fx-font: 20px Garamond;
+}
+
+#labelDefence {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblDf {
     -fx-font: 20px Garamond;
 }
 
