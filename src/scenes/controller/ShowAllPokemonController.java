@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import main.Main;
 import main.pokemon.Pokemon;
+import main.pokemon.PokemonMapper;
 import main.scenemanager.SceneManager;
 import main.users.Professor;
 import main.users.Trainer;
@@ -92,34 +93,27 @@ public class ShowAllPokemonController implements Controller {
 
     // THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER!
     // Once it has been named use this method to store it
-    /*  WORK IN PROGRESS
+
     public void acquirePokemon() {
         User user = main.getCurrentUser();
+
+        Pokemon pokemon = main.getPokemonByName(listView.getSelectionModel().getSelectedItem());
+
+
         if (user instanceof Trainer) {
-            // Added for extra security change the values depending on highest ID number of pokemon the database has!  CURRENT HIGHEST = RAICHU 26
-            if (pokemonSelected > 0 && pokemonSelected <= 26) {
-                // Taken from the main ********************************************* MIGHT NOT BE THE CORRECT WAY TO ADD
-                PokemonMapper pokemon = new PokemonMapper(pokemonSelected, nickname);
-                ((Trainer) user).addToCollection(pokemon);
-            }
+            main.acquirePokemon(pokemon.getIdTag(), );
         }
-
-        Pokemon[] allPokemon = main.getAllPokemon();
-        ArrayList<String> names = new ArrayList<>();
-        ArrayList<String> types = new ArrayList<>();
-        ArrayList<Integer> ids = new ArrayList<>();
-        ArrayList<Integer> hps = new ArrayList<>();
-        ArrayList<Integer> dfs = new ArrayList<>();
-        ArrayList<Integer> atks = new ArrayList<>();
-
-        for (Pokemon pokemon: allPokemon) {
-            names.add(pokemon.getName());
-            types.add(pokemon.getType());
-            ids.add(pokemon.getIdTag());
-            hps.add(pokemon.getIdTag());
-            dfs.add(pokemon.getDefense());
-            atks.add(pokemon.getAttack());
+        else if (user instanceof Professor){
+            System.out.println("Sorry Professor but this part is only for the Trainers!");
+        }
+        else {
+            System.out.println("Something is terribly wrong and the user is neither a Professor nor a Trainer!");
         }
     }
-    */
+
+
+    public void reOrderScene(){
+        // Add hiding panes here
+
+    }
 }

@@ -19,7 +19,7 @@
       <Button layoutX="878.0" layoutY="287.0" mnemonicParsing="false" onAction="#updateListTeam" text="Refresh" />
       <Button layoutX="223.0" layoutY="278.0" mnemonicParsing="false" onAction="#showSelectedCollection" text="Select" />
       <Button layoutX="1030.0" layoutY="287.0" mnemonicParsing="false" onAction="#showSelectedTeam" text="Select" />
-      <Button layoutX="520.0" layoutY="39.0" mnemonicParsing="false" text="Add To Battle Team" />
+      <Button layoutX="520.0" layoutY="39.0" mnemonicParsing="false" onAction="#addTeam" text="Add To Battle Team" />
       <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="505.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/pokeLogo.png" />

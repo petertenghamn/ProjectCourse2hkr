@@ -104,10 +104,9 @@ public class TrainerCollectionController implements Controller {
             pokeNicknames.add(pokemon.getNickname());
         }
 
-        // Needed for a ListView in JavaFX for some reason
         ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
 
-        listCollection.setItems(collectionPokemon);
+        listTeam.setItems(collectionPokemon);
     }
 
     public void showSelectedTeam() {
@@ -116,7 +115,7 @@ public class TrainerCollectionController implements Controller {
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
         for (PokemonMapper pokemon : team) {
-            if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+            if (pokemon.getNickname().equalsIgnoreCase(listTeam.getSelectionModel().getSelectedItem())) {
                 imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
 
                 // prints the stats to the scene
@@ -130,7 +129,26 @@ public class TrainerCollectionController implements Controller {
             }
         }
     }
+
+    public void addTeam() {
+        User user = main.getCurrentUser();
+
+        ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
+
+        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+
+
+        for (PokemonMapper pokemon : collection) {
+            if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+                team.add(pokemon);
+            }
+        }
+
+        ((Trainer) user).setTeam(team);
+    }
     // End of Team List Code  *********************************************************
 
-    
+
+
+
 }

@@ -156,6 +156,20 @@ public class Main extends Application {
     }
 
     /*
+        Save the Pokemon to the trainer Collection
+     */
+    public void acquirePokemon(Integer id, String nickname){
+        if (nickname == null){
+            nickname = getPokemonById(id).getName();
+        }
+
+        PokemonMapper mapper = new PokemonMapper(id, nickname);
+        ((Trainer) currentUser).addToCollection(mapper);
+
+        // Add something here to update the database
+    }
+
+    /*
      * Load the image of the pokemon requested
      *
      * @returns Image
