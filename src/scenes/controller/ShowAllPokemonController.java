@@ -99,4 +99,8 @@ public class ShowAllPokemonController implements Controller {
     public void acquirePokemon() {
 
     }
+
+    private void reArrangeScene(){
+        
+    }
 }
