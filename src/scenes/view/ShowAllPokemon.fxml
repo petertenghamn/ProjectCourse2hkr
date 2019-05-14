@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
+<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
+            stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
         <Button fx:id="btnShowAllPokemon" blendMode="MULTIPLY" layoutX="59.0" layoutY="65.0" mnemonicParsing="false" onAction="#showPokemonCollection" prefHeight="60.0" prefWidth="191.0" text="Show All Pokémon" />
         <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="297.0" layoutY="65.0" mnemonicParsing="false" onAction="#showPokemon" prefHeight="60.0" prefWidth="120.0" text="Select" />
