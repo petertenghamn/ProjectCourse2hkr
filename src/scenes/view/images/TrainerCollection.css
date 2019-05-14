@@ -1,0 +1,143 @@
+#trainerCollectionAnc{
+    -fx-background-size: 1200, 800;
+    -fx-background-image: url("jigglypuffBackground.jpg");
+}
+
+#pane1{
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#pane2{
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#pane3{
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#listCollection{
+    -fx-font: 25px Garamond;
+}
+
+#listTeam{
+    -fx-font: 25px Garamond;
+}
+
+#labelMyCollection{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelMyTeam{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelName{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblName{
+    -fx-font: 20px Garamond;
+}
+
+#labelType{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblType{
+    -fx-font: 20px Garamond;
+}
+#labelID{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblID{
+    -fx-font: 20px Garamond;
+}
+
+#labelHealth{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblHP{
+    -fx-font: 20px Garamond;
+}
+
+#labelAttack{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblAtk{
+    -fx-font: 20px Garamond;
+}
+
+#labelSpeed{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblSpeed{
+    -fx-font: 20px Garamond;
+}
+
+#labelDefence{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblDf{
+    -fx-font: 20px Garamond;
+}
+
+#btnSelect1 {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSelect1:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSelect2 {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSelect2:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnAddToTeam {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnAddToTeam:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
