@@ -18,6 +18,12 @@ public class TrainerMenuController implements Controller {
         main = m;
     }
 
+    @Override
+    public void setUp(){
+
+    }
+
+    @Override
     public void reset() {
 
     }
@@ -33,7 +39,7 @@ public class TrainerMenuController implements Controller {
     }
 
     public void viewBattle() {
-
+        main.requestSceneChange(SceneManager.sceneName.BATTLEMAIN);
     }
 
     public void viewFindPokemon() {

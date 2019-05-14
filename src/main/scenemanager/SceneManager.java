@@ -18,7 +18,7 @@ public class SceneManager {
     private Scene primaryScene;
 
     //enum to store all the names of possible scenes to change to
-    public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU, SHOWALLPOKEMON, TRAINERCOLLECTION }
+    public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU, SHOWALLPOKEMON, TRAINERCOLLECTION, BATTLEMAIN }
     private sceneName getEnumFromID(String id){
         //setup each menu to an enum so its easier to call on them later
         if (id.equalsIgnoreCase("login")){
@@ -37,6 +37,9 @@ public class SceneManager {
         }
         else if (id.equalsIgnoreCase("trainercollection")){
             return sceneName.TRAINERCOLLECTION;
+        }
+        else if (id.equalsIgnoreCase("battlemain")){
+            return sceneName.BATTLEMAIN;
         }
 
         // This one is shared by both trainer and professor
@@ -98,5 +101,7 @@ public class SceneManager {
         currentScene = sceneMap.get(request);
         currentScene.getController().setMain(main);
         primaryScene.setRoot(currentScene.getParent());
+
+        currentScene.getController().setUp();
     }
 }

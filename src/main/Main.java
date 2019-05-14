@@ -11,6 +11,8 @@ import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     private DatabaseLoader pokeDB;
@@ -142,17 +144,36 @@ public class Main extends Application {
     /*
      * Assign the selected pokemon to the new trainer and finalize by adding the trainer to the DB
      */
-    public void selectedStarter(int starterID, String nickname){
+    public void acquirePokemon(int pokemonID, String nickname){
+        ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
+
         //cannot have a null name when inserting into DB
         if (nickname == null) {
-            nickname = getPokemonById(starterID).getName();
+            nickname = getPokemonById(pokemonID).getName();
         }
 
-        //attach the selected starter to the trainer that choose it, then proceed to trainer menu
-        PokemonMapper starter = new PokemonMapper(starterID, nickname);
-        ((Trainer) currentUser).addToCollection(starter);
-        pokeDB.createNewUser(currentUser);
-        manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        for (PokemonMapper mappedPokemon : collection){
+            // Checks if there are pokemon with that nickname in your collection already
+            if (!mappedPokemon.getNickname().equalsIgnoreCase(nickname)) {
+                //attach the selected starter to the trainer that choose it, then proceed to trainer menu
+                PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
+                ((Trainer) currentUser).addToCollection(caughtPokemon);
+                break; // Needed or else it breaks the for loop
+            }
+            else {
+                System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
+            }
+        }
+
+        // Doesn't work IF it's inside of the for loop for some reason
+
+
+
+        // Later will move this part of the code
+        if (((Trainer) currentUser).getCollection().size() == 0){
+            pokeDB.createNewUser(currentUser);
+            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        }
     }
 
     /*

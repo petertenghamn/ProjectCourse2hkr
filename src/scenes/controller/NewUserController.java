@@ -18,6 +18,11 @@ public class NewUserController implements Controller {
     private Main main;
 
     @Override
+    public void setUp(){
+
+    }
+
+    @Override
     public void reset(){
         username.setText("");
         email.setText("");

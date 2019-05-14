@@ -11,6 +11,12 @@ public class ProfessorMenuController implements Controller {
         main = m;
     }
 
+    @Override
+    public void setUp(){
+
+    }
+
+    @Override
     public void reset(){
 
     }
