@@ -20,7 +20,7 @@
         </Pane>
         <ImageView fx:id="leftStarter" fitHeight="284.0" fitWidth="278.0" layoutX="61.0" layoutY="152.0" onMouseClicked="#leftStarterPressed" preserveRatio="true" smooth="false">
             <image>
-                <Image url="@images/charmander.png" />
+                <Image url="@images/charmander2.png" />
             </image>
             <effect>
                 <Blend />
@@ -28,7 +28,7 @@
         </ImageView>
         <ImageView fx:id="middleStarter" fitHeight="269.0" fitWidth="284.0" layoutX="339.0" layoutY="444.0" onMouseClicked="#middleStarterPressed">
             <image>
-                <Image url="@images/bulbasaur.png" />
+                <Image url="@images/bulbasaur2.png" />
             </image>
             <effect>
                 <Blend />
@@ -36,7 +36,7 @@
         </ImageView>
         <ImageView fx:id="rightStarter" fitHeight="284.0" fitWidth="278.0" layoutX="623.0" layoutY="152.0" onMouseClicked="#rightStarterPressed">
             <image>
-                <Image url="@images/squirtle.png" />
+                <Image url="@images/squirtle2.png" />
             </image>
             <effect>
                 <Blend />
