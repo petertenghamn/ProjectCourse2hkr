@@ -18,6 +18,11 @@ public class DatabaseLoader {
     private Connection con;
     private boolean connected;
 
+    /*
+     * Try to make a connection to the database
+     *
+     * Result: set a boolean according to if you get access
+     */
     private void connectToDB() {
         try {
             con = (Connection) DriverManager.getConnection(url);
@@ -31,6 +36,9 @@ public class DatabaseLoader {
         }
     }
 
+    /*
+     * Close the connection to the database
+     */
     private void disconnectFromDB() {
         try {
             con.close();
@@ -39,6 +47,11 @@ public class DatabaseLoader {
         }
     }
 
+    /*
+     * Load all of the pokemon stats from the database
+     *
+     * @return Pokemon[]
+     */
     public Pokemon[] loadAllPokemon() {
         //Load up all pokemon in the database
         connectToDB();
@@ -65,6 +78,11 @@ public class DatabaseLoader {
         return null;
     }
 
+    /*
+     * Verify the user by comparing entered information to information in the database
+     *
+     * @return User
+     */
     public User authenticateLogin(String email, String password) {
         connectToDB();
 
@@ -104,6 +122,11 @@ public class DatabaseLoader {
         return null; //login information given was wrong so return null
     }
 
+    /*
+     * Retrieve all information related to the user requested
+     *
+     * @return User
+     */
     private User getUserInfo(boolean isProfessor, String email) {
         //load all information pertaining to user
         User loginUser;
@@ -163,6 +186,11 @@ public class DatabaseLoader {
         return null;
     }
 
+    /*
+     * Check if the email is being used in the database
+     *
+     * @return Bool
+     */
     public boolean checkIfEmailAvailable(String email) {
         connectToDB();
 
@@ -184,6 +212,9 @@ public class DatabaseLoader {
         return true;
     }
 
+    /*
+     * Insert the new users information into the database
+     */
     public void createNewUser(User user) {
         connectToDB();
 
@@ -210,8 +241,62 @@ public class DatabaseLoader {
                     System.out.println("Error executing the update - insert into user!");
                     System.out.println(ex);
                 }
-                //create a collection for the trainer in the database
+            }
+
+            disconnectFromDB();
+        }
+
+        //call to update the user's collection to include their starter
+        updateUserCollection(user);
+    }
+
+    /*
+     * Update pokemon in the users collection
+     * check their current collection, then add any missing pokemon, and remove discrepancies
+     * Can be used for professor altering trainers collection or the trainer obtaining new pokemon
+     */
+    public void updateUserCollection(User user){
+        connectToDB();
+
+        if (connected){
+            if (user instanceof Trainer){
                 ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+
+                //list of pokemon from the DB that are missing from user now
+                ArrayList<PokemonMapper> missingCollection = new ArrayList<>();
+                //check for what is currently stored in the DB
+                try {
+                    ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM collection where user_id = " +
+                            "(SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "');");
+
+                    while (rs.next()) {
+                        PokemonMapper pokemonInDB = new PokemonMapper(rs.getInt(1), rs.getString(2));
+                        if (collection.contains(pokemonInDB)){
+                            //if the DB has the pokemon, there is no need to change anything with it
+                            collection.remove(pokemonInDB);
+                        } else {
+                            //if collection does not have the pokemon in the DB it should be removed
+                            missingCollection.add(pokemonInDB);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the select - select collection!");
+                    System.out.println(ex);
+                }
+
+                //remove the pokemon no longer in their collection
+                try {
+                    for (PokemonMapper p : missingCollection) {
+                        statement.executeUpdate("DELETE FROM collection WHERE user_id LIKE" +
+                                "(SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "')" +
+                                "AND pokemon_id = " + p.getId() + ";");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the delete - delete from collection!");
+                    System.out.println(ex);
+                }
+
+                //add new pokemon to the users current collection
                 try {
                     for (PokemonMapper p : collection) {
                         statement.executeUpdate("INSERT INTO collection (user_id, pokemon_id, nickname) VALUES " +
@@ -224,8 +309,70 @@ public class DatabaseLoader {
                     System.out.println(ex);
                 }
             }
-
-            disconnectFromDB();
         }
+
+        disconnectFromDB();
+    }
+
+    /*
+     * Update the players selected team
+     */
+    public void updateUserTeam(User user){
+        connectToDB();
+
+        if (connected){
+            if (user instanceof Trainer){
+                ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
+
+                //list of pokemon from the DB that are missing from user now
+                ArrayList<PokemonMapper> missingTeam = new ArrayList<>();
+                //check for what is currently stored in the DB
+                try {
+                    ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM user_has_team where user_id = " +
+                            "(SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "');");
+
+                    while (rs.next()) {
+                        PokemonMapper pokemonInDB = new PokemonMapper(rs.getInt(1), rs.getString(2));
+                        if (team.contains(pokemonInDB)){
+                            //if the DB has the pokemon, there is no need to change anything with it
+                            team.remove(pokemonInDB);
+                        } else {
+                            //if collection does not have the pokemon in the DB it should be removed
+                            missingTeam.add(pokemonInDB);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the select - select collection!");
+                    System.out.println(ex);
+                }
+
+                //remove the pokemon no longer in their collection
+                try {
+                    for (PokemonMapper p : missingTeam) {
+                        statement.executeUpdate("DELETE FROM user_has_team WHERE " +
+                                "user_id LIKE (SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "') " +
+                                "AND pokemon_id = " + p.getId() + ";");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the delete - delete from collection!");
+                    System.out.println(ex);
+                }
+
+                //add new pokemon to the users current collection
+                try {
+                    for (PokemonMapper p : team) {
+                        statement.executeUpdate("INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id) VALUES " +
+                                "((SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'), " +
+                                "(SELECT user_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "')), " +
+                                "pokemon_id = " + p.getId() + ";");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error executing the update - insert into collection!");
+                    System.out.println(ex);
+                }
+            }
+        }
+
+        disconnectFromDB();
     }
 }
