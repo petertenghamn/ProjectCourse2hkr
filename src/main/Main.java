@@ -165,10 +165,6 @@ public class Main extends Application {
             }
         }
 
-        // Doesn't work IF it's inside of the for loop for some reason
-
-
-
         // Later will move this part of the code
         if (((Trainer) currentUser).getCollection().size() == 0){
             pokeDB.createNewUser(currentUser);

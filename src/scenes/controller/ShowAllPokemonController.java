@@ -83,6 +83,8 @@ public class ShowAllPokemonController implements Controller {
 
         txtNickname.clear();
 
+        btnSelect.setVisible(true);
+
         pokeBall.setVisible(false);
     }
 
