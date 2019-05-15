@@ -5,9 +5,9 @@ import main.pokemon.PokemonMapper;
 import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
-
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseLoader {
@@ -79,6 +79,107 @@ public class DatabaseLoader {
     }
 
     /*
+     * Get a list of all the trainers in the DB
+     *
+     * @return User[]
+     */
+    public User[] getTrainers(){
+        connectToDB();
+
+        if (connected){
+            try {
+                ResultSet userInfo = statement.executeQuery("SELECT login_bonus FROM user_info WHERE email LIKE 'ash@trainer';");
+                userInfo.next();
+                Date lastBonus = userInfo.getDate(1);
+                Date today = new Date();
+
+                //check to see if last bonus was received on a different day than today
+
+
+            } catch (SQLException ex) {
+                System.out.println("Error executing '' - ");
+                System.out.println(ex);
+            }
+        }
+
+        disconnectFromDB();
+        return null;
+    }
+
+    /*
+     * Get the collection of a User requested
+     * Mainly used for professor since a Trainer gets their collection when logging in
+     *
+     * @return Pokemon[]
+     */
+    public Pokemon[] getUserCollection(){
+        connectToDB();
+
+        if (connected){
+            /*
+            try {
+
+            } catch (SQLException ex) {
+                System.out.println("Error executing '' - ");
+                System.out.println(ex);
+            }
+            */
+        }
+
+        disconnectFromDB();
+        return null;
+    }
+
+    /*
+     * Get the team of a User requested
+     * trainer can get the team of an opponent here, or a professor can get it to inspect
+     *
+     * @return Pokemon[]
+     */
+    public Pokemon[] getUserTeam(){
+        connectToDB();
+
+        if (connected){
+            /*
+            try {
+
+            } catch (SQLException ex) {
+                System.out.println("Error executing '' - ");
+                System.out.println(ex);
+            }
+            */
+        }
+
+        disconnectFromDB();
+        return null;
+    }
+
+    /*
+     * Check if it has been 24 hours since the player received their bonus reward
+     * Give a reward if it is due, and return true so that the screen knows to tell the player that they received a reward
+     *
+     * @return boolean
+     */
+    public boolean loginBonusCheck(){
+        boolean dailyReward = false;
+        connectToDB();
+
+        if (connected){
+            /*
+            try {
+
+            } catch (SQLException ex) {
+                System.out.println("Error executing '' - ");
+                System.out.println(ex);
+            }
+            */
+        }
+
+        disconnectFromDB();
+        return dailyReward;
+    }
+
+    /*
      * Verify the user by comparing entered information to information in the database
      *
      * @return User
@@ -140,11 +241,12 @@ public class DatabaseLoader {
                 userInfo.next();
                 int userID = userInfo.getInt(1);
                 //get the players info from the user_info table belonging to the email
-                userInfo = statement.executeQuery("SELECT username, win_count, loss_count FROM user_info WHERE email LIKE '" + email + "';");
+                userInfo = statement.executeQuery("SELECT username, currency, win_count, loss_count FROM user_info WHERE email LIKE '" + email + "';");
                 userInfo.next();
                 String username = userInfo.getString(1);
-                int wins = userInfo.getInt(2);
-                int losses = userInfo.getInt(3);
+                int currency = userInfo.getInt(2);
+                int wins = userInfo.getInt(3);
+                int losses = userInfo.getInt(4);
 
                 //get the collection the player owns
                 ArrayList<PokemonMapper> collection = new ArrayList<>();
@@ -179,7 +281,7 @@ public class DatabaseLoader {
                 PokemonMapper[] collectionArray = collection.toArray(new PokemonMapper[collection.size()]);
                 PokemonMapper[] teamArray = collection.toArray(new PokemonMapper[team.size()]);
 
-                loginUser = new Trainer(email, username, 0, wins, losses, collectionArray, teamArray);
+                loginUser = new Trainer(email, username, currency, wins, losses, collectionArray, teamArray);
             }
             return loginUser;
 
@@ -225,11 +327,12 @@ public class DatabaseLoader {
             if (user instanceof Trainer) {
                 //insert all of the data in the user class into the database as a new user
                 try {
-                    statement.executeUpdate("INSERT INTO user_info (email, password, username, login_bonus, win_count, loss_count) VALUES" +
+                    statement.executeUpdate("INSERT INTO user_info (email, password, username, currency, login_bonus, win_count, loss_count) VALUES" +
                             "('" + ((Trainer) user).getEmail() + "', '" +
                             ((Trainer) user).getNewUserPassword() + "', '" +
                             ((Trainer) user).getUsername() + "', " +
-                            "curdate()" + ", " +
+                            ((Trainer) user).getCurrency() + ", " +
+                            "curdate(), " +
                             ((Trainer) user).getWinCount() + ", " +
                             ((Trainer) user).getLossCount() + ");");
                 } catch (SQLException ex) {
@@ -251,6 +354,27 @@ public class DatabaseLoader {
 
         //call to update the user's collection to include their starter
         updateUserCollection(user);
+    }
+
+    /*
+     * Update the users information
+     * Should be called when the user does any action that may effect their user_info
+     */
+    public void updateUser(){
+        connectToDB();
+
+        if (connected){
+            /*
+            try {
+
+            } catch (SQLException ex) {
+                System.out.println("Error executing '' - ");
+                System.out.println(ex);
+            }
+            */
+        }
+
+        disconnectFromDB();
     }
 
     /*
