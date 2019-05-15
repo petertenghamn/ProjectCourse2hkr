@@ -69,7 +69,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pokeDB`.`collection` (
   `user_id` INT(5) NOT NULL,
   `pokemon_id` INT(4) ZEROFILL NOT NULL,
-  `nickname` VARCHAR(16) NULL,
+  `nickname` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`user_id`, `pokemon_id`),
   INDEX `fk_user_has_pokemon_pokemon1_idx` (`pokemon_id` ASC) VISIBLE,
   INDEX `fk_user_has_pokemon_user1_idx` (`user_id` ASC) VISIBLE,
@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`user_has_team` (
   `user_id` INT(5) NOT NULL,
   `collection_user_id` INT(5) NOT NULL,
   `pokemon_id` INT(4) ZEROFILL NOT NULL,
+  `nickname` VARCHAR(16) NOT NULL, 
   PRIMARY KEY (`user_id`, `collection_user_id`, `pokemon_id`),
   INDEX `fk_user_has_user_has_pokemon_user_has_pokemon1_idx` (`collection_user_id` ASC, `pokemon_id` ASC) VISIBLE,
   INDEX `fk_user_has_user_has_pokemon_user1_idx` (`user_id` ASC) VISIBLE,
@@ -145,9 +146,14 @@ INSERT INTO collection (user_id, pokemon_id, nickname) VALUES
 ((SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'), 25, 'ElectroRat');
 
 -- Insert a team for Ash to use
-INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id) VALUES
-((SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'), (SELECT user_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer')), (SELECT pokemon_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer')));
+INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id, nickname) VALUES
+ ((SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'),
+ (SELECT user_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer')),
+ (SELECT pokemon_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer')),
+ (SELECT nickname FROM collection WHERE nickname LIKE 'ElectroRat'));
 
+-- SELECT user_has_team.pokemon_id, collection.nickname FROM user_has_team, collection where user_has_team.user_id = 
+-- (SELECT user_has_team.user_id FROM user WHERE user_info_email LIKE 'ash@trainer');
 
 -- some select commands to test and use in the database loader
 

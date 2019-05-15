@@ -162,7 +162,7 @@ public class DatabaseLoader {
                 //get the team the player has selected
                 ArrayList<PokemonMapper> team = new ArrayList<>();
                 try {
-                    ResultSet userTeam = statement.executeQuery("select collection.pokemon_id, nickname from user_has_team, collection where user_has_team.user_id = collection.user_id and collection.user_id = " + userID + ";");
+                    ResultSet userTeam = statement.executeQuery("select pokemon_id, nickname from user_has_team where user_id like " + userID + ";");
                     while (userTeam.next()) {
                         PokemonMapper pokeID = new PokemonMapper(userTeam.getInt(1), userTeam.getString(2));
                         team.add(pokeID);
@@ -328,8 +328,8 @@ public class DatabaseLoader {
                 ArrayList<PokemonMapper> missingTeam = new ArrayList<>();
                 //check for what is currently stored in the DB
                 try {
-                    ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM user_has_team where user_id = " +
-                            "(SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "');");
+                    ResultSet rs = statement.executeQuery("SELECT user_has_team.pokemon_id, collection.nickname FROM user_has_team, collection where user_has_team.user_id = " +
+                            "(SELECT user_has_team.user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "');");
 
                     while (rs.next()) {
                         PokemonMapper pokemonInDB = new PokemonMapper(rs.getInt(1), rs.getString(2));
@@ -361,10 +361,11 @@ public class DatabaseLoader {
                 //add new pokemon to the users current collection
                 try {
                     for (PokemonMapper p : team) {
-                        statement.executeUpdate("INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id) VALUES " +
+                        statement.executeUpdate("INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id, nickname) VALUES " +
                                 "((SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'), " +
                                 "(SELECT user_id FROM collection WHERE user_id = (SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "')), " +
-                                "pokemon_id = " + p.getId() + ";");
+                                "pokemon_id = " + p.getId() + ", " +
+                                "nickname LIKE '" + p.getNickname() + "';");
                     }
                 } catch (SQLException ex) {
                     System.out.println("Error executing the update - insert into collection!");
