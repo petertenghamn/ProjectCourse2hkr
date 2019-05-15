@@ -59,8 +59,7 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`user` (
   CONSTRAINT `fk_user_user_info`
     FOREIGN KEY (`user_info_email`)
     REFERENCES `pokeDB`.`user_info` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -77,13 +76,11 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`collection` (
   CONSTRAINT `fk_user_has_pokemon_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `pokeDB`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_user_has_pokemon_pokemon1`
     FOREIGN KEY (`pokemon_id`)
     REFERENCES `pokeDB`.`pokemon` (`pokemon_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -100,13 +97,11 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`user_has_team` (
   CONSTRAINT `fk_user_has_user_has_pokemon_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `pokeDB`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_user_has_user_has_pokemon_user_has_pokemon1`
     FOREIGN KEY (`collection_user_id` , `pokemon_id`)
     REFERENCES `pokeDB`.`collection` (`user_id` , `pokemon_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -166,7 +161,14 @@ INSERT INTO user_has_team (user_id, collection_user_id, pokemon_id) VALUES
 -- select pokemon_id, nickname from collection where user_id = (select user.user_id from user where user_info_email like 'ash@trainer');
 
 -- select * from collection;
+-- SELECT * FROM collection where user_id = (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer');
 -- select collection.pokemon_id, nickname from user_has_team, collection where user_has_team.user_id = collection.user_id and collection.user_id = 2;
 
 -- SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer';
 -- SELECT win_count, loss_count FROM user_info WHERE email LIKE 'ash@trainer';
+
+-- DELETE FROM user_has_team WHERE user_id LIKE (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer') AND pokemon_id = 25;
+-- SELECT * FROM user_has_team;
+
+-- DELETE FROM collection WHERE user_id LIKE (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer') AND pokemon_id = 25;
+-- select * from collection;
