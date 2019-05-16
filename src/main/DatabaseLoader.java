@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DatabaseLoader {
 
@@ -85,73 +86,88 @@ public class DatabaseLoader {
      */
     public User[] getTrainers(){
         connectToDB();
+        ArrayList<User> trainers = new ArrayList<>();
 
         if (connected){
             try {
-                ResultSet userInfo = statement.executeQuery("SELECT login_bonus FROM user_info WHERE email LIKE 'ash@trainer';");
-                userInfo.next();
-                Date lastBonus = userInfo.getDate(1);
-                Date today = new Date();
+                ResultSet rs = statement.executeQuery("SELECT email, username, currency, win_count, loss_count FROM user_info INNER JOIN user ON email LIKE user_info_email AND is_professor = '0';");
+                while (rs.next()){
+                    ResultSet userInfo = statement.executeQuery("SELECT user_id FROM user WHERE user_info_email LIKE '" + rs.getString(1) + "';");
+                    userInfo.next();
+                    int userID = userInfo.getInt(1);
 
-                //check to see if last bonus was received on a different day than today
+                    //get the users collection
+                    PokemonMapper[] collection = getUserCollection(userID);
 
+                    //get the users team
+                    PokemonMapper[] team = getUserTeam(userID);
 
+                    //set all info to the user and add him to the array of trainers
+                    trainers.add(new Trainer(rs.getString(1), rs.getString(2), rs.getInt(3),
+                            rs.getInt(4), rs.getInt(5), collection, team));
+                    //String email, String username, int currency, int winCount, int lossCount, PokemonMapper[] collection, PokemonMapper[] team
+                }
             } catch (SQLException ex) {
-                System.out.println("Error executing '' - ");
+                System.out.println("Error executing getTrainers query");
                 System.out.println(ex);
             }
         }
 
         disconnectFromDB();
-        return null;
+        return (User[]) trainers.toArray();
     }
 
     /*
      * Get the collection of a User requested
      * Mainly used for professor since a Trainer gets their collection when logging in
      *
-     * @return Pokemon[]
+     * @return PokemonMapper[]
      */
-    public Pokemon[] getUserCollection(){
+    public PokemonMapper[] getUserCollection(int userID){
         connectToDB();
+        ArrayList<PokemonMapper> collection = new ArrayList<>();
 
         if (connected){
-            /*
             try {
-
+                ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM collection WHERE user_id LIKE '" + userID + "';");
+                while (rs.next()){
+                    collection.add(new PokemonMapper(rs.getInt(1), rs.getString(2)));
+                }
             } catch (SQLException ex) {
-                System.out.println("Error executing '' - ");
+                System.out.println("Error executing getUserCollection query!");
                 System.out.println(ex);
             }
-            */
         }
 
         disconnectFromDB();
-        return null;
+        return (PokemonMapper[]) collection.toArray();
     }
 
     /*
      * Get the team of a User requested
      * trainer can get the team of an opponent here, or a professor can get it to inspect
      *
-     * @return Pokemon[]
+     * @return PokemonMapper[]
      */
-    public Pokemon[] getUserTeam(){
+    public PokemonMapper[] getUserTeam(int userID){
         connectToDB();
+        ArrayList<PokemonMapper> team = new ArrayList<>();
 
         if (connected){
-            /*
             try {
-
+                ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON " +
+                        "collection.user_id LIKE user_has_team.user_id AND collection.user_id LIKE '" + userID + "';");
+                while (rs.next()){
+                    team.add(new PokemonMapper(rs.getInt(1), rs.getString(2)));
+                }
             } catch (SQLException ex) {
-                System.out.println("Error executing '' - ");
+                System.out.println("Error executing getUserTeam query");
                 System.out.println(ex);
             }
-            */
         }
 
         disconnectFromDB();
-        return null;
+        return (PokemonMapper[]) team.toArray();
     }
 
     /*
@@ -160,23 +176,29 @@ public class DatabaseLoader {
      *
      * @return boolean
      */
-    public boolean loginBonusCheck(){
-        boolean dailyReward = false;
+    public boolean loginBonusCheck(String email){
         connectToDB();
 
         if (connected){
-            /*
             try {
+                ResultSet userInfo = statement.executeQuery("SELECT login_bonus FROM user_info WHERE email LIKE '" + email + "';");
+                userInfo.next();
+                java.util.Date lastBonus = userInfo.getDate(1);
+                Date yesterday = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1));
 
+                //check to see if last bonus was received more than 24 hours ago
+                if (lastBonus.before(yesterday)){
+                    disconnectFromDB();
+                    return true;
+                }
             } catch (SQLException ex) {
                 System.out.println("Error executing '' - ");
                 System.out.println(ex);
             }
-            */
         }
 
         disconnectFromDB();
-        return dailyReward;
+        return false;
     }
 
     /*
@@ -357,21 +379,48 @@ public class DatabaseLoader {
     }
 
     /*
+     * Update the trainers login bonus date
+     */
+    public void trainerClaimLoginBonus(User user){
+        connectToDB();
+
+        if (connected) {
+            if (user instanceof Trainer) {
+                try {
+                    statement.executeUpdate("UPDATE user_info SET login_bonus = curdate() WHERE email LIKE '" + ((Trainer) user).getEmail() + "';");
+                } catch (SQLException ex) {
+                    System.out.println("Error executing updateUser query");
+                    System.out.println(ex);
+                }
+            }
+        }
+
+        disconnectFromDB();
+    }
+
+    /*
      * Update the users information
      * Should be called when the user does any action that may effect their user_info
      */
-    public void updateUser(){
+    public void updateUser(User user){
         connectToDB();
 
-        if (connected){
-            /*
-            try {
-
-            } catch (SQLException ex) {
-                System.out.println("Error executing '' - ");
-                System.out.println(ex);
+        if (connected) {
+            if (user instanceof Trainer) {
+                try {
+                    statement.executeUpdate("UPDATE user_info SET" +
+                            " currency = " + ((Trainer) user).getCurrency() + "," +
+                            " win_count = " + ((Trainer) user).getWinCount() + "," +
+                            " loss_count = " + ((Trainer) user).getLossCount() +
+                            " WHERE email LIKE '" + ((Trainer) user).getEmail() + "';");
+                } catch (SQLException ex) {
+                    System.out.println("Error executing updateUser query");
+                    System.out.println(ex);
+                }
             }
-            */
+            else {
+                System.out.println("Professor doesn't need to be updated yet...");
+            }
         }
 
         disconnectFromDB();
