@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`user_info` (
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(30) NOT NULL,
   `username` VARCHAR(16) NULL DEFAULT NULL,
+  `currency` INT(7) NULL DEFAULT NULL,
   `login_bonus` DATE NULL DEFAULT NULL,
   `win_count` INT(6) NULL DEFAULT NULL,
   `loss_count` INT(6) NULL DEFAULT NULL,
@@ -116,8 +117,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 insert into user_info (email, password) values 
 ('oak@professor', '12345');
 
-insert into user_info (email, password, username, login_bonus, win_count, loss_count) values
-('ash@trainer', '12345', 'Ash', curdate(), 0, 0);
+insert into user_info (email, password, username, currency, login_bonus, win_count, loss_count) values
+('ash@trainer', '12345', 'Ash', 100, curdate(), 0, 0);
 
 -- Create stats for the test users to use
 insert into user (is_professor, user_info_email) values
@@ -154,18 +155,22 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
  
 -- some select commands to test and use in the database loader
 
- -- SELECT user_has_team.pokemon_id, collection.nickname FROM user_has_team, collection where user_has_team.user_id = 
+-- SELECT user_has_team.pokemon_id, collection.nickname FROM user_has_team, collection where user_has_team.user_id = 
 -- (SELECT user_has_team.user_id FROM user WHERE user_info_email LIKE 'ash@trainer');
 
 -- select * from user;
 -- select * from user_info;
 -- select * from pokemon;
+-- select * from collection;
 -- select * from user_has_team;
 
-SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON collection.user_id LIKE user_has_team.user_id AND collection.nickname LIKE user_has_team.collection_nickname;
+-- SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON collection.user_id LIKE user_has_team.user_id AND collection.nickname LIKE user_has_team.collection_nickname;
+-- SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON collection.user_id LIKE user_has_team.user_id AND collection.user_id LIKE '2';
+-- SELECT email, username, currency, win_count, loss_count FROM user_info INNER JOIN user ON email LIKE user_info_email AND is_professor = '0';
 
 -- select is_professor, email, password, user_id from user, user_info where user.user_info_email like user_info.email;
 -- select email, username, login_bonus, win_count, loss_count from user_info where email like 'ash@trainer';
+-- SELECT login_bonus FROM user_info WHERE email LIKE 'ash@trainer';
 -- select pokemon_id, nickname from collection where user_id = (select user.user_id from user where user_info_email like 'ash@trainer');
 
 -- select * from collection;
@@ -180,3 +185,6 @@ SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON collecti
 
 -- DELETE FROM collection WHERE user_id LIKE (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer') AND pokemon_id = 25;
 -- select * from collection;
+
+-- UPDATE user_info SET currency = 250, login_bonus = curdate(), win_count = 1, loss_count = 2 WHERE email LIKE 'ash@trainer';
+-- select * from user_info;

@@ -114,6 +114,7 @@ public class Main extends Application {
         if (currentUser != null) {
             if (currentUser instanceof Trainer){
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+                System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
             }
             else if (currentUser instanceof Professor){
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
