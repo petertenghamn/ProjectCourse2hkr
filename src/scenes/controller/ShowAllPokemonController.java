@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Main;
 import main.pokemon.Pokemon;
@@ -33,6 +32,24 @@ public class ShowAllPokemonController implements Controller {
     // This Scene will be used by both the professor and the trainer in order to show all the Pokemon in the Database
     // The trainer will be able to then be able to see the "buy" button while the professor can't
 
+    @FXML
+    Button btnBuy;
+    @FXML
+    ListView<String> listView;
+    @FXML
+    Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed;
+    @FXML
+    ImageView imageView;
+    // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
+    // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
+    @FXML
+    Label lblNickname;
+    @FXML
+    TextField txtNickname;
+    @FXML
+    Button btnNoNickname, btnNickname, btnSelect, btnGetNewPokemon;
+    @FXML
+    ImageView pokeBall;
     private Main main;
     private Boolean canBuy = true;
 
@@ -67,13 +84,13 @@ public class ShowAllPokemonController implements Controller {
         Image image = new Image("scenes/view/images/pokeLogo.png");
         imageView.setImage(image);
 
-        lblName.setText("");
-        lblAtk.setText("");
-        lblDf.setText("");
-        lblType.setText("");
-        lblID.setText("");
-        lblSpeed.setText("");
-        lblHP.setText("");
+        lblName.setText("0");
+        lblAtk.setText("0");
+        lblDf.setText("0");
+        lblType.setText("0");
+        lblID.setText("0");
+        lblSpeed.setText("0");
+        lblHP.setText("0");
 
         lblNickname.setVisible(false);
         txtNickname.setVisible(false);
@@ -84,21 +101,10 @@ public class ShowAllPokemonController implements Controller {
         txtNickname.clear();
 
         btnSelect.setVisible(true);
-
+        btnGetNewPokemon.setVisible(false);
+        imageView.setVisible(true);
         pokeBall.setVisible(false);
     }
-
-    @FXML
-    Button btnBuy;
-
-    @FXML
-    ListView<String> listView;
-
-    @FXML
-    Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed;
-
-    @FXML
-    ImageView imageView;
 
     private void showPokemonCollection() {
         Pokemon[] allPokemon = main.getAllPokemon();
@@ -150,20 +156,6 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
-    // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
-    // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
-    @FXML
-    Label lblNickname;
-
-    @FXML
-    TextField txtNickname;
-
-    @FXML
-    Button btnNoNickname, btnNickname, btnSelect;
-
-    @FXML
-    Circle pokeBall;
-
     public void reArrangeScene() {
         lblNickname.setText("Give your new friend a nickname!");
         lblNickname.setVisible(true);
@@ -181,11 +173,10 @@ public class ShowAllPokemonController implements Controller {
                 main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText());
             }
         }
-
         catchPokemon();
     }
 
-    public void pokemonNoNickname(){
+    public void pokemonNoNickname() {
         Pokemon[] allPokemon = main.getAllPokemon();
 
         for (Pokemon pokemon : allPokemon) {
@@ -193,28 +184,38 @@ public class ShowAllPokemonController implements Controller {
                 main.acquirePokemon(pokemon.getIdTag(), null);
             }
         }
-
         catchPokemon();
     }
 
-    // Adds an animation of a pokeball to catch the pokemon
-    private void catchPokemon(){
+    private void catchPokemon() {
         pokeBall.setVisible(true);
         btnNickname.setVisible(false);
         btnNoNickname.setVisible(false);
 
-        RotateTransition animation = new RotateTransition(Duration.millis(750), pokeBall);
 
-        animation.setFromAngle(0);
-        animation.setToAngle(25);
-        animation.setCycleCount(5);
-        animation.setAutoReverse(true);
-        animation.play();
+        lblNickname.setText("Pokemon caught!");
 
-        lblNickname.setText("Pokemon Caught!");
-
+        txtNickname.setVisible(false);
         imageView.setVisible(false);
         btnBuy.setVisible(false);
         btnSelect.setVisible(false);
+        btnGetNewPokemon.setVisible(true);
+    }
+
+    public void getNewPokemon() {
+        pokeBall.setVisible(false);
+        btnNickname.setVisible(false);
+        btnNoNickname.setVisible(false);
+
+        lblNickname.setText("Pokemon caught!");
+
+        imageView.setVisible(true);
+        btnBuy.setVisible(true);
+        btnSelect.setVisible(true);
+        lblNickname.setVisible(false);
+        txtNickname.setVisible(false);
+        txtNickname.clear();
+        btnGetNewPokemon.setVisible(false);
     }
 }
+

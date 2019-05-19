@@ -80,6 +80,32 @@
     -fx-font: 20px Garamond;
 }
 
+#lblNickname {
+    -fx-font: 30px Garamond;
+}
+
+#btnNoNickname {
+    -fx-font: 15px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnNoNickname:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnNickname {
+    -fx-font: 15px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnNickname:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
 #btnShowAllPokemon {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
@@ -120,6 +146,17 @@
 }
 
 #btnBuy:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnGetNewPokemon {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnGetNewPokemon:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
