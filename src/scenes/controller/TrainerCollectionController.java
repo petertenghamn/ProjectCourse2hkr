@@ -27,6 +27,12 @@ public class TrainerCollectionController implements Controller {
     //
     // * Team can only be Max 6 Pokemons
 
+    @FXML
+    ImageView imageView;
+    @FXML
+    ListView<String> listCollection, listTeam;
+    @FXML
+    Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed;
     private Main main;
     private ShowAllPokemonController showAll = new ShowAllPokemonController();
 
@@ -37,7 +43,7 @@ public class TrainerCollectionController implements Controller {
     }
 
     @Override
-    public void setUp(){
+    public void setUp() {
         updateListCollection();
         updateListTeam();
     }
@@ -65,15 +71,6 @@ public class TrainerCollectionController implements Controller {
     public void backTrainerMenu() {
         main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
     }
-
-    @FXML
-    ImageView imageView;
-
-    @FXML
-    ListView<String> listCollection, listTeam;
-
-    @FXML
-    Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed;
 
     public void updateListCollection() {
         User user = main.getCurrentUser();
@@ -151,14 +148,14 @@ public class TrainerCollectionController implements Controller {
 
     // This adds the selected pokemon from the collection to the team
     // ** DOES NOT UPDATE THE DATABASE YET
-    public void addTeam(){
+    public void addTeam() {
         User user = main.getCurrentUser();
 
         ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
         int loop = 0;
 
-        for (PokemonMapper mapper : collection){
+        for (PokemonMapper mapper : collection) {
             if (mapper.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
                 // Makes sure that the pokemon isn't already in the team
                 if (!mapper.getNickname().equalsIgnoreCase(team.get(loop).getNickname())) {

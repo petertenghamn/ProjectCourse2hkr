@@ -9,29 +9,22 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anc" prefHeight="835.0" prefWidth="1200.0"
-            stylesheets="@images/Login.css" xmlns="http://javafx.com/javafx/10.0.1"
-            fx:controller="scenes.controller.LoginController">
+<AnchorPane fx:id="anc" prefHeight="835.0" prefWidth="1200.0" stylesheets="@images/Login.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.LoginController">
     <children>
-        <Label fx:id="labelEmail" layoutX="361.0" layoutY="466.0" text="Email:"/>
-        <TextField fx:id="txtFieldUsername" layoutX="355.0" layoutY="507.0" prefHeight="25.0" prefWidth="476.0"
-                   promptText="Email"/>
-        <Label fx:id="labelPassword" layoutX="361.0" layoutY="558.0" text="Password:"/>
-        <PasswordField fx:id="txtFieldPassword" layoutX="355.0" layoutY="602.0" prefHeight="25.0" prefWidth="476.0"
-                       promptText="Password"/>
-        <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="511.0" layoutY="657.0" mnemonicParsing="false"
-                onAction="#loginRequest" prefHeight="55.0" prefWidth="150.0" text="Login"/>
-        <ImageView fx:id="imgView" fitHeight="129.0" fitWidth="136.0" layoutX="521.0" layoutY="117.0"
-                   pickOnBounds="true" preserveRatio="true">
+        <Label fx:id="labelEmail" layoutX="361.0" layoutY="466.0" text="Email:" />
+        <TextField fx:id="txtFieldUsername" layoutX="355.0" layoutY="507.0" prefHeight="25.0" prefWidth="476.0" promptText="Email" />
+        <Label fx:id="labelPassword" layoutX="361.0" layoutY="558.0" text="Password:" />
+        <PasswordField fx:id="txtFieldPassword" layoutX="355.0" layoutY="602.0" prefHeight="25.0" prefWidth="476.0" promptText="Password" />
+        <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="511.0" layoutY="657.0" mnemonicParsing="false" onAction="#loginRequest" prefHeight="55.0" prefWidth="150.0" text="Login" />
+        <ImageView fx:id="imgView" fitHeight="129.0" fitWidth="136.0" layoutX="521.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@images/pokeLogo2.png"/>
+                <Image url="@images/pokeLogo2.png" />
             </image>
             <effect>
-                <Blend/>
+                <Blend />
             </effect>
         </ImageView>
-        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="461.0" layoutY="735.0" mnemonicParsing="false"
-                onAction="#newUser"
-                prefHeight="60.0" prefWidth="250.0" text="Create Account"/>
+        <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="461.0" layoutY="735.0" mnemonicParsing="false" onAction="#newUser" prefHeight="60.0" prefWidth="250.0" text="Create Account" />
+      <Label fx:id="lblErrorLogin" alignment="CENTER" layoutX="355.0" layoutY="541.0" prefHeight="17.0" prefWidth="476.0" textAlignment="CENTER" textFill="RED" />
     </children>
 </AnchorPane>

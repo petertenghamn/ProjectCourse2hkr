@@ -49,7 +49,7 @@ public class NewUserController implements Controller {
                 errorLabelPassword.setText("Passwords DO NOT match!");
             }
         }
-        if(!email.getText().contains("@")){
+        if (!email.getText().contains("@")){
             errorLabelEmail.setText("The email needs to contain an @");
         }
         if (username.getText().isEmpty()){

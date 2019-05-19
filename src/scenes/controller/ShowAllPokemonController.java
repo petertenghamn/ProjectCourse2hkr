@@ -1,22 +1,14 @@
 package scenes.controller;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.FillTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
-import javafx.util.Duration;
 import main.Main;
 import main.pokemon.Pokemon;
 import main.scenemanager.SceneManager;
@@ -25,7 +17,7 @@ import main.users.Trainer;
 import main.users.User;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 
 public class ShowAllPokemonController implements Controller {
 
@@ -43,7 +35,7 @@ public class ShowAllPokemonController implements Controller {
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
-    Label lblNickname;
+    Label lblNickname, lblError;
     @FXML
     TextField txtNickname;
     @FXML
@@ -75,6 +67,7 @@ public class ShowAllPokemonController implements Controller {
         txtNickname.setVisible(false);
         btnNoNickname.setVisible(false);
         btnNickname.setVisible(false);
+        lblError.setVisible(false);
     }
 
     @Override
@@ -104,6 +97,7 @@ public class ShowAllPokemonController implements Controller {
         btnGetNewPokemon.setVisible(false);
         imageView.setVisible(true);
         pokeBall.setVisible(false);
+        lblError.setVisible(false);
     }
 
     private void showPokemonCollection() {
@@ -119,7 +113,15 @@ public class ShowAllPokemonController implements Controller {
     }
 
     public void showPokemon() {
-        btnBuy.setVisible(true);
+
+
+        if (main.getCurrentUser() instanceof Professor) {
+            btnBuy.setVisible(false);
+        } else if (main.getCurrentUser() instanceof Trainer) {
+            btnBuy.setVisible(true);
+        }
+
+        lblError.setVisible(false);
 
         // THE ONLY POKEMON IMPLEMENTED FULLY SO FAR ARE THE THREE STARTERS! AS A PROOF OF CONCEPT
         showStats(listView.getSelectionModel().getSelectedItem());
@@ -168,12 +170,18 @@ public class ShowAllPokemonController implements Controller {
     public void pokemonNickname() {
         Pokemon[] allPokemon = main.getAllPokemon();
 
+
         for (Pokemon pokemon : allPokemon) {
-            if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
+            if (txtNickname.getText().isEmpty()) {
+                lblError.setVisible(true);
+                lblError.setText("Nickname is empty!");
+            } else if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
                 main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText());
+            } else {
+                catchPokemon();
+                lblError.setVisible(false);
             }
         }
-        catchPokemon();
     }
 
     public void pokemonNoNickname() {
@@ -185,6 +193,7 @@ public class ShowAllPokemonController implements Controller {
             }
         }
         catchPokemon();
+        lblError.setVisible(false);
     }
 
     private void catchPokemon() {
@@ -217,5 +226,8 @@ public class ShowAllPokemonController implements Controller {
         txtNickname.clear();
         btnGetNewPokemon.setVisible(false);
     }
+
+//    public void help()
+
 }
 
