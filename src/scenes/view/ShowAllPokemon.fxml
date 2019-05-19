@@ -75,7 +75,7 @@
                         <Image url="@images/pokeLogo.png"/>
                     </image>
                 </ImageView>
-                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="98.0" layoutY="45.0"
+                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="104.0" layoutY="72.0"
                            pickOnBounds="true" preserveRatio="true" visible="false">
                     <image>
                         <Image url="@images/pokeball.gif"/>
@@ -84,11 +84,14 @@
                 <Button fx:id="btnNickname" blendMode="MULTIPLY" layoutX="372.0" layoutY="269.0" mnemonicParsing="false"
                         onAction="#pokemonNickname" text="Ok" visible="false"/>
                 <TextField fx:id="txtNickname" blendMode="MULTIPLY" layoutX="138.0" layoutY="274.0" prefHeight="25.0"
-                           prefWidth="218.0" text="Choose a name" visible="false"/>
+                           prefWidth="218.0" promptText="Choose a name" visible="false"/>
                 <Button fx:id="btnNoNickname" blendMode="MULTIPLY" layoutX="15.0" layoutY="269.0"
                         mnemonicParsing="false" onAction="#pokemonNoNickname" text="Keep its name" visible="false"/>
-                <Label fx:id="lblNickname" contentDisplay="CENTER" layoutX="35.0" layoutY="20.0"
-                       text="Give your new friend a nickname!" visible="false"/>
+                <Label fx:id="lblNickname" alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="35.0"
+                       prefWidth="456.0" text="Give your new friend a nickname!" textAlignment="CENTER"
+                       visible="false"/>
+                <Label fx:id="lblError" alignment="CENTER" layoutY="306.0" prefHeight="17.0" prefWidth="456.0"
+                       textAlignment="CENTER" textFill="#eb0000" visible="false"/>
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="258.0" layoutY="54.0" mnemonicParsing="false"
