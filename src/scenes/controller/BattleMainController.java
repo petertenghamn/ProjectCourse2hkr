@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -88,6 +89,20 @@ public class BattleMainController implements Controller {
         btnSwitch.setVisible(true);
 
         fighting = false;
+
+        teamBall1.setVisible(true);
+        teamBall2.setVisible(true);
+        teamBall3.setVisible(true);
+        teamBall4.setVisible(true);
+        teamBall5.setVisible(true);
+        teamBall6.setVisible(true);
+
+        enemyBall1.setVisible(true);
+        enemyBall2.setVisible(true);
+        enemyBall3.setVisible(true);
+        enemyBall4.setVisible(true);
+        enemyBall5.setVisible(true);
+        enemyBall6.setVisible(true);
     }
 
     private Main main;
@@ -237,33 +252,33 @@ public class BattleMainController implements Controller {
                 switch (enemyRemaining) {
                     case 1: {
                         enemyRemaining = 0;
-                        enemyBall1.setFill(Paint.valueOf("Black"));
+                        enemyBall1.setVisible(false);
                         endBattle();
                         break;
                     }
                     case 2: {
                         enemyRemaining = 1;
-                        enemyBall2.setFill(Paint.valueOf("Black"));
+                        enemyBall2.setVisible(false);
                         break;
                     }
                     case 3: {
                         enemyRemaining = 2;
-                        enemyBall3.setFill(Paint.valueOf("Black"));
+                        enemyBall3.setVisible(false);
                         break;
                     }
                     case 4: {
                         enemyRemaining = 3;
-                        enemyBall4.setFill(Paint.valueOf("Black"));
+                        enemyBall4.setVisible(false);
                         break;
                     }
                     case 5: {
                         enemyRemaining = 4;
-                        enemyBall5.setFill(Paint.valueOf("Black"));
+                        enemyBall5.setVisible(false);
                         break;
                     }
                     case 6: {
                         enemyRemaining = 5;
-                        enemyBall6.setFill(Paint.valueOf("Black"));
+                        enemyBall6.setVisible(false);
                         break;
                     }
                     default: {
@@ -282,28 +297,28 @@ public class BattleMainController implements Controller {
             if (userHP <= 0) {
                 switch (pokemonRemaining) {
                     case 1: {
-                        teamBall1.setFill(Paint.valueOf("Black"));
+                        teamBall1.setVisible(false);
                         endBattle();
                         break;
                     }
                     case 2: {
-                        teamBall2.setFill(Paint.valueOf("Black"));
+                        teamBall2.setVisible(false);
                         break;
                     }
                     case 3: {
-                        teamBall3.setFill(Paint.valueOf("Black"));
+                        teamBall3.setVisible(false);
                         break;
                     }
                     case 4: {
-                        teamBall4.setFill(Paint.valueOf("Black"));
+                        teamBall4.setVisible(false);
                         break;
                     }
                     case 5: {
-                        teamBall5.setFill(Paint.valueOf("Black"));
+                        teamBall5.setVisible(false);
                         break;
                     }
                     case 6: {
-                        teamBall6.setFill(Paint.valueOf("Black"));
+                        teamBall6.setVisible(false);
                         break;
                     }
                     default: {

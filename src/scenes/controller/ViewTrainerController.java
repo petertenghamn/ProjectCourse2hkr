@@ -3,7 +3,7 @@ package scenes.controller;
 import main.Main;
 import main.scenemanager.SceneManager;
 
-public class ProfessorMenuController implements Controller {
+public class ViewTrainerController implements Controller{
 
     @Override
     public void setMain(Main m){
@@ -23,15 +23,9 @@ public class ProfessorMenuController implements Controller {
 
     private Main main;
 
-    public void showTrainers(){
-        main.requestSceneChange(SceneManager.sceneName.VIEWTRAINER);
+    public void backToProfessorMenu() {
+        main.requestSceneChange(SceneManager.sceneName.PROFESSORMENU);
     }
 
-    public void viewAllPokemon(){
-        main.requestSceneChange(SceneManager.sceneName.SHOWALLPOKEMON);
-    }
 
-    public void logoutButton(){
-        main.logoutUser();
-    }
 }
