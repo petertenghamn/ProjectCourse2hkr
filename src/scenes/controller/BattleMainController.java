@@ -461,7 +461,8 @@ public class BattleMainController implements Controller {
         btnFlee.setVisible(false);
         btnSwitch.setVisible(false);
 
-        battleMessages.add("The battle is over you can stay and review what happened or you can hit the back button");
+        battleMessages.add("The battle is over you can stay and review what happened");
+        battleMessages.add("When you're ready hit the back button");
         updateMessageBoard();
     }
 }

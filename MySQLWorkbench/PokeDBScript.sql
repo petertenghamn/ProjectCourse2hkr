@@ -128,19 +128,19 @@ insert into user (is_professor, user_info_email) values
 
 -- Insert pokemon to use
 insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, second_type, cost) values
-(1, 'Bulbasaur', 100, 10, 10, 10, 'Grass', 'Poison', 50),
-(2, 'Ivysaur', 100, 10, 10, 10, 'Grass', 'Poison', 75),
-(3, 'Venusaur', 100, 10, 10, 10, 'Grass', 'Poison', 100),
-(6, 'Charizard', 100, 10, 10, 10, 'Fire', 'Flying', 100);
+(1, 'Bulbasaur', 45, 4, 4, 45, 'Grass', 'Poison', 50),
+(2, 'Ivysaur', 60, 6, 6, 60, 'Grass', 'Poison', 75),
+(3, 'Venusaur', 80, 8, 8, 80, 'Grass', 'Poison', 100),
+(6, 'Charizard', 78, 8, 7, 100, 'Fire', 'Flying', 100);
 
 insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) values
-(4, 'Charmander', 100, 10, 10, 10, 'Fire', 50),
-(5, 'Charmeleon', 100, 10, 10, 10, 'Fire', 75),
-(7, 'Squirtle', 100, 10, 10, 10, 'Water', 50),
-(8, 'Wartortle', 100, 10, 10, 10, 'Water', 75),
-(9, 'Blastoise', 100, 10, 10, 10, 'Water', 100),
-(25, 'Pikachu', 100, 10, 10, 10, 'Electric', 100),
-(26, 'Raichu', 100, 10, 10, 10, 'Electric', 100);
+(4, 'Charmander', 39, 5, 4, 65, 'Fire', 50),
+(5, 'Charmeleon', 58, 6, 5, 80, 'Fire', 75),
+(7, 'Squirtle', 44, 4, 6, 43, 'Water', 50),
+(8, 'Wartortle', 59, 6, 8, 58, 'Water', 75),
+(9, 'Blastoise', 79, 8, 10, 78, 'Water', 100),
+(25, 'Pikachu', 100, 5, 4, 90, 'Electric', 100),
+(26, 'Raichu', 60, 9, 5, 110, 'Electric', 100);
 
 
 -- Insert some pokemon for the Trainer Ash to own
