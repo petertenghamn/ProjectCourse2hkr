@@ -147,27 +147,31 @@ public class Main extends Application {
     public void acquirePokemon(int pokemonID, String nickname) {
         ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
 
+        // checks to see if its adding the first pokemon
+        if (collection.size() == 0) {
+            pokeDB.createNewUser(currentUser);
+            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        }
+
         //cannot have a null name when inserting into DB
         if (nickname == null) {
             nickname = getPokemonById(pokemonID).getName();
         }
 
-        for (PokemonMapper mappedPokemon : collection) {
-            // Checks if there are pokemon with that nickname in your collection already
-            if (!mappedPokemon.getNickname().equalsIgnoreCase(nickname)) {
-                //attach the selected starter to the trainer that choose it, then proceed to trainer menu
-                PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
-                ((Trainer) currentUser).addToCollection(caughtPokemon);
-                break; // Needed or else it breaks the for loop
-            } else {
-                System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
+        //check if nickname is already being used
+        boolean exists = false;
+        for (PokemonMapper mappedPokemon : collection){
+            if (mappedPokemon.getNickname().equals(nickname)){
+                exists = true;
             }
         }
 
-        // Later will move this part of the code
-        if (((Trainer) currentUser).getCollection().size() == 0) {
-            pokeDB.createNewUser(currentUser);
-            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        //give result
+        if (!exists){
+            PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
+            ((Trainer) currentUser).addToCollection(caughtPokemon);
+        } else {
+            System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
         }
     }
 

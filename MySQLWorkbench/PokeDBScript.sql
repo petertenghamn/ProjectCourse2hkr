@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`pokemon` (
   `speed` INT(4) NOT NULL,
   `first_type` ENUM('', 'Bug', 'Dragon', 'Electric', 'Fighting', 'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice', 'Normal', 'Poison', 'Psychic', 'Rock', 'Water') NOT NULL DEFAULT '',
   `second_type` ENUM('', 'Bug', 'Dragon', 'Electric', 'Fighting', 'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice', 'Normal', 'Poison', 'Psychic', 'Rock', 'Water') NOT NULL DEFAULT '',
+  `cost` INT(3) NOT NULL DEFAULT 50,
   PRIMARY KEY (`pokemon_id`))
 ENGINE = InnoDB;
 
@@ -126,20 +127,20 @@ insert into user (is_professor, user_info_email) values
 (false, 'ash@trainer');
 
 -- Insert pokemon to use
-insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, second_type) values
-(1, 'Bulbasaur', 100, 10, 10, 10, 'Grass', 'Poison'),
-(2, 'Ivysaur', 100, 10, 10, 10, 'Grass', 'Poison'),
-(3, 'Venusaur', 100, 10, 10, 10, 'Grass', 'Poison'),
-(6, 'Charizard', 100, 10, 10, 10, 'Fire', 'Flying');
+insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, second_type, cost) values
+(1, 'Bulbasaur', 100, 10, 10, 10, 'Grass', 'Poison', 50),
+(2, 'Ivysaur', 100, 10, 10, 10, 'Grass', 'Poison', 75),
+(3, 'Venusaur', 100, 10, 10, 10, 'Grass', 'Poison', 100),
+(6, 'Charizard', 100, 10, 10, 10, 'Fire', 'Flying', 100);
 
-insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type) values
-(4, 'Charmander', 100, 10, 10, 10, 'Fire'),
-(5, 'Charmeleon', 100, 10, 10, 10, 'Fire'),
-(7, 'Squirtle', 100, 10, 10, 10, 'Water'),
-(8, 'Wartortle', 100, 10, 10, 10, 'Water'),
-(9, 'Blastoise', 100, 10, 10, 10, 'Water'),
-(25, 'Pikachu', 100, 10, 10, 10, 'Electric'),
-(26, 'Raichu', 100, 10, 10, 10, 'Electric');
+insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) values
+(4, 'Charmander', 100, 10, 10, 10, 'Fire', 50),
+(5, 'Charmeleon', 100, 10, 10, 10, 'Fire', 75),
+(7, 'Squirtle', 100, 10, 10, 10, 'Water', 50),
+(8, 'Wartortle', 100, 10, 10, 10, 'Water', 75),
+(9, 'Blastoise', 100, 10, 10, 10, 'Water', 100),
+(25, 'Pikachu', 100, 10, 10, 10, 'Electric', 100),
+(26, 'Raichu', 100, 10, 10, 10, 'Electric', 100);
 
 
 -- Insert some pokemon for the Trainer Ash to own
