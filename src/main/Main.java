@@ -25,6 +25,9 @@ public class Main extends Application {
     //stored list of all pokemon retrieved from the database
     private ArrayList<Pokemon> allPokemon;
 
+    //List of All Trainers in the program
+    private User[] allTrainers;
+
     /*
      * Main method, Java startup
      */
@@ -93,6 +96,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         pokeDB = new DatabaseLoader();
         allPokemon = pokeDB.loadAllPokemon();
+
+        // NEEDS TO BE UNCOMMENTED LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //allTrainers = pokeDB.getTrainers();
         manager = new SceneManager(this, primaryStage);
     }
 
@@ -225,5 +231,9 @@ public class Main extends Application {
         }
 
         return image;
+    }
+
+    public User[] getTrainers(){
+        return allTrainers;
     }
 }

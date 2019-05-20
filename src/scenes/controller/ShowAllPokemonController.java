@@ -113,8 +113,6 @@ public class ShowAllPokemonController implements Controller {
     }
 
     public void showPokemon() {
-
-
         if (main.getCurrentUser() instanceof Professor) {
             btnBuy.setVisible(false);
         } else if (main.getCurrentUser() instanceof Trainer) {

@@ -18,7 +18,7 @@ public class SceneManager {
     private Scene primaryScene;
 
     //enum to store all the names of possible scenes to change to
-    public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU, SHOWALLPOKEMON, TRAINERCOLLECTION, BATTLEMAIN }
+    public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU, SHOWALLPOKEMON, TRAINERCOLLECTION, BATTLEMAIN, VIEWTRAINER }
     private sceneName getEnumFromID(String id){
         //setup each menu to an enum so its easier to call on them later
         if (id.equalsIgnoreCase("login")){
@@ -51,6 +51,10 @@ public class SceneManager {
         else if (id.equalsIgnoreCase("professormenu")){
             return sceneName.PROFESSORMENU;
         }
+        else if (id.equalsIgnoreCase("viewtrainer")){
+            return sceneName.VIEWTRAINER;
+        }
+
         else {
             System.out.println("Missing enum assignment in SceneManager: " + id);
             return sceneName.MISSING;
