@@ -20,7 +20,7 @@ USE `pokeDB`;
 -- Table `pokeDB`.`pokemon`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pokeDB`.`pokemon` (
-  `pokemon_id` INT(4) UNSIGNED ZEROFILL NOT NULL,
+  `pokemon_id` INT(4) NOT NULL,
   `name` VARCHAR(15) NOT NULL,
   `health` INT(4) NOT NULL,
   `attack` INT(4) NOT NULL,
@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pokeDB`.`collection` (
   `nickname` VARCHAR(16) NOT NULL,
   `user_id` INT(5) NOT NULL,
-  `pokemon_id` INT(4) UNSIGNED ZEROFILL NOT NULL,
+  `pokemon_id` INT(4) NOT NULL,
   PRIMARY KEY (`nickname`, `user_id`, `pokemon_id`),
   INDEX `fk_collection_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_collection_pokemon1_idx` (`pokemon_id` ASC) VISIBLE,
@@ -119,7 +119,7 @@ insert into user_info (email, password) values
 ('oak@professor', '12345');
 
 insert into user_info (email, password, username, currency, login_bonus, win_count, loss_count) values
-('ash@trainer', '12345', 'Ash', 100, curdate(), 0, 0);
+('ash@trainer', '12345', 'Ash', 300, curdate(), 0, 0);
 
 -- Create stats for the test users to use
 insert into user (is_professor, user_info_email) values
@@ -145,7 +145,7 @@ insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_typ
 
 -- Insert some pokemon for the Trainer Ash to own
 INSERT INTO collection (nickname, user_id, pokemon_id) VALUES
-('ElectroRat', (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'), 25);
+('ElectroRat', (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'), 0025);
 
 -- Insert a team for Ash to use
 INSERT INTO user_has_team (collection_nickname, user_id) VALUES
@@ -159,9 +159,12 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- SELECT user_has_team.pokemon_id, collection.nickname FROM user_has_team, collection where user_has_team.user_id = 
 -- (SELECT user_has_team.user_id FROM user WHERE user_info_email LIKE 'ash@trainer');
 
+ -- UPDATE user_info SET currency = 500 WHERE email LIKE 'peter@hkr';
+
 -- select * from user;
 -- select * from user_info;
--- select * from pokemon;
+ select * from pokemon;
+-- SELECT cost FROM pokemon WHERE pokemon_id = 1;
 -- select * from collection;
 -- select * from user_has_team;
 
@@ -188,4 +191,6 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- select * from collection;
 
 -- UPDATE user_info SET currency = 250, login_bonus = curdate(), win_count = 1, loss_count = 2 WHERE email LIKE 'ash@trainer';
+-- UPDATE user_info SET login_bonus = '2019-05-09' WHERE email LIKE 'ash@trainer';
+-- UPDATE user_info SET login_bonus = curdate() WHERE email LIKE 'ash@trainer';
 -- select * from user_info;

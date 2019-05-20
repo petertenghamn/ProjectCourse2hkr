@@ -101,7 +101,7 @@ public class ShowAllPokemonController implements Controller {
     }
 
     private void showPokemonCollection() {
-        Pokemon[] allPokemon = main.getAllPokemon();
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
 
         for (Pokemon pokemon : allPokemon) {
@@ -168,15 +168,14 @@ public class ShowAllPokemonController implements Controller {
 
     // Once it has been named use this method to store it
     public void pokemonNickname() {
-        Pokemon[] allPokemon = main.getAllPokemon();
-
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
 
         for (Pokemon pokemon : allPokemon) {
             if (txtNickname.getText().isEmpty()) {
                 lblError.setVisible(true);
                 lblError.setText("Nickname is empty!");
             } else if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText());
+                main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText(), true);
             } else {
                 catchPokemon();
                 lblError.setVisible(false);
@@ -185,11 +184,11 @@ public class ShowAllPokemonController implements Controller {
     }
 
     public void pokemonNoNickname() {
-        Pokemon[] allPokemon = main.getAllPokemon();
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
 
         for (Pokemon pokemon : allPokemon) {
             if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                main.acquirePokemon(pokemon.getIdTag(), null);
+                main.acquirePokemon(pokemon.getIdTag(), null, true);
             }
         }
         catchPokemon();
@@ -200,7 +199,6 @@ public class ShowAllPokemonController implements Controller {
         pokeBall.setVisible(true);
         btnNickname.setVisible(false);
         btnNoNickname.setVisible(false);
-
 
         lblNickname.setText("Pokemon caught!");
 
