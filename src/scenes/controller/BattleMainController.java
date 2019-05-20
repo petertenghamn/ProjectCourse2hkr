@@ -36,7 +36,7 @@ public class BattleMainController implements Controller {
 
         for (int maxSix = 0; maxSix < mappedTeam.size(); maxSix++) {
             userTeam[maxSix] = main.getPokemonById(mappedTeam.get(maxSix).getId());
-            pokemonRemaining = maxSix;
+            pokemonRemaining = maxSix + 1;
         }
 
         // Generation of the enemy team takes random pokemon from the main pokemon array
@@ -57,10 +57,12 @@ public class BattleMainController implements Controller {
 
         getStats();
 
-        lblPokemonHP.setText(userStats.get(1).toString());
-        lblEnemyHP.setText(enemyStats.get(1).toString());
+        lblPokemonHP.setText(userStats.get(0).toString());
+        lblEnemyHP.setText(enemyStats.get(0).toString());
 
         getAttackingFirst();
+
+        fighting = false;
     }
 
     @Override
@@ -84,6 +86,8 @@ public class BattleMainController implements Controller {
         btnFight.setVisible(true);
         btnFlee.setVisible(true);
         btnSwitch.setVisible(true);
+
+        fighting = false;
     }
 
     private Main main;
@@ -91,6 +95,11 @@ public class BattleMainController implements Controller {
     private ArrayList<String> battleMessages = new ArrayList<>();
     private Boolean userTurn = true;
     private int pokemonRemaining = 6, enemyRemaining = 6;
+
+
+    private boolean fighting = false;
+    private double enemyHp, userHP;
+
 
     @FXML
     Button btnFight, btnFlee, btnSwitch;
@@ -117,11 +126,11 @@ public class BattleMainController implements Controller {
         main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
     }
 
-    private void getAttackingFirst(){
+    private void getAttackingFirst() {
         // Compares Speeds to see who is going to attack first
-        if (userStats.get(1) >= enemyStats.get(1)){
+        if (userStats.get(1) >= enemyStats.get(1)) {
             userTurn = true;
-        }else {
+        } else {
             userTurn = false;
         }
     }
@@ -133,6 +142,9 @@ public class BattleMainController implements Controller {
     }
 
     private void updateProgressBar(Double damage) {
+        // A full ProgressBar is value 1 so the damage needs to be less than 1
+        damage = damage / 100;
+
         if (userTurn) {
             hpEnemy.setProgress(hpEnemy.getProgress() - damage);
         } else {
@@ -141,15 +153,11 @@ public class BattleMainController implements Controller {
     }
 
     private void updateLabels() {
+        lblPokemon.setText(userTeam[0].getName());
+        lblPokemonHP.setText(Double.toString(userHP));
 
-    }
-
-    // requires the lbl of the pokemons to have been updated beforehand
-    private void updateActivePokemon() {
-        Image pokemon = main.getPokemonImage(lblPokemon.getText());
-        Image enemy = main.getPokemonImage(lblEnemy.getText());
-        imgPokemon.setImage(pokemon);
-        imgEnemy.setImage(enemy);
+        lblEnemy.setText(enemyTeam[0].getName());
+        lblEnemyHP.setText(Double.toString(enemyHp));
     }
 
     // These are used for the Battle System
@@ -204,137 +212,240 @@ public class BattleMainController implements Controller {
     }
 
     public void fightTurn() {
-        getStats();
-
         double damage = 0.0;
 
+        if (!fighting) {
+            enemyHp = enemyStats.get(0);
+            userHP = userStats.get(0);
+        }
+
         if (userTurn) {
+            // sets the active pokemon to fighting needed for the labels!
+            fighting = true;
+            // Ask Isak for future system
             // Damage = (Bonus * Attack) - Defense
-            damage = (calculateTypeBonus() * userStats.get(2)) - enemyStats.get(3);
+            damage = (calculateTypeBonus() * (userStats.get(2) * (int)((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
 
             // HP = HP - Damage (Damage is rounded to the nearest integer)
-            enemyStats.set(0, (enemyStats.get(0) - (int) Math.round(damage)));
+            enemyHp = enemyHp - damage;
+
+            // Sets a message that the pokemon attacked
+            battleMessages.add(lblPokemon.getText() + " Attacked for: " + damage + " points of damage!");
 
             // If the enemy is below 0 then the pokemon is defeated
-            if (enemyStats.get(0) <= 0){
-                switch (enemyRemaining){
-                    case 1:{
+            if (enemyHp <= 0) {
+                switch (enemyRemaining) {
+                    case 1: {
+                        enemyRemaining = 0;
                         enemyBall1.setFill(Paint.valueOf("Black"));
                         endBattle();
                         break;
                     }
-                    case 2:{
+                    case 2: {
+                        enemyRemaining = 1;
                         enemyBall2.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 3:{
+                    case 3: {
+                        enemyRemaining = 2;
                         enemyBall3.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 4:{
+                    case 4: {
+                        enemyRemaining = 3;
                         enemyBall4.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 5:{
+                    case 5: {
+                        enemyRemaining = 4;
                         enemyBall5.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 6:{
+                    case 6: {
+                        enemyRemaining = 5;
                         enemyBall6.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    default:{
+                    default: {
                         System.out.println("More Pokemon were Defeated than Exist!");
                     }
                 }
                 pokemonDefeated(lblEnemy.getText());
             }
+
+
         } else {
-            damage = (calculateTypeBonus() * enemyStats.get(2)) - userStats.get(3);
-
-            userStats.set(0, (userStats.get(0) - (int) Math.round(damage)));
-
-            if (userStats.get(0) <= 0){
-                switch (pokemonRemaining){
-                    case 1:{
+            fighting = true;
+            damage = (calculateTypeBonus() * (enemyStats.get(2) * (int)((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
+            battleMessages.add(lblEnemy.getText() + " Attacked for: " + damage + " points of damage!");
+            userHP = userHP - damage;
+            if (userHP <= 0) {
+                switch (pokemonRemaining) {
+                    case 1: {
                         teamBall1.setFill(Paint.valueOf("Black"));
                         endBattle();
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         teamBall2.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         teamBall3.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 4:{
+                    case 4: {
                         teamBall4.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 5:{
+                    case 5: {
                         teamBall5.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    case 6:{
+                    case 6: {
                         teamBall6.setFill(Paint.valueOf("Black"));
                         break;
                     }
-                    default:{
+                    default: {
                         System.out.println("More Pokemon were Defeated than Exist!");
                     }
                 }
-
                 pokemonDefeated(lblPokemon.getText());
             }
         }
 
+        updateMessageBoard();
         updateProgressBar(damage);
+        updateLabels();
+
+        if (userTurn) {
+            userTurn = false;
+            fightTurn();
+        } else {
+            userTurn = true;
+        }
+    }
+
+    public void switchPokemon() {
+        fighting = false;
+
+        // The active Pokemon is the first one in the array
+        if (userTurn) {
+            for (int index = 0; index < pokemonRemaining; index++) {
+                Pokemon temp = userTeam[index +1];
+                if (temp != null) {
+                    userTeam[index + 1] = userTeam[index];
+                    userTeam[index] = temp;
+                }
+                else {
+                    battleMessages.add("You don't have any other available Pokemon");
+                    updateMessageBoard();
+                }
+            }
+        }else {
+            for (int index = 0; index < enemyRemaining; index++) { 
+                Pokemon temp = enemyTeam[index +1];
+                enemyTeam[index + 1] = enemyTeam[index];
+                enemyTeam[index] = temp;
+            }
+        }
+
+        if (userTurn) {
+            userTurn = false;
+            fightTurn();
+        } else {
+            userTurn = true;
+        }
     }
 
     private void getStats() {
-        for (Pokemon enemyPokemon : enemyTeam) {
-            if (enemyPokemon.getName().equalsIgnoreCase(lblEnemy.getText())) {
-                enemyStats.add(enemyPokemon.getHealth());
-                enemyStats.add(enemyPokemon.getSpeed());
-                enemyStats.add(enemyPokemon.getAttack());
-                enemyStats.add(enemyPokemon.getDefense());
+        enemyStats.clear();
+        userStats.clear();
 
-                enemyType = enemyPokemon.getType();
-            }
-        }
-        for (Pokemon userPokemon : userTeam) {
-            if (userPokemon.getName().equalsIgnoreCase(lblPokemon.getText())) {
-                userStats.add(userPokemon.getHealth());
-                userStats.add(userPokemon.getSpeed());
-                userStats.add(userPokemon.getAttack());
-                userStats.add(userPokemon.getDefense());
+        // Might Change Later
+        Pokemon enemyPokemon = enemyTeam[0];
+        Pokemon userPokemon = userTeam[0];
 
-                userType = userPokemon.getType();
-            }
-        }
+        // NOT DUPLICATE ONE IS ENEMY ONE IS POKEMON
+        enemyStats.add(enemyPokemon.getHealth());
+        enemyStats.add(enemyPokemon.getSpeed());
+        enemyStats.add(enemyPokemon.getAttack());
+        enemyStats.add(enemyPokemon.getDefense());
+
+        enemyType = enemyPokemon.getType();
+
+        userStats.add(userPokemon.getHealth());
+        userStats.add(userPokemon.getSpeed());
+        userStats.add(userPokemon.getAttack());
+        userStats.add(userPokemon.getDefense());
+
+        userType = userPokemon.getType();
     }
 
-    private void pokemonDefeated(String name){
+    private void pokemonDefeated(String name) {
         battleMessages.add(name + " has been knocked Unconscious!");
         updateMessageBoard();
         switchPokemon();
     }
 
     // WORK IN PROGRESS
-    private Double calculateTypeBonus(){
+    private Double calculateTypeBonus() {
+        // This type is temp ( ͡° ͜ʖ ͡°)
+        String tempType;
+
+        if (!userTurn) {
+            tempType = userType;
+            userType = enemyType;
+            enemyType = tempType;
+        }
+
+        // This part is the Water vs Other bonuses first weakness last
+        if (userType.contains("Water") && enemyType.contains("Fire")) {
+            return 2.0;
+        } else if (userType.contains("Water") && enemyType.contains("Electric")) {
+            return 2.0;
+        } else if (userType.contains("Water") && enemyType.contains("Grass")) {
+            return 0.5;
+        }
+
+        // This part is the Fire vs Other
+        if (userType.contains("Fire") && enemyType.contains("Grass")) {
+            return 2.0;
+        } else if (userType.contains("Fire") && enemyType.contains("Water")) {
+            return 0.5;
+        } else if (userType.contains("Fire") && enemyType.contains("Fire")) {
+            return 0.5;
+        }
+
+        // This part is the Grass vs Other
+        if (userType.contains("Grass") && enemyType.contains("Water")) {
+            return 2.0;
+        } else if (userType.contains("Grass") && enemyType.contains("Fire")) {
+            return 0.5;
+        } else if (userType.contains("Grass") && enemyType.contains("Flying")) {
+            return 0.5;
+        }
+
+        // This Part is the Electric vs Other
+        if (userType.contains("Electric") && enemyType.contains("Water")) {
+            return 2.0;
+        } else if (userType.contains("Electric") && enemyType.contains("Flying")) {
+            return 0.5;
+        } else if (userType.contains("Electric") && enemyType.contains("Dragon")) {
+            return 0.5;
+        } else if (userType.contains("Electric") && enemyType.contains("Ground")) {
+            return 0.0;
+        }
+
         return 1.0;
     }
 
-    // Still needed
-    public void switchPokemon() {
-
-    }
-
-    private void endBattle(){
+    private void endBattle() {
         btnFight.setVisible(false);
         btnFlee.setVisible(false);
         btnSwitch.setVisible(false);
+
+        battleMessages.add("The battle is over you can stay and review what happened or you can hit the back button");
+        updateMessageBoard();
     }
 }

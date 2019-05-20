@@ -41,7 +41,7 @@
       <Button fx:id="btnFight" layoutX="400.0" layoutY="627.0" mnemonicParsing="false" onAction="#fightTurn" text="Fight" />
       <Button fx:id="btnFlee" layoutX="466.0" layoutY="627.0" mnemonicParsing="false" onAction="#attemptEscape" text="Flee" />
       <ListView fx:id="messageBoard" layoutX="782.0" layoutY="491.0" prefHeight="219.0" prefWidth="397.0" />
-      <Button fx:id="btnSwitch" layoutX="400.0" layoutY="673.0" mnemonicParsing="false" text="Switch Pokemon" />
+      <Button fx:id="btnSwitch" layoutX="400.0" layoutY="673.0" mnemonicParsing="false" onAction="#switchPokemon" text="Switch Pokemon" />
       <Ellipse fx:id="enemyBall1" layoutX="712.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
          <fill>
             <LinearGradient endY="1.0" proportional="false" startX="1.0">
