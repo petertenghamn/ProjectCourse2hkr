@@ -343,7 +343,7 @@ public class BattleMainController implements Controller {
                 }
             }
         }else {
-            for (int index = 0; index < enemyRemaining; index++) { 
+            for (int index = 0; index < enemyRemaining; index++) {
                 Pokemon temp = enemyTeam[index +1];
                 enemyTeam[index + 1] = enemyTeam[index];
                 enemyTeam[index] = temp;
@@ -351,11 +351,27 @@ public class BattleMainController implements Controller {
         }
 
         if (userTurn) {
+            Image user = main.getPokemonImage(userTeam[0].getName());
+            imgPokemon.setImage(user);
+
+            lblPokemon.setText(userTeam[0].getName());
+            lblPokemonHP.setText(Integer.toString(userTeam[0].getHealth()));
+
             userTurn = false;
             fightTurn();
         } else {
+            Image enemy = main.getPokemonImage(enemyTeam[0].getName());
+            imgEnemy.setImage(enemy);
+
+            lblEnemy.setText(enemyTeam[0].getName());
+            lblEnemyHP.setText(Integer.toString(enemyTeam[0].getHealth()));
+
             userTurn = true;
         }
+
+
+
+
     }
 
     private void getStats() {
