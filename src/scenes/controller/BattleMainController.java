@@ -33,7 +33,7 @@ public class BattleMainController implements Controller {
     public void setUp() {
         // Need the pokemon to be in an array of Pokemon
         ArrayList<PokemonMapper> mappedTeam = ((Trainer) main.getCurrentUser()).getTeam();
-        Pokemon[] allPokemons = main.getAllPokemon();
+        Pokemon[] allPokemons = main.getAllPokemon().toArray(new Pokemon[main.getAllPokemon().size()]);
 
         for (int maxSix = 0; maxSix < mappedTeam.size(); maxSix++) {
             userTeam[maxSix] = main.getPokemonById(mappedTeam.get(maxSix).getId());
