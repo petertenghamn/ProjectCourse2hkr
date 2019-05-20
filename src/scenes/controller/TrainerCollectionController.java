@@ -180,6 +180,7 @@ public class TrainerCollectionController implements Controller {
             }
 
             ((Trainer) user).setTeam(team);
+            main.updateCurrentUserDB();
             updateListTeam();
         }
     }
