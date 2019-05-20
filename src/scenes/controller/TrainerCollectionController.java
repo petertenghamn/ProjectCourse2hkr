@@ -151,24 +151,37 @@ public class TrainerCollectionController implements Controller {
     public void addTeam() {
         User user = main.getCurrentUser();
 
-        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
-        int loop = 0;
 
-        for (PokemonMapper mapper : collection) {
-            if (mapper.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
-                // Makes sure that the pokemon isn't already in the team
-                if (!mapper.getNickname().equalsIgnoreCase(team.get(loop).getNickname())) {
-                    team.add(mapper);
-                } else {
-                    // Add this as a Label in the Scene
-                    System.out.println("You already have that pokemon in your team");
-                }
-                loop++;
-            }
+        if (team.size() == 6){
+            System.out.println("Team size at max!");
         }
+        else {
+            ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
 
-        ((Trainer) user).setTeam(team);
-        updateListTeam();
+            for (PokemonMapper mapper : collection) {
+                if (mapper.getNickname().equals(listCollection.getSelectionModel().getSelectedItem())) {
+                    // Makes sure that the pokemon isn't already in the team
+                    boolean alreadyOnTeam = false;
+
+                    for (PokemonMapper p : team) {
+                        if (p.getNickname().equals(mapper.getNickname())) {
+                            alreadyOnTeam = true;
+                        }
+                    }
+
+                    if (!alreadyOnTeam) {
+                        team.add(mapper);
+                    } else {
+                        // Add this as a Label in the Scene
+                        System.out.println("You already have that pokemon in your team");
+                    }
+                }
+            }
+
+            ((Trainer) user).setTeam(team);
+            main.updateCurrentUserDB();
+            updateListTeam();
+        }
     }
 }

@@ -24,7 +24,7 @@ public class ProfessorMenuController implements Controller {
     private Main main;
 
     public void showTrainers(){
-
+        main.requestSceneChange(SceneManager.sceneName.VIEWTRAINER);
     }
 
     public void viewAllPokemon(){

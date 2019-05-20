@@ -14,7 +14,7 @@
       </Pane>
       <Pane fx:id="pane2" layoutX="108.0" layoutY="288.0" prefHeight="427.0" prefWidth="489.0">
          <children>
-            <Button fx:id="btnShowTrainers" blendMode="OVERLAY" layoutX="45.0" layoutY="79.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Show trainers" />
+            <Button fx:id="btnShowTrainers" blendMode="OVERLAY" layoutX="45.0" layoutY="79.0" mnemonicParsing="false" onAction="#showTrainers" prefHeight="50.0" prefWidth="400.0" text="Show trainers" />
             <Button fx:id="btnViewPokemon" blendMode="OVERLAY" layoutX="45.0" layoutY="189.0" mnemonicParsing="false" onAction="#viewAllPokemon" prefHeight="50.0" prefWidth="400.0" text="View all Pokémon" />
             <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="45.0" layoutY="303.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout" />
          </children>
