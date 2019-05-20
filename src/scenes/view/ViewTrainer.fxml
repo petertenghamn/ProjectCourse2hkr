@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ViewTrainerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ViewTrainerController">
    <children>
       <Button layoutX="25.0" layoutY="27.0" mnemonicParsing="false" onAction="#backToProfessorMenu" text="Back" />
+      <ListView fx:id="listView" layoutX="97.0" layoutY="106.0" prefHeight="253.0" prefWidth="226.0" />
+      <Label layoutX="97.0" layoutY="86.0" text="All Registered Trainers!" />
+      <Label fx:id="lblName" layoutX="624.0" layoutY="86.0" text="Name" />
+      <Label layoutX="575.0" layoutY="381.0" text="Wins: " />
+      <Label layoutX="577.0" layoutY="441.0" text="Losses: " />
+      <Label fx:id="lblWins" layoutX="678.0" layoutY="381.0" text="Label" />
+      <Label fx:id="lblLosses" layoutX="676.0" layoutY="441.0" text="Label" />
+      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pokeLogo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="97.0" layoutY="359.0" mnemonicParsing="false" onAction="#selectTrainer" text="Select" />
+      <Label layoutX="565.0" layoutY="492.0" text="Currency: " />
+      <Label fx:id="lblCurrency" layoutX="676.0" layoutY="501.0" text="Label" />
+      <ListView fx:id="listCollection" layoutX="979.0" layoutY="107.0" prefHeight="253.0" prefWidth="226.0" />
+      <ListView fx:id="listTeam" layoutX="979.0" layoutY="431.0" prefHeight="253.0" prefWidth="226.0" />
+      <Label layoutX="979.0" layoutY="86.0" text="Collection" />
+      <Label layoutX="979.0" layoutY="414.0" text="Team" />
    </children>
 </AnchorPane>
