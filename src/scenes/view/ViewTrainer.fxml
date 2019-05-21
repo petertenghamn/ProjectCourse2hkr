@@ -12,22 +12,22 @@
       <Button layoutX="25.0" layoutY="27.0" mnemonicParsing="false" onAction="#backToProfessorMenu" text="Back" />
       <ListView fx:id="listView" layoutX="97.0" layoutY="106.0" prefHeight="253.0" prefWidth="226.0" />
       <Label layoutX="97.0" layoutY="86.0" text="All Registered Trainers!" />
-      <Label fx:id="lblName" layoutX="624.0" layoutY="86.0" text="Name" />
-      <Label layoutX="575.0" layoutY="381.0" text="Wins: " />
-      <Label layoutX="577.0" layoutY="441.0" text="Losses: " />
-      <Label fx:id="lblWins" layoutX="678.0" layoutY="381.0" text="Label" />
-      <Label fx:id="lblLosses" layoutX="676.0" layoutY="441.0" text="Label" />
-      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" layoutX="565.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="lblName" layoutX="549.0" layoutY="85.0" text="Name" />
+      <Label layoutX="500.0" layoutY="380.0" text="Wins: " />
+      <Label layoutX="502.0" layoutY="440.0" text="Losses: " />
+      <Label fx:id="lblWins" layoutX="603.0" layoutY="380.0" text="Label" />
+      <Label fx:id="lblLosses" layoutX="601.0" layoutY="440.0" text="Label" />
+      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" layoutX="490.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/pokeLogo.png" />
          </image>
       </ImageView>
       <Button layoutX="97.0" layoutY="359.0" mnemonicParsing="false" onAction="#selectTrainer" text="Select" />
-      <Label layoutX="565.0" layoutY="492.0" text="Currency: " />
-      <Label fx:id="lblCurrency" layoutX="676.0" layoutY="501.0" text="Label" />
-      <ListView fx:id="listCollection" layoutX="979.0" layoutY="107.0" prefHeight="253.0" prefWidth="226.0" />
-      <ListView fx:id="listTeam" layoutX="979.0" layoutY="431.0" prefHeight="253.0" prefWidth="226.0" />
-      <Label layoutX="979.0" layoutY="86.0" text="Collection" />
-      <Label layoutX="979.0" layoutY="414.0" text="Team" />
+      <Label layoutX="490.0" layoutY="491.0" text="Currency: " />
+      <Label fx:id="lblCurrency" layoutX="601.0" layoutY="500.0" text="Label" />
+      <ListView fx:id="listCollection" layoutX="863.0" layoutY="106.0" prefHeight="253.0" prefWidth="226.0" />
+      <ListView fx:id="listTeam" layoutX="863.0" layoutY="430.0" prefHeight="253.0" prefWidth="226.0" />
+      <Label layoutX="863.0" layoutY="85.0" text="Collection" />
+      <Label layoutX="863.0" layoutY="413.0" text="Team" />
    </children>
 </AnchorPane>

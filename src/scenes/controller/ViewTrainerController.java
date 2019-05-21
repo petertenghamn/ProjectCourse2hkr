@@ -122,6 +122,7 @@ public class ViewTrainerController implements Controller{
         int randomWin = (int)((Math.random()*((4) +1)+ 0));
         int randomLoss = (int)((Math.random()*((4-1) +1)+ 0));
 
+        lblName.setText(listView.getSelectionModel().getSelectedItem().toString());
         lblCurrency.setText(Integer.toString(randomCurrency));
         lblWins.setText(Integer.toString(randomWin));
         lblLosses.setText(Integer.toString(randomLoss));
