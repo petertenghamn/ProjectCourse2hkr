@@ -172,6 +172,7 @@ public class TrainerCollectionController implements Controller {
 
                     if (!alreadyOnTeam) {
                         team.add(mapper);
+                        main.addPokemonUserTeam(mapper);
                     } else {
                         // Add this as a Label in the Scene
                         System.out.println("You already have that pokemon in your team");
@@ -180,7 +181,6 @@ public class TrainerCollectionController implements Controller {
             }
 
             ((Trainer) user).setTeam(team);
-            main.updateCurrentUserDB();
             updateListTeam();
         }
     }
