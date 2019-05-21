@@ -1,7 +1,5 @@
 package main;
 
-//not importing database loader caused errors... not sure why...
-
 import javafx.scene.image.Image;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,7 +24,7 @@ public class Main extends Application {
     private ArrayList<Pokemon> allPokemon;
 
     //List of All Trainers in the program
-    private User[] allTrainers;
+    private ArrayList<User> allTrainers;
 
     /*
      * Main method, Java startup
@@ -83,13 +81,6 @@ public class Main extends Application {
     }
 
     /*
-     * Update the user that is logged in
-     */
-    public void updateCurrentUserDB() {
-        pokeDB.updateUser(currentUser);
-    }
-
-    /*
      * Method ran at program start (Initializes important classes)
      */
     @Override
@@ -97,8 +88,7 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         allPokemon = pokeDB.loadAllPokemon();
 
-        // NEEDS TO BE UNCOMMENTED LATER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //allTrainers = pokeDB.getTrainers();
+        allTrainers = pokeDB.getTrainers();
         manager = new SceneManager(this, primaryStage);
     }
 
@@ -133,7 +123,7 @@ public class Main extends Application {
                 if (pokeDB.loginBonusCheck(email)){
                     System.out.println("Trainer recieved login bonus!");
                     ((Trainer) currentUser).recieveLoginBonus();
-                    updateCurrentUserDB();
+                    pokeDB.updateUserCurrency(currentUser);
                 }
                 else {
                     System.out.println("Not eligible for login bonus");
@@ -167,52 +157,76 @@ public class Main extends Application {
      * Assign the selected pokemon to the new trainer and finalize by adding the trainer to the DB
      */
     public void acquirePokemon(int pokemonID, String nickname, boolean checkCost) {
-        ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
+        if (currentUser instanceof Trainer) {
+            ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
 
-        // checks to see if its adding the first pokemon
-        if (collection.size() == 0) {
-            pokeDB.createNewUser(currentUser);
-            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-        }
-
-        //cannot have a null name when inserting into DB
-        if (nickname == null) {
-            nickname = getPokemonById(pokemonID).getName();
-        }
-
-        //check if nickname is already being used
-        boolean exists = false;
-        for (PokemonMapper mappedPokemon : collection){
-            if (mappedPokemon.getNickname().equals(nickname)){
-                exists = true;
+            // checks to see if its adding the first pokemon
+            if (collection.size() == 0) {
+                pokeDB.createNewUser(currentUser);
+                manager.changeScene(SceneManager.sceneName.TRAINERMENU);
             }
-        }
 
-        //give result
-        if (!exists){
-            if (checkCost) {
-                int cost = pokeDB.getPokemonCost(pokemonID);
-                int userMoney = ((Trainer) currentUser).getCurrency();
-                if (userMoney >= cost){
-                    ((Trainer) currentUser).pay(cost);
+            //cannot have a null name when inserting into DB
+            if (nickname == null) {
+                nickname = getPokemonById(pokemonID).getName();
+            }
+
+            //check if nickname is already being used
+            boolean exists = false;
+            for (PokemonMapper mappedPokemon : collection) {
+                if (mappedPokemon.getNickname().equals(nickname)) {
+                    exists = true;
+                }
+            }
+
+            //give result
+            if (!exists) {
+                if (checkCost) {
+                    int cost = pokeDB.getPokemonCost(pokemonID);
+                    int userMoney = ((Trainer) currentUser).getCurrency();
+                    if (userMoney >= cost) {
+                        ((Trainer) currentUser).pay(cost);
+                        PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
+                        ((Trainer) currentUser).addToCollection(caughtPokemon);
+
+                        pokeDB.updateUserCurrency(currentUser);
+                        pokeDB.addPokemonUserCollection(currentUser, caughtPokemon);
+                    } else {
+                        System.out.println("You cannot afford: " + cost);
+                    }
+                } else {
                     PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
                     ((Trainer) currentUser).addToCollection(caughtPokemon);
-
-                    updateCurrentUserDB();
+                    pokeDB.addPokemonUserCollection(currentUser, caughtPokemon);
                 }
-                else {
-                    System.out.println("You cannot afford: " + cost);
-                }
+            } else {
+                System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
             }
-            else {
-                PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
-                ((Trainer) currentUser).addToCollection(caughtPokemon);
-
-                updateCurrentUserDB();
-            }
-        } else {
-            System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
         }
+        else {
+            System.out.println("Professor trying to acquire pokemon?");
+        }
+    }
+
+    /*
+     * Add pokemon to user's team
+     */
+    public void addPokemonUserTeam(PokemonMapper pokemon){
+        pokeDB.addPokemonUserTeam(currentUser, pokemon);
+    }
+
+    /*
+     * Change one pokemon for another in user's team
+     */
+    public void exchangePokemonUserTeam(PokemonMapper pokemon, PokemonMapper oldPokemon){
+        pokeDB.exchangePokemonUserTeam(currentUser, pokemon, oldPokemon);
+    }
+
+    /*
+     * Remove pokemon from user's team
+     */
+    public void removePokemonUserTeam(PokemonMapper pokemon){
+        pokeDB.removePokemonUserTeam(currentUser, pokemon);
     }
 
     /*
@@ -233,7 +247,7 @@ public class Main extends Application {
         return image;
     }
 
-    public User[] getTrainers(){
+    public ArrayList<User> getTrainers(){
         return allTrainers;
     }
 }
