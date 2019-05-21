@@ -216,6 +216,20 @@ public class Main extends Application {
     }
 
     /*
+     * Change one pokemon for another in user's team
+     */
+    public void exchangePokemonUserTeam(PokemonMapper pokemon, PokemonMapper oldPokemon){
+        pokeDB.exchangePokemonUserTeam(currentUser, pokemon, oldPokemon);
+    }
+
+    /*
+     * Remove pokemon from user's team
+     */
+    public void removePokemonUserTeam(PokemonMapper pokemon){
+        pokeDB.removePokemonUserTeam(currentUser, pokemon);
+    }
+
+    /*
      * Load the image of the pokemon requested
      *
      * @returns Image
