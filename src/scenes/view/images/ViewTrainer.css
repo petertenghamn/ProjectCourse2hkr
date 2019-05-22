@@ -1,0 +1,97 @@
+#viewTrainerAnc {
+    -fx-background-size: 1200, 800;
+    -fx-background-image: url("ivysaurWallpaper.jpg");
+}
+
+#pane1 {
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#pane2 {
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#pane3 {
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#labelRegisteredTrainers {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelCollection {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelTeam {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblName {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelWon {
+    -fx-font: 30px Garamond;
+}
+
+#lblWins {
+    -fx-font: 20px Garamond;
+}
+
+#labelLost {
+    -fx-font: 30px Garamond;
+}
+
+#lblLosses {
+    -fx-font: 20px Garamond;
+}
+
+#labelCurrency {
+    -fx-font: 30px Garamond;
+}
+
+#lblCurrency {
+    -fx-font: 20px Garamond;
+}
+
+#listView {
+    -fx-font: 25px Garamond;
+}
+
+#listCollection {
+    -fx-font: 25px Garamond;
+}
+
+#listTeam {
+    -fx-font: 25px Garamond;
+}
+
+#btnSelect {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSelect:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}

@@ -9,10 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 import main.scenemanager.SceneManager;
-import main.users.Trainer;
-import main.users.User;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ViewTrainerController implements Controller{
@@ -93,19 +89,19 @@ public class ViewTrainerController implements Controller{
 
         switch (random){
             case 1:{
-                trainer = new Image("scenes/view/images/ashTrainer.png");
+                trainer = new Image("scenes/view/images/ash.png");
                 break;
             }
             case 2:{
-                trainer = new Image("scenes/view/images/boy Trainer.png");
+                trainer = new Image("scenes/view/images/boy.png");
                 break;
             }
             case 3:{
-                trainer = new Image("scenes/view/images/brownHaired_GirlTrainer.png");
+                trainer = new Image("scenes/view/images/girl.png");
                 break;
             }
             case 4:{
-                trainer = new Image("scenes/view/images/redHead_GirlTrainer.png");
+                trainer = new Image("scenes/view/images/RedheadGirlTrainer.png");
                 break;
             }
             default:{

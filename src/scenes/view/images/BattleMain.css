@@ -1,0 +1,103 @@
+#battleMainAnc{
+    -fx-background-size: 1200, 800;
+    -fx-background-image: url("totodileWallpaper.jpg");
+}
+
+#pane1 {
+    -fx-background-color: rgba(255, 255, 255, .3);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#pane2 {
+     -fx-background-color: rgba(255, 255, 255, .3);
+     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+ }
+
+#paneHelp {
+    -fx-background-color: rgba(255, 255, 255, .8);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
+#messageBoard{
+    -fx-font: 17px Garamond;
+}
+
+#lblPokemon{
+    -fx-font: 25px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblEnemy{
+    -fx-font: 25px Garamond;
+    -fx-font-weight: bold;
+}
+
+#labelPokemonHP{
+     -fx-font: 20px Garamond;
+     -fx-font-weight: bold;
+ }
+
+#lblPokemonHP{
+    -fx-font: 20px Garamond;
+}
+
+#labelEnemyHP{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblEnemyHP{
+    -fx-font: 20px Garamond;
+}
+
+#btnFight {
+    -fx-font: 17px Garamond;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnFight:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnFlee {
+    -fx-font: 17px Garamond;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnFlee:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSwitch {
+    -fx-font: 17px Garamond;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnSwitch:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnBack:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnHelp{
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnHelp:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
