@@ -73,6 +73,8 @@ public class Trainer extends User {
         collection.add(newPokemon);
     }
 
+    public void setCollection(ArrayList<PokemonMapper> collection) { this.collection = collection; }
+
     public ArrayList<PokemonMapper> getTeam() {
         return team;
     }

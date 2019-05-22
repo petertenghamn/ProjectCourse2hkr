@@ -16,7 +16,7 @@
         <Label fx:id="labelPassword" layoutX="361.0" layoutY="558.0" text="Password:" />
         <PasswordField fx:id="txtFieldPassword" layoutX="355.0" layoutY="602.0" prefHeight="25.0" prefWidth="476.0" promptText="Password" />
         <Button fx:id="btnLogin" blendMode="MULTIPLY" layoutX="511.0" layoutY="657.0" mnemonicParsing="false" onAction="#loginRequest" prefHeight="55.0" prefWidth="150.0" text="Login" />
-        <ImageView fx:id="imgView" fitHeight="129.0" fitWidth="136.0" layoutX="521.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="imgView" fitHeight="129.0" fitWidth="136.0" layoutX="521.0" layoutY="117.0" onMouseClicked="#debugDB" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/pokeLogo2.png" />
             </image>
