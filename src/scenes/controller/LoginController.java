@@ -73,9 +73,8 @@ public class LoginController implements Controller {
     }
 
     public void debugDB(){
-        DebugDatabase deBugDatabase = new DebugDatabase();
         System.out.println("Debug controller activated");
         main.setDeBugLoader(true);
-        main.setAllPokemon(deBugDatabase.getPokemons());
+        main.setAllPokemon();
     }
 }

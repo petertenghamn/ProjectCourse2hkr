@@ -49,8 +49,8 @@ public class Main extends Application {
      * @returns Pokemon[]
      */
 
-    public void setAllPokemon(Pokemon[] poke) {
-        allPokemon = poke;
+    public void setAllPokemon() {
+        allPokemon = pokeBugDB.getPokemons();
     }
 
     public Pokemon[] getAllPokemon() {
