@@ -1,7 +1,5 @@
 package main;
 
-//not importing database loader caused errors... not sure why...
-
 import javafx.scene.image.Image;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -34,7 +32,10 @@ public class Main extends Application {
     private User currentUser;
 
     //stored list of all pokemon retrieved from the database
-    private Pokemon[] allPokemon;
+    private ArrayList<Pokemon> allPokemon;
+
+    //List of All Trainers in the program
+    private ArrayList<User> allTrainers;
 
     /*
      * Main method, Java startup
@@ -48,13 +49,12 @@ public class Main extends Application {
      *
      * @returns Pokemon[]
      */
-
+    public ArrayList<Pokemon> getAllPokemon() {
+        return allPokemon;
+    }
+      
     public void setAllPokemon() {
         allPokemon = pokeBugDB.getPokemons();
-    }
-
-    public Pokemon[] getAllPokemon() {
-        return allPokemon;
     }
 
     /*
@@ -103,6 +103,8 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeBugDB = new DebugDatabase();
         allPokemon = pokeDB.loadAllPokemon();
+
+        allTrainers = pokeDB.getTrainers();
         manager = new SceneManager(this, primaryStage);
     }
 
@@ -126,6 +128,8 @@ public class Main extends Application {
     /*
      * Calls to the DB to verify the information entered is correct
      * Only changes screen if information is matched to a user in the DB
+     *
+     * If user = trainer, then login bonus is checked and given accordingly
      */
     public boolean authenticateLogin(String email, String password) {
         if (!deBugLoader) {
@@ -137,7 +141,14 @@ public class Main extends Application {
         if (currentUser != null) {
             if (currentUser instanceof Trainer) {
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-                System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
+                if (pokeDB.loginBonusCheck(email)){
+                    System.out.println("Trainer recieved login bonus!");
+                    ((Trainer) currentUser).recieveLoginBonus();
+                    pokeDB.updateUserCurrency(currentUser);
+                }
+                else {
+                    System.out.println("Not eligible for login bonus");
+                }
             } else if (currentUser instanceof Professor) {
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
@@ -154,7 +165,7 @@ public class Main extends Application {
     public void createNewUser(String email, String username, String password) {
         //creates a new user class of trainer to store info in, then transitions to selecting a starter
         if (pokeDB.checkIfEmailAvailable(email)) {
-            currentUser = new Trainer(email, username, 0, 0, 0, new PokemonMapper[0], new PokemonMapper[0]);
+            currentUser = new Trainer(email, username, 0, 0, 0, new ArrayList<PokemonMapper>(), new ArrayList<PokemonMapper>());
             ((Trainer) currentUser).setNewUserPassword(password);
 
             manager.changeScene(SceneManager.sceneName.SELECTSTARTER);
@@ -166,31 +177,77 @@ public class Main extends Application {
     /*
      * Assign the selected pokemon to the new trainer and finalize by adding the trainer to the DB
      */
-    public void acquirePokemon(int pokemonID, String nickname) {
-        ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
+    public void acquirePokemon(int pokemonID, String nickname, boolean checkCost) {
+        if (currentUser instanceof Trainer) {
+            ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
 
-        //cannot have a null name when inserting into DB
-        if (nickname == null) {
-            nickname = getPokemonById(pokemonID).getName();
-        }
+            // checks to see if its adding the first pokemon
+            if (collection.size() == 0) {
+                pokeDB.createNewUser(currentUser);
+                manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+            }
 
-        for (PokemonMapper mappedPokemon : collection) {
-            // Checks if there are pokemon with that nickname in your collection already
-            if (!mappedPokemon.getNickname().equalsIgnoreCase(nickname)) {
-                //attach the selected starter to the trainer that choose it, then proceed to trainer menu
-                PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
-                ((Trainer) currentUser).addToCollection(caughtPokemon);
-                break; // Needed or else it breaks the for loop
+            //cannot have a null name when inserting into DB
+            if (nickname == null) {
+                nickname = getPokemonById(pokemonID).getName();
+            }
+
+            //check if nickname is already being used
+            boolean exists = false;
+            for (PokemonMapper mappedPokemon : collection) {
+                if (mappedPokemon.getNickname().equals(nickname)) {
+                    exists = true;
+                }
+            }
+
+            //give result
+            if (!exists) {
+                if (checkCost) {
+                    int cost = pokeDB.getPokemonCost(pokemonID);
+                    int userMoney = ((Trainer) currentUser).getCurrency();
+                    if (userMoney >= cost) {
+                        ((Trainer) currentUser).pay(cost);
+                        PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
+                        ((Trainer) currentUser).addToCollection(caughtPokemon);
+
+                        pokeDB.updateUserCurrency(currentUser);
+                        pokeDB.addPokemonUserCollection(currentUser, caughtPokemon);
+                    } else {
+                        System.out.println("You cannot afford: " + cost);
+                    }
+                } else {
+                    PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
+                    ((Trainer) currentUser).addToCollection(caughtPokemon);
+                    pokeDB.addPokemonUserCollection(currentUser, caughtPokemon);
+                }
             } else {
                 System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
             }
         }
-
-        // Later will move this part of the code
-        if (((Trainer) currentUser).getCollection().size() == 0) {
-            pokeDB.createNewUser(currentUser);
-            manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+        else {
+            System.out.println("Professor trying to acquire pokemon?");
         }
+    }
+
+    /*
+     * Add pokemon to user's team
+     */
+    public void addPokemonUserTeam(PokemonMapper pokemon){
+        pokeDB.addPokemonUserTeam(currentUser, pokemon);
+    }
+
+    /*
+     * Change one pokemon for another in user's team
+     */
+    public void exchangePokemonUserTeam(PokemonMapper pokemon, PokemonMapper oldPokemon){
+        pokeDB.exchangePokemonUserTeam(currentUser, pokemon, oldPokemon);
+    }
+
+    /*
+     * Remove pokemon from user's team
+     */
+    public void removePokemonUserTeam(PokemonMapper pokemon){
+        pokeDB.removePokemonUserTeam(currentUser, pokemon);
     }
 
     /*
@@ -209,5 +266,9 @@ public class Main extends Application {
         }
 
         return image;
+    }
+
+    public ArrayList<User> getTrainers(){
+        return allTrainers;
     }
 }

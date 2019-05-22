@@ -10,17 +10,15 @@ public class Trainer extends User {
     private int currency, winCount, lossCount;
     private ArrayList<PokemonMapper> collection, team;
 
-    public Trainer(String email, String username, int currency, int winCount, int lossCount, PokemonMapper[] collection, PokemonMapper[] team) {
+    public Trainer(String email, String username, int currency, int winCount, int lossCount, ArrayList<PokemonMapper> collection, ArrayList<PokemonMapper> team) {
         super(email);
         this.username = username;
         this.currency = currency;
         this.winCount = winCount;
         this.lossCount = lossCount;
 
-        this.collection = new ArrayList<PokemonMapper>();
-        Collections.addAll(this.collection, collection);
-        this.team = new ArrayList<PokemonMapper>();
-        Collections.addAll(this.team, team);
+        this.collection = collection;
+        this.team = team;
     }
 
     public String getEmail(){
@@ -47,6 +45,10 @@ public class Trainer extends User {
         this.currency = currency;
     }
 
+    public void pay(int amount){ this.currency -= amount; }
+
+    public void recieveLoginBonus(){ this.currency += 10; }
+
     public int getWinCount() {
         return winCount;
     }
@@ -70,6 +72,8 @@ public class Trainer extends User {
     public void addToCollection(PokemonMapper newPokemon){
         collection.add(newPokemon);
     }
+
+    public void setCollection(ArrayList<PokemonMapper> collection) { this.collection = collection; }
 
     public ArrayList<PokemonMapper> getTeam() {
         return team;
