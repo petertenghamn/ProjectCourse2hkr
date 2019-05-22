@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import main.Main;
 
@@ -14,17 +15,20 @@ public class SelectStarterController implements Controller {
     @FXML
     TextField fieldNickname;
     @FXML
-    Button btnNickname, btnNoNickname, btnBack;
+    Button btnNickname, btnNoNickname, btnBack, btnHelp;
     @FXML
     Text txtStarterMain;
     @FXML
     ImageView leftStarter, middleStarter, rightStarter;
     @FXML
     Label labelCharmander, labelBulbasaur,labelSquirtle;
+    @FXML
+    Pane paneHelp;
 
     private Main main;
-    private int starterSelected; // Starter Selected should only be values 1 -3
+    private int starterSelected; // Starter Selected should only be values 1 - 3
     private String nickname;
+    private Boolean help = false;
 
     @Override
     public void setMain(Main m) {
@@ -137,5 +141,17 @@ public class SelectStarterController implements Controller {
         int starterID = (starterSelected == 1)?4:(starterSelected == 2)?1:7;
         main.acquirePokemon(starterID, nickname, false);
     }
+
+    public void showHelp() {
+
+        if(help == true){
+            paneHelp.setVisible(false);
+            help = false;
+        }else{
+            paneHelp.setVisible(true);
+            help = true;
+        }
+    }
+
 
 }

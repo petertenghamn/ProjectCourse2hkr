@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import main.DebugDatabase;
 import main.Main;
 import main.scenemanager.SceneManager;
-import main.users.User;
 
 public class LoginController implements Controller {
 

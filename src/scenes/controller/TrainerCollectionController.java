@@ -3,10 +3,12 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import main.Main;
 import main.pokemon.Pokemon;
 import main.pokemon.PokemonMapper;
@@ -32,9 +34,14 @@ public class TrainerCollectionController implements Controller {
     @FXML
     ListView<String> listCollection, listTeam;
     @FXML
-    Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed;
+    Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed, labelError;
+    @FXML
+    Button btnHelp;
+    @FXML
+    Pane paneHelp;
     private Main main;
     private ShowAllPokemonController showAll = new ShowAllPokemonController();
+    private Boolean help = false;
 
     @Override
     public void setMain(Main m) {
@@ -174,14 +181,24 @@ public class TrainerCollectionController implements Controller {
                         team.add(mapper);
                         main.addPokemonUserTeam(mapper);
                     } else {
-                        // Add this as a Label in the Scene
-                        System.out.println("You already have that pokemon in your team");
+                        labelError.setText("You already have that Pokémon in your team!");
                     }
                 }
             }
 
             ((Trainer) user).setTeam(team);
             updateListTeam();
+        }
+    }
+
+    public void showHelp() {
+
+        if(help == true){
+            paneHelp.setVisible(false);
+            help = false;
+        }else{
+            paneHelp.setVisible(true);
+            help = true;
         }
     }
 }

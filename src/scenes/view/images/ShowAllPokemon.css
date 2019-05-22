@@ -13,6 +13,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
+#paneHelp {
+    -fx-background-color: rgba(255, 255, 255, .8);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
 #listView {
     -fx-font: 25px Garamond;
 }
@@ -79,6 +84,16 @@
 #lblDf {
     -fx-font: 20px Garamond;
 }
+
+#labelPrice {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblPrice {
+    -fx-font: 20px Garamond;
+}
+
 
 #lblNickname {
     -fx-font: 30px Garamond;
@@ -157,6 +172,17 @@
 }
 
 #btnGetNewPokemon:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnHelp {
+    -fx-font: 15px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnHelp:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import main.Main;
 import main.pokemon.Pokemon;
 import main.scenemanager.SceneManager;
@@ -39,11 +40,14 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     TextField txtNickname;
     @FXML
-    Button btnNoNickname, btnNickname, btnSelect, btnGetNewPokemon;
+    Button btnNoNickname, btnNickname, btnSelect, btnGetNewPokemon, btnHelp;
     @FXML
     ImageView pokeBall;
+    @FXML
+    Pane paneHelp;
     private Main main;
     private Boolean canBuy = true;
+    private Boolean help = false;
 
     @Override
     public void setMain(Main m) {
@@ -57,8 +61,10 @@ public class ShowAllPokemonController implements Controller {
     public void setUp() {
         if (main.getCurrentUser() instanceof Professor) {
             canBuy = false;
+            btnHelp.setVisible(false);
         } else if (main.getCurrentUser() instanceof Trainer) {
             canBuy = true;
+            btnHelp.setVisible(true);
         }
 
         pokeBall.setVisible(false);
@@ -68,6 +74,7 @@ public class ShowAllPokemonController implements Controller {
         btnNoNickname.setVisible(false);
         btnNickname.setVisible(false);
         lblError.setVisible(false);
+
     }
 
     @Override
@@ -121,7 +128,6 @@ public class ShowAllPokemonController implements Controller {
 
         lblError.setVisible(false);
 
-        // THE ONLY POKEMON IMPLEMENTED FULLY SO FAR ARE THE THREE STARTERS! AS A PROOF OF CONCEPT
         showStats(listView.getSelectionModel().getSelectedItem());
         // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
         showImage(listView.getSelectionModel().getSelectedItem());
@@ -223,7 +229,16 @@ public class ShowAllPokemonController implements Controller {
         btnGetNewPokemon.setVisible(false);
     }
 
-//    public void help()
+    public void showHelp() {
+
+        if(help == true){
+            paneHelp.setVisible(false);
+            help = false;
+        }else{
+            paneHelp.setVisible(true);
+            help = true;
+        }
+    }
 
 }
 

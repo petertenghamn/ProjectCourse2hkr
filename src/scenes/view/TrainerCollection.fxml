@@ -9,86 +9,90 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="trainerCollectionAnc" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
-            stylesheets="@images/TrainerCollection.css" xmlns="http://javafx.com/javafx/10.0.1"
-            fx:controller="scenes.controller.TrainerCollectionController">
+<AnchorPane fx:id="trainerCollectionAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/TrainerCollection.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.TrainerCollectionController">
     <children>
         <Pane fx:id="pane1" layoutX="58.0" layoutY="12.0" prefHeight="429.0" prefWidth="226.0">
             <children>
-                <Label fx:id="labelMyCollection" layoutX="27.0" layoutY="14.0" text="My collection"/>
-                <Button fx:id="btnSelect1" blendMode="MULTIPLY" layoutX="74.0" layoutY="376.0" mnemonicParsing="false"
-                        onAction="#showSelectedCollection" text="Select"/>
-                <ListView fx:id="listCollection" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0"/>
+                <Label fx:id="labelMyCollection" layoutX="27.0" layoutY="14.0" text="My collection" />
+                <Button fx:id="btnSelect1" blendMode="MULTIPLY" layoutX="74.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSelectedCollection" text="Select" />
+                <ListView fx:id="listCollection" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0" />
             </children>
         </Pane>
         <Pane fx:id="pane2" layoutX="916.0" layoutY="12.0" prefHeight="429.0" prefWidth="226.0">
             <children>
-                <Label fx:id="labelMyTeam" layoutX="57.0" layoutY="14.0" text="My team"/>
-                <ListView fx:id="listTeam" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0"/>
-                <Button fx:id="btnSelect2" layoutX="74.0" layoutY="376.0" mnemonicParsing="false"
-                        onAction="#showSelectedTeam" text="Select"/>
+                <Label fx:id="labelMyTeam" layoutX="57.0" layoutY="14.0" text="My team" />
+                <ListView fx:id="listTeam" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0" />
+                <Button fx:id="btnSelect2" layoutX="18.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSelectedTeam" text="Select" />
+            <Button fx:id="btnRemove" layoutX="113.0" layoutY="376.0" mnemonicParsing="false" text="Remove" />
             </children>
         </Pane>
         <Pane fx:id="pane3" layoutX="454.0" layoutY="18.0" prefHeight="314.0" prefWidth="255.0">
             <children>
-                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="28.0" layoutY="14.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="28.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@images/pokeLogo.png"/>
+                        <Image url="@images/pokeLogo.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnAddToTeam" blendMode="MULTIPLY" layoutX="27.0" layoutY="254.0" mnemonicParsing="false"
-                        onAction="#addTeam" text="Add To Battle Team"/>
+                <Button fx:id="btnAddToTeam" blendMode="MULTIPLY" layoutX="27.0" layoutY="254.0" mnemonicParsing="false" onAction="#addTeam" text="Add To Battle Team" />
             </children>
         </Pane>
         <Pane fx:id="pane4" layoutX="349.0" layoutY="419.0" prefHeight="345.0" prefWidth="503.0">
             <children>
                 <Label fx:id="labelName" layoutX="53.0" layoutY="27.0" text="Name:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblName" layoutX="149.0" layoutY="37.0" text="0"/>
+                <Label fx:id="lblName" layoutX="149.0" layoutY="37.0" text="0" />
                 <Label fx:id="labelType" layoutX="268.0" layoutY="27.0" text="Type:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblType" layoutX="356.0" layoutY="32.0" text="0"/>
+                <Label fx:id="lblType" layoutX="356.0" layoutY="32.0" text="0" />
                 <Label fx:id="labelID" layoutX="192.0" layoutY="102.0" text="ID:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblID" layoutX="247.0" layoutY="107.0" text="0"/>
+                <Label fx:id="lblID" layoutX="247.0" layoutY="107.0" text="0" />
                 <Label fx:id="labelHealth" layoutX="53.0" layoutY="187.0" text="Health:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblHP" layoutX="162.0" layoutY="192.0" text="0"/>
+                <Label fx:id="lblHP" layoutX="162.0" layoutY="192.0" text="0" />
                 <Label fx:id="labelAttack" layoutX="55.0" layoutY="279.0" text="Attack:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblAtk" layoutX="162.0" layoutY="284.0" text="0"/>
+                <Label fx:id="lblAtk" layoutX="162.0" layoutY="284.0" text="0" />
                 <Label fx:id="labelSpeed" layoutX="272.0" layoutY="187.0" text="Speed:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
                 <Label fx:id="labelDefence" layoutX="272.0" layoutY="279.0" text="Defence: ">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblSpeed" layoutX="393.0" layoutY="192.0" text="0"/>
-                <Label fx:id="lblDf" layoutX="393.0" layoutY="284.0" text="0"/>
+                <Label fx:id="lblSpeed" layoutX="393.0" layoutY="192.0" text="0" />
+                <Label fx:id="lblDf" layoutX="393.0" layoutY="284.0" text="0" />
             </children>
         </Pane>
-        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="30.0" layoutY="744.0" mnemonicParsing="false"
-                onAction="#backTrainerMenu" text="Back"/>
+        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="30.0" layoutY="744.0" mnemonicParsing="false" onAction="#backTrainerMenu" text="Back" />
+      <Button fx:id="btnHelp" blendMode="MULTIPLY" layoutX="1133.0" layoutY="769.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
+      <Pane fx:id="paneHelp" layoutX="920.0" layoutY="450.0" prefHeight="314.0" prefWidth="264.0" visible="false">
+         <children>
+            <Label fx:id="lbl1" alignment="TOP_LEFT" layoutX="15.0" layoutY="7.0" prefHeight="63.0" prefWidth="235.0" text="     &quot;My collection&quot; in the top right corner shows the Pokémon that you have already collected." wrapText="true" />
+            <Label fx:id="lbl2" alignment="TOP_LEFT" layoutX="15.0" layoutY="60.0" prefHeight="63.0" prefWidth="235.0" text="     &quot;My team&quot; in top right corners shows your team. Each trainer can have 1 to 6 Pokémon in their team and use it to battle." wrapText="true" />
+            <Label fx:id="lbl3" alignment="TOP_LEFT" layoutX="15.0" layoutY="123.0" prefHeight="35.0" prefWidth="235.0" text="     To see the details and statistics of your Pokémon just press the &quot;Select&quot; button." wrapText="true" />
+            <Label fx:id="lbl4" alignment="TOP_LEFT" layoutX="15.0" layoutY="170.0" prefHeight="63.0" prefWidth="235.0" text="     In order to add a new Pokémon to your team, select one from the &quot;My collection&quot; list and press &quot;Add to team&quot;." wrapText="true" />
+            <Label fx:id="lbl5" alignment="TOP_LEFT" layoutX="15.0" layoutY="233.0" prefHeight="74.0" prefWidth="235.0" text="     You can keep up to 6 Pokémon at a time, so if you would like to change your team, you will have to remove Pokémon before adding new ones." wrapText="true" />
+         </children>
+      </Pane>
+      <Label fx:id="labelError" alignment="CENTER" layoutX="450.0" layoutY="355.0" prefHeight="17.0" prefWidth="255.0" textAlignment="CENTER" textFill="RED" />
     </children>
 </AnchorPane>

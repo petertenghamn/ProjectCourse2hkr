@@ -10,93 +10,94 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
-            stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1"
-            fx:controller="scenes.controller.ShowAllPokemonController">
+<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
-        <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="31.0" layoutY="54.0" mnemonicParsing="false"
-                onAction="#showPokemon" prefHeight="60.0" prefWidth="120.0" text="Select"/>
-        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="31.0" layoutY="694.0" mnemonicParsing="false"
-                onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back"/>
+        <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="31.0" layoutY="54.0" mnemonicParsing="false" onAction="#showPokemon" prefHeight="60.0" prefWidth="120.0" text="Select" />
+        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="31.0" layoutY="694.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
         <Pane fx:id="pane1" layoutX="31.0" layoutY="133.0" prefHeight="541.0" prefWidth="410.0">
             <children>
-                <ListView fx:id="listView" layoutX="25.0" layoutY="18.0" onEditStart="#showPokemon" prefHeight="505.0"
-                          prefWidth="360.0"/>
+                <ListView fx:id="listView" layoutX="25.0" layoutY="18.0" onEditStart="#showPokemon" prefHeight="505.0" prefWidth="360.0" />
             </children>
         </Pane>
         <Pane fx:id="pane2" layoutX="466.0" layoutY="46.0" prefHeight="708.0" prefWidth="456.0">
             <children>
                 <Label fx:id="labelName" layoutX="27.0" layoutY="330.0" text="Name:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" text="0"/>
+                <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" text="0" />
                 <Label fx:id="labelType" layoutX="222.0" layoutY="330.0" text="Type:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" text="0"/>
+                <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" text="0" />
                 <Label fx:id="labelID" layoutX="162.0" layoutY="387.0" text="ID:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" text="0"/>
+                <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" text="0" />
                 <Label fx:id="labelHealth" layoutX="27.0" layoutY="488.0" text="Health:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" text="0"/>
+                <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" text="0" />
                 <Label fx:id="labelSpeed" layoutX="253.0" layoutY="488.0" text="Speed:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblSpeed" layoutX="367.0" layoutY="493.0" text="0"/>
+                <Label fx:id="lblSpeed" layoutX="367.0" layoutY="493.0" text="0" />
                 <Label fx:id="labelAttack" layoutX="25.0" layoutY="561.0" text="Attack:">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" text="0"/>
+                <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" text="0" />
                 <Label fx:id="labelDefence" layoutX="246.0" layoutY="561.0" text="Defence: ">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblDf" layoutX="367.0" layoutY="566.0" text="0"/>
-                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="132.0" layoutY="72.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <Label fx:id="lblDf" layoutX="367.0" layoutY="566.0" text="0" />
+                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="132.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@images/pokeLogo.png"/>
+                        <Image url="@images/pokeLogo.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="104.0" layoutY="72.0"
-                           pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="104.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" visible="false">
                     <image>
-                        <Image url="@images/pokeball.gif"/>
+                        <Image url="@images/pokeball.gif" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnNickname" blendMode="MULTIPLY" layoutX="372.0" layoutY="269.0" mnemonicParsing="false"
-                        onAction="#pokemonNickname" text="Ok" visible="false"/>
-                <TextField fx:id="txtNickname" blendMode="MULTIPLY" layoutX="138.0" layoutY="274.0" prefHeight="25.0"
-                           prefWidth="218.0" promptText="Choose a name" visible="false"/>
-                <Button fx:id="btnNoNickname" blendMode="MULTIPLY" layoutX="15.0" layoutY="269.0"
-                        mnemonicParsing="false" onAction="#pokemonNoNickname" text="Keep its name" visible="false"/>
-                <Label fx:id="lblNickname" alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="35.0"
-                       prefWidth="456.0" text="Give your new friend a nickname!" textAlignment="CENTER"
-                       visible="false"/>
-                <Label fx:id="lblError" alignment="CENTER" layoutY="306.0" prefHeight="17.0" prefWidth="456.0"
-                       textAlignment="CENTER" textFill="#eb0000" visible="false"/>
+                <Button fx:id="btnNickname" blendMode="MULTIPLY" layoutX="372.0" layoutY="269.0" mnemonicParsing="false" onAction="#pokemonNickname" text="Ok" visible="false" />
+                <TextField fx:id="txtNickname" blendMode="MULTIPLY" layoutX="138.0" layoutY="274.0" prefHeight="25.0" prefWidth="218.0" promptText="Choose a name" visible="false" />
+                <Button fx:id="btnNoNickname" blendMode="MULTIPLY" layoutX="15.0" layoutY="269.0" mnemonicParsing="false" onAction="#pokemonNoNickname" text="Keep its name" visible="false" />
+                <Label fx:id="lblNickname" alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="35.0" prefWidth="456.0" text="Give your new friend a nickname!" textAlignment="CENTER" visible="false" />
+                <Label fx:id="lblError" alignment="CENTER" layoutY="306.0" prefHeight="17.0" prefWidth="456.0" textAlignment="CENTER" textFill="#eb0000" visible="false" />
+            <Label fx:id="labelPrice" layoutX="147.0" layoutY="617.0" text="Price:">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" text="0" />
             </children>
         </Pane>
-        <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="258.0" layoutY="54.0" mnemonicParsing="false"
-                onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!"/>
-        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="217.0" layoutY="694.0" mnemonicParsing="false"
-                onAction="#getNewPokemon" prefHeight="60.0" text="Catch a new Pokémon!" visible="false"/>
+        <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="258.0" layoutY="54.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
+        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="217.0" layoutY="694.0" mnemonicParsing="false" onAction="#getNewPokemon" prefHeight="60.0" text="Catch a new Pokémon!" visible="false" />
+      <Button fx:id="btnHelp" blendMode="MULTIPLY" layoutX="1133.0" layoutY="761.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
+      <Pane fx:id="paneHelp" layoutX="975.0" layoutY="267.0" prefHeight="494.0" prefWidth="211.0" visible="false">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="7.0" prefHeight="35.0" prefWidth="200.0" text="     On the left you can find the list of all the Pokémon you can collect." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="52.0" prefHeight="90.0" prefWidth="200.0" text="     Choose a Pokémon and press the &quot;Select&quot; button to see its details, statistics and the price to go on an adventure and catch it!" wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="129.0" prefHeight="74.0" prefWidth="200.0" text="     If you have enough PokéBucks to start your journey, press the &quot;Catch Pokémon!&quot; and add it to your collection." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="210.0" prefHeight="74.0" prefWidth="200.0" text="     You can choose to give your new friend a nickname, or if you like its name already, just press &quot;Keep its name&quot;." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="3.0" layoutY="395.0" prefHeight="99.0" prefWidth="211.0" text="     Catch many Pokémon as long as you have enough PokéBucks for your adventures. Press &quot;Catch new Pokémon!&quot; after every adventure and go on a new one!" wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="293.0" prefHeight="90.0" prefWidth="200.0" text="     You can catch the same Pokémon as many times as you want, as long as you give them different names. Create yourself a team of 6 Pikachus, why not?" wrapText="true" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
