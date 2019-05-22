@@ -8,6 +8,11 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 2);
 }
 
+#paneHelp {
+    -fx-background-color: rgba(255, 255, 255, .8);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
+}
+
 #labelCharmander {
     -fx-font: 30px Garamond;
 }
@@ -57,6 +62,18 @@
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
+
+#btnHelp {
+    -fx-font: 15px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnHelp:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
 #leftStarter:hover{
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);

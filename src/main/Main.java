@@ -142,7 +142,7 @@ public class Main extends Application {
             if (currentUser instanceof Trainer) {
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
                 if (pokeDB.loginBonusCheck(email)){
-                    System.out.println("Trainer recieved login bonus!");
+                    System.out.println("Trainer received login bonus!");
                     ((Trainer) currentUser).recieveLoginBonus();
                     pokeDB.updateUserCurrency(currentUser);
                 }
@@ -223,9 +223,6 @@ public class Main extends Application {
             } else {
                 System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
             }
-        }
-        else {
-            System.out.println("Professor trying to acquire pokemon?");
         }
     }
 

@@ -42,7 +42,7 @@
                 <Blend />
             </effect>
         </ImageView>
-        <Button fx:id="btnNoNickname" blendMode="SOFT_LIGHT" layoutX="404.0" layoutY="330.0" mnemonicParsing="false" onAction="#finishedSelecting" prefHeight="70.0" prefWidth="175.0" text="Keep it's name" visible="false" />
+        <Button fx:id="btnNoNickname" blendMode="SOFT_LIGHT" layoutX="404.0" layoutY="330.0" mnemonicParsing="false" onAction="#finishedSelecting" prefHeight="70.0" prefWidth="175.0" text="Keep its name" visible="false" />
         <Button fx:id="btnNickname" blendMode="SOFT_LIGHT" layoutX="455.0" layoutY="271.0" mnemonicParsing="false" onAction="#setNickname" prefHeight="46.0" prefWidth="67.0" text="Ok" visible="false" />
         <TextField fx:id="fieldNickname" layoutX="339.0" layoutY="209.0" prefHeight="25.0" prefWidth="305.0" promptText="Enter name" visible="false">
             <font>
@@ -53,5 +53,14 @@
       <Label fx:id="labelBulbasaur" layoutX="434.0" layoutY="726.0" text="Bulbasaur" textFill="WHITE" />
       <Label fx:id="labelSquirtle" layoutX="718.0" layoutY="444.0" text="Squirtle" textFill="WHITE" />
       <Button fx:id="btnBack" blendMode="SOFT_LIGHT" layoutX="61.0" layoutY="643.0" mnemonicParsing="false" onAction="#backToStarters" prefHeight="70.0" prefWidth="130.0" text="Back" visible="false" />
+      <Button fx:id="btnHelp" blendMode="SOFT_LIGHT" layoutX="1112.0" layoutY="767.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
+      <Pane fx:id="paneHelp" layoutX="965.0" layoutY="498.0" prefHeight="269.0" prefWidth="200.0" visible="false">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="14.0" prefHeight="35.0" prefWidth="188.0" text="     Pick your first Pokémon by clicking on its picture." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="60.0" prefHeight="54.0" prefWidth="188.0" text="    No need to worry about their stats as all 3 have equal power. Just pick the one you like!" wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="116.0" prefHeight="68.0" prefWidth="188.0" text="     Once you decided, go ahead and give your new friend a nickname, or just keep its name if you like it!" wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="6.0" layoutY="194.0" prefHeight="68.0" prefWidth="188.0" text="      Before you give it a name, you can go back and pick another Pokémon in case you changed your mind." wrapText="true" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
