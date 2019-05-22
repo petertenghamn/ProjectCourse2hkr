@@ -12,7 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class DatabaseLoader {
 
-    private String url = "jdbc:mysql://localhost:3306/pokedb?user=root&password=root"; //re-add for Viktor... sorry "?serverTimezone=UTF-8"
+    private String remoteUsername = "pokedb";
+    private String remotePassword = "electrorat!";
+
+    private String url = "jdbc:mysql://den1.mysql4.gear.host:3306/pokedb?user=" + remoteUsername + "&password=" + remotePassword;
     private Statement statement;
 
     private Connection con;
