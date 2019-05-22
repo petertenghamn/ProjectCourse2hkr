@@ -9,12 +9,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DebugDatabase {
-    ArrayList<User> users;
-    HashMap<String, String> userPasswords;
 
-    Pokemon[] pokemons;
+    private ArrayList<Pokemon> pokemons;
+    private ArrayList<User> users;
+    private HashMap<String, String> userPasswords;
 
-    private void createUsers() {
+    public DebugDatabase(){
+        pokemons = new ArrayList<>();
+        pokemons.add(new Pokemon(1,"Seaturtle",20,10,40,5,"Earth"));
+        pokemons.add(new Pokemon(2,"Flappybird", 10,30,10,25,"Wind"));
+        pokemons.add(new Pokemon(3, "Bulbasaur", 100, 10, 10, 10, "Grass, Poison"));
+        pokemons.add(new Pokemon(4, "Ivysaur", 100, 10, 10, 10, "Grass, Poison"));
+        pokemons.add(new Pokemon(5, "Venusaur", 100, 10, 10, 10, "Grass, Poison"));
+        pokemons.add(new Pokemon(6, "Charizard", 100, 10, 10, 10, "Fire, Flying"));
+        pokemons.add(new Pokemon(7, "Charmander", 100, 10, 10, 10, "Fire"));
+        pokemons.add(new Pokemon(8, "Charmeleon", 100, 10, 10, 10, "Fire"));
+        pokemons.add(new Pokemon(9, "Squirtle", 100, 10, 10, 10, "Water"));
+        pokemons.add(new Pokemon(10, "Wartortle", 100, 10, 10, 10, "Water"));
+        pokemons.add(new Pokemon(11, "Blastoise", 100, 10, 10, 10, "Water"));
+        pokemons.add(new Pokemon(12, "Pikachu", 100, 10, 10, 10, "Electric"));
+        pokemons.add(new Pokemon(13, "Raichu", 100, 10, 10, 10, "Electric"));
+
         users = new ArrayList<>();
         users.add((new Professor("oak@prof") {
             @Override
@@ -40,26 +55,12 @@ public class DebugDatabase {
             }
         }
     }
-    public Pokemon[] getPokemons(){
-        pokemons = new Pokemon[13];
-        pokemons[0] = new Pokemon(1,"Seaturtle",20,10,40,5,"Earth");
-        pokemons[1] = new Pokemon(2,"Flappybird", 10,30,10,25,"Wind");
-        pokemons[2] = new Pokemon(3, "Bulbasaur", 100, 10, 10, 10, "Grass, Poison");
-        pokemons[3] = new Pokemon(4, "Ivysaur", 100, 10, 10, 10, "Grass, Poison");
-        pokemons[4] = new Pokemon(5, "Venusaur", 100, 10, 10, 10, "Grass, Poison");
-        pokemons[5] = new Pokemon(6, "Charizard", 100, 10, 10, 10, "Fire, Flying");
-        pokemons[6] = new Pokemon(7, "Charmander", 100, 10, 10, 10, "Fire");
-        pokemons[7] = new Pokemon(8, "Charmeleon", 100, 10, 10, 10, "Fire");
-        pokemons[8] = new Pokemon(9, "Squirtle", 100, 10, 10, 10, "Water");
-        pokemons[9] = new Pokemon(10, "Wartortle", 100, 10, 10, 10, "Water");
-        pokemons[10] = new Pokemon(11, "Blastoise", 100, 10, 10, 10, "Water");
-        pokemons[11] = new Pokemon(12, "Pikachu", 100, 10, 10, 10, "Electric");
-        pokemons[12] = new Pokemon(13, "Raichu", 100, 10, 10, 10, "Electric");
+
+    public ArrayList<Pokemon> getPokemons(){
         return pokemons;
     }
 
     public User authenticateUser(String username, String password) {
-        createUsers();
         System.out.println(username);
         for (User u : users){
             if (u instanceof Trainer) {
