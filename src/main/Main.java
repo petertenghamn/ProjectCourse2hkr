@@ -18,6 +18,17 @@ public class Main extends Application {
 
     private DatabaseLoader pokeDB;
     private SceneManager manager;
+    private DebugDatabase pokeBugDB;
+    private User[] debugUsers;
+    private boolean deBugLoader = false;
+
+    public void setDeBugLoader(boolean deBugLoader) {
+        this.deBugLoader = deBugLoader;
+    }
+
+    public boolean isDeBugLoader() {
+        return deBugLoader;
+    }
 
     //stored user who has logged in
     private User currentUser;
@@ -37,6 +48,11 @@ public class Main extends Application {
      *
      * @returns Pokemon[]
      */
+
+    public void setAllPokemon(Pokemon[] poke) {
+        allPokemon = poke;
+    }
+
     public Pokemon[] getAllPokemon() {
         return allPokemon;
     }
@@ -68,6 +84,10 @@ public class Main extends Application {
             }
         }
         return null;
+    }
+    // Get debug userlist
+    public void getUsers(){
+        debugUsers = pokeBugDB.createUsers();
     }
 
     /*
@@ -111,18 +131,28 @@ public class Main extends Application {
      * Only changes screen if information is matched to a user in the DB
      */
     public boolean authenticateLogin(String email, String password) {
-        currentUser = pokeDB.authenticateLogin(email, password);
-        if (currentUser != null) {
-            if (currentUser instanceof Trainer) {
-                manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-                System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
-            } else if (currentUser instanceof Professor) {
-                manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
+        if (!deBugLoader) {
+            currentUser = pokeDB.authenticateLogin(email, password);
+            if (currentUser != null) {
+                if (currentUser instanceof Trainer) {
+                    manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+                    System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
+                } else if (currentUser instanceof Professor) {
+                    manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
+                }
+                return true;
+            } else {
+                return false;
             }
-            return true;
-        } else {
-            return false;
         }
+        else {
+            boolean authenticateLogin = pokeBugDB.authenticateUser();
+            if (authenticateLogin){
+                manager.changeScene(SceneManager.sceneName.TRAINERMENU);
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
