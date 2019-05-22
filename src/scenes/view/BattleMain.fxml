@@ -7,160 +7,179 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.BattleMainController">
+<AnchorPane fx:id="battleMainAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/BattleMain.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.BattleMainController">
    <children>
-      <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToTrainerMenu" text="Back" />
-      <ImageView fx:id="imgPokemon" fitHeight="150.0" fitWidth="200.0" layoutX="122.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/pokeLogo.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgEnemy" fitHeight="150.0" fitWidth="200.0" layoutX="970.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/pokeLogo.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="lblPokemon" layoutX="155.0" layoutY="499.0" text="Atacking Pokemon Name" />
-      <Label fx:id="lblEnemy" layoutX="973.0" layoutY="101.0" text="Defending Pokemon Name" />
-      <Label layoutX="620.0" layoutY="375.0" text="VS">
+      <Pane fx:id="pane1" layoutX="47.0" layoutY="418.0" prefHeight="310.0" prefWidth="550.0">
+         <children>
+            <ImageView fx:id="imgPokemon" fitHeight="173.0" fitWidth="200.0" layoutX="76.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pokeLogo.png" />
+               </image>
+            </ImageView>
+            <Ellipse fx:id="teamBall1" layoutX="41.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="teamBall2" layoutX="76.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="teamBall3" layoutX="113.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="teamBall4" layoutX="150.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="teamBall5" layoutX="184.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="teamBall6" layoutX="218.0" layoutY="41.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Label fx:id="lblPokemon" layoutX="84.0" layoutY="71.0" text="Pokemon Name" />
+            <Label fx:id="lblPokemonHP" layoutX="352.0" layoutY="101.0" prefHeight="25.0" prefWidth="40.0" text="0000" />
+            <ProgressBar fx:id="hpPokemon" layoutX="307.0" layoutY="132.0" prefHeight="18.0" prefWidth="228.0" progress="1.0" />
+            <Button fx:id="btnFight" blendMode="MULTIPLY" layoutX="343.0" layoutY="202.0" mnemonicParsing="false" onAction="#fightTurn" text="Fight" />
+            <Button fx:id="btnFlee" blendMode="MULTIPLY" layoutX="432.0" layoutY="202.0" mnemonicParsing="false" onAction="#attemptEscape" text="Flee" />
+            <Button fx:id="btnSwitch" blendMode="MULTIPLY" layoutX="348.0" layoutY="261.0" mnemonicParsing="false" onAction="#switchPokemon" text="Switch Pokémon" />
+            <Label fx:id="labelPokemonHP" layoutX="307.0" layoutY="101.0" text="HP : " />
+         </children>
+      </Pane>
+      <Label layoutX="585.0" layoutY="358.0" text="VS">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="hpPokemon" layoutX="400.0" layoutY="543.0" prefWidth="200.0" progress="1.0" />
-      <ProgressBar fx:id="hpEnemy" layoutX="722.0" layoutY="156.0" prefWidth="200.0" progress="1.0" />
-      <Label layoutX="407.0" layoutY="516.0" text="HP : " />
-      <Label layoutX="898.0" layoutY="125.0" text=": HP" />
-      <Label fx:id="lblPokemonHP" layoutX="452.0" layoutY="516.0" text="Label" />
-      <Label fx:id="lblEnemyHP" layoutX="837.0" layoutY="125.0" text="Label" />
-      <Button fx:id="btnFight" layoutX="400.0" layoutY="627.0" mnemonicParsing="false" onAction="#fightTurn" text="Fight" />
-      <Button fx:id="btnFlee" layoutX="466.0" layoutY="627.0" mnemonicParsing="false" onAction="#attemptEscape" text="Flee" />
-      <ListView fx:id="messageBoard" layoutX="782.0" layoutY="491.0" prefHeight="219.0" prefWidth="397.0" />
-      <Button fx:id="btnSwitch" layoutX="400.0" layoutY="673.0" mnemonicParsing="false" onAction="#switchPokemon" text="Switch Pokemon" />
-      <Ellipse fx:id="enemyBall1" layoutX="712.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="enemyBall2" layoutX="748.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="enemyBall3" layoutX="785.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="enemyBall4" layoutX="826.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="enemyBall5" layoutX="867.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="enemyBall6" layoutX="909.0" layoutY="88.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall1" layoutX="99.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall2" layoutX="135.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall3" layoutX="172.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall4" layoutX="213.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall5" layoutX="254.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
-      <Ellipse fx:id="teamBall6" layoutX="296.0" layoutY="458.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
-         <fill>
-            <LinearGradient endY="1.0" proportional="false" startX="1.0">
-               <stops>
-                  <Stop color="RED" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Ellipse>
+      <Pane fx:id="pane2" layoutX="626.0" layoutY="39.0" prefHeight="310.0" prefWidth="550.0">
+         <children>
+            <Ellipse fx:id="enemyBall1" layoutX="38.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="enemyBall2" layoutX="76.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="enemyBall3" layoutX="109.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="enemyBall4" layoutX="145.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="enemyBall5" layoutX="180.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Ellipse fx:id="enemyBall6" layoutX="218.0" layoutY="43.0" radiusX="13.0" radiusY="13.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endY="1.0" proportional="false" startX="1.0">
+                     <stops>
+                        <Stop color="RED" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Ellipse>
+            <Label fx:id="labelEnemyHP" layoutX="160.0" layoutY="178.0" text="HP :" />
+            <Label fx:id="lblEnemyHP" layoutX="205.0" layoutY="178.0" text="0000" />
+            <ProgressBar fx:id="hpEnemy" layoutX="18.0" layoutY="206.0" prefWidth="228.0" progress="1.0" />
+            <Label fx:id="lblEnemy" layoutX="45.0" layoutY="93.0" text="Pokemon Name" />
+            <ImageView fx:id="imgEnemy" fitHeight="173.0" fitWidth="200.0" layoutX="352.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pokeLogo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="paneHelp" layoutX="14.0" layoutY="53.0" prefHeight="346.0" prefWidth="364.0" visible="false">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="9.0" layoutY="14.0" prefHeight="51.0" prefWidth="347.0" text="     Here you can battle other trainers to get PokéBucks and go on new adventures!" wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="51.0" prefHeight="75.0" prefWidth="347.0" text="     To attack your oppnonet press the &quot;Fight&quot; button and the &quot;Switch Pokémon&quot; button to pick the most suitable Pokémon for each situation." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="9.0" layoutY="107.0" prefHeight="102.0" prefWidth="347.0" text="     If you think the odds are not in your favour, press the &quot;Flee&quot; button and come back later and stronger. But beware, the other Pokémon might not leave you alone, so fleeing is not guaranteed." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="9.0" layoutY="180.0" prefHeight="116.0" prefWidth="347.0" text="     On the screen you can see both your and your opponent's health bar. Once your bar reaches zero, the current Pokémon will faint and will be replaced by another one from your team. The same goes for your enemy. The battle ends when all the Pokémon in a team faint." wrapText="true" />
+            <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="271.0" prefHeight="75.0" prefWidth="347.0" text="     All Pokémon have different types and stats, making them stronger or weaker against eachother. Find a good strategy, create a powerful team and switch your Pokémon according to the situation and the victory will be yours!" wrapText="true" />
+         </children>
+      </Pane>
+      <Button fx:id="btnHelp" blendMode="MULTIPLY" layoutX="12.0" layoutY="14.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
+      <ListView fx:id="messageBoard" layoutX="680.0" layoutY="431.0" prefHeight="284.0" prefWidth="455.0" />
+      <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="14.0" layoutY="747.0" mnemonicParsing="false" onAction="#backToTrainerMenu" text="Back" />
    </children>
 </AnchorPane>

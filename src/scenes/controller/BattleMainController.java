@@ -10,6 +10,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import main.Main;
@@ -21,6 +22,36 @@ import main.users.Trainer;
 import java.util.ArrayList;
 
 public class BattleMainController implements Controller {
+
+    @FXML
+    Button btnFight, btnFlee, btnSwitch, btnHelp;
+    @FXML
+    Pane paneHelp;
+    private Main main;
+    private Pokemon[] userTeam = new Pokemon[6], enemyTeam = new Pokemon[6];
+    private ArrayList<String> battleMessages = new ArrayList<>();
+    private Boolean userTurn = true;
+    private int pokemonRemaining = 6, enemyRemaining = 6;
+    private boolean fighting = false;
+    private double enemyHp, userHP;
+    private Boolean help = false;
+    @FXML
+    private ListView<String> messageBoard;
+    @FXML
+    private ImageView imgPokemon, imgEnemy;
+    @FXML
+    private Label lblPokemon, lblEnemy, lblPokemonHP, lblEnemyHP;
+    @FXML
+    private ProgressBar hpPokemon, hpEnemy;
+    @FXML
+    private Ellipse enemyBall1, enemyBall2, enemyBall3, enemyBall4, enemyBall5, enemyBall6;
+    @FXML
+    private Ellipse teamBall1, teamBall2, teamBall3, teamBall4, teamBall5, teamBall6;
+    // These are used for the Battle System
+    // They are stored in this order: HP, Speed, Attack, Defense
+    private ArrayList<Integer> userStats = new ArrayList<>();
+    private ArrayList<Integer> enemyStats = new ArrayList<>();
+    private String enemyType, userType;
 
     @Override
     public void setMain(Main m) {
@@ -105,38 +136,6 @@ public class BattleMainController implements Controller {
         enemyBall6.setVisible(true);
     }
 
-    private Main main;
-    private Pokemon[] userTeam = new Pokemon[6], enemyTeam = new Pokemon[6];
-    private ArrayList<String> battleMessages = new ArrayList<>();
-    private Boolean userTurn = true;
-    private int pokemonRemaining = 6, enemyRemaining = 6;
-
-
-    private boolean fighting = false;
-    private double enemyHp, userHP;
-
-
-    @FXML
-    Button btnFight, btnFlee, btnSwitch;
-
-    @FXML
-    private ListView<String> messageBoard;
-
-    @FXML
-    private ImageView imgPokemon, imgEnemy;
-
-    @FXML
-    private Label lblPokemon, lblEnemy, lblPokemonHP, lblEnemyHP;
-
-    @FXML
-    private ProgressBar hpPokemon, hpEnemy;
-
-    @FXML
-    private Ellipse enemyBall1, enemyBall2, enemyBall3, enemyBall4, enemyBall5, enemyBall6;
-
-    @FXML
-    private Ellipse teamBall1, teamBall2, teamBall3, teamBall4, teamBall5, teamBall6;
-
     public void backToTrainerMenu() {
         main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
     }
@@ -174,13 +173,6 @@ public class BattleMainController implements Controller {
         lblEnemy.setText(enemyTeam[0].getName());
         lblEnemyHP.setText(Double.toString(enemyHp));
     }
-
-    // These are used for the Battle System
-    // They are stored in this order: HP, Speed, Attack, Defense
-    private ArrayList<Integer> userStats = new ArrayList<>();
-    private ArrayList<Integer> enemyStats = new ArrayList<>();
-
-    private String enemyType, userType;
 
     public void attemptEscape() {
         boolean escapeSuccess = true;
@@ -239,7 +231,7 @@ public class BattleMainController implements Controller {
             fighting = true;
             // Ask Isak for future system
             // Damage = (Bonus * Attack) - Defense
-            damage = (calculateTypeBonus() * (userStats.get(2) * (int)((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
+            damage = (calculateTypeBonus() * (userStats.get(2) * (int) ((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
 
             // HP = HP - Damage (Damage is rounded to the nearest integer)
             enemyHp = enemyHp - damage;
@@ -291,7 +283,7 @@ public class BattleMainController implements Controller {
 
         } else {
             fighting = true;
-            damage = (calculateTypeBonus() * (enemyStats.get(2) * (int)((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
+            damage = (calculateTypeBonus() * (enemyStats.get(2) * (int) ((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
             battleMessages.add(lblEnemy.getText() + " Attacked for: " + damage + " points of damage!");
             userHP = userHP - damage;
             if (userHP <= 0) {
@@ -347,19 +339,18 @@ public class BattleMainController implements Controller {
         // The active Pokemon is the first one in the array
         if (userTurn) {
             for (int index = 0; index < pokemonRemaining; index++) {
-                Pokemon temp = userTeam[index +1];
+                Pokemon temp = userTeam[index + 1];
                 if (temp != null) {
                     userTeam[index + 1] = userTeam[index];
                     userTeam[index] = temp;
-                }
-                else {
+                } else {
                     battleMessages.add("You don't have any other available Pokemon");
                     updateMessageBoard();
                 }
             }
-        }else {
+        } else {
             for (int index = 0; index < enemyRemaining; index++) {
-                Pokemon temp = enemyTeam[index +1];
+                Pokemon temp = enemyTeam[index + 1];
                 enemyTeam[index + 1] = enemyTeam[index];
                 enemyTeam[index] = temp;
             }
@@ -383,8 +374,6 @@ public class BattleMainController implements Controller {
 
             userTurn = true;
         }
-
-
 
 
     }
@@ -479,5 +468,16 @@ public class BattleMainController implements Controller {
         battleMessages.add("The battle is over you can stay and review what happened");
         battleMessages.add("When you're ready hit the back button");
         updateMessageBoard();
+    }
+
+    public void showHelp() {
+
+        if(help == true){
+            paneHelp.setVisible(false);
+            help = false;
+        }else{
+            paneHelp.setVisible(true);
+            help = true;
+        }
     }
 }
