@@ -16,6 +16,17 @@ public class Main extends Application {
 
     private DatabaseLoader pokeDB;
     private SceneManager manager;
+    private DebugDatabase pokeBugDB;
+    private ArrayList<User> debugUsers;
+    private boolean deBugLoader = false;
+
+    public void setDeBugLoader(boolean deBugLoader) {
+        this.deBugLoader = deBugLoader;
+    }
+
+    public boolean isDeBugLoader() {
+        return deBugLoader;
+    }
 
     //stored user who has logged in
     private User currentUser;
@@ -40,6 +51,10 @@ public class Main extends Application {
      */
     public ArrayList<Pokemon> getAllPokemon() {
         return allPokemon;
+    }
+      
+    public void setAllPokemon() {
+        allPokemon = pokeBugDB.getPokemons();
     }
 
     /*
@@ -86,6 +101,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         pokeDB = new DatabaseLoader();
+        pokeBugDB = new DebugDatabase();
         allPokemon = pokeDB.loadAllPokemon();
 
         allTrainers = pokeDB.getTrainers();
@@ -116,7 +132,12 @@ public class Main extends Application {
      * If user = trainer, then login bonus is checked and given accordingly
      */
     public boolean authenticateLogin(String email, String password) {
-        currentUser = pokeDB.authenticateLogin(email, password);
+        if (!deBugLoader) {
+            currentUser = pokeDB.authenticateLogin(email, password);
+        } else {
+            currentUser = pokeBugDB.authenticateUser(email, password);
+        }
+
         if (currentUser != null) {
             if (currentUser instanceof Trainer) {
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
