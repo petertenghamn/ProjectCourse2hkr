@@ -19,7 +19,7 @@ public class Main extends Application {
     private DatabaseLoader pokeDB;
     private SceneManager manager;
     private DebugDatabase pokeBugDB;
-    private User[] debugUsers;
+    private ArrayList<User> debugUsers;
     private boolean deBugLoader = false;
 
     public void setDeBugLoader(boolean deBugLoader) {
@@ -85,10 +85,6 @@ public class Main extends Application {
         }
         return null;
     }
-    // Get debug userlist
-    public void getUsers(){
-        debugUsers = pokeBugDB.createUsers();
-    }
 
     /*
      * Get the user that is logged in
@@ -105,6 +101,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         pokeDB = new DatabaseLoader();
+        pokeBugDB = new DebugDatabase();
         allPokemon = pokeDB.loadAllPokemon();
         manager = new SceneManager(this, primaryStage);
     }
@@ -133,26 +130,21 @@ public class Main extends Application {
     public boolean authenticateLogin(String email, String password) {
         if (!deBugLoader) {
             currentUser = pokeDB.authenticateLogin(email, password);
-            if (currentUser != null) {
-                if (currentUser instanceof Trainer) {
-                    manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-                    System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
-                } else if (currentUser instanceof Professor) {
-                    manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
-                }
-                return true;
-            } else {
-                return false;
-            }
+        } else {
+            currentUser = pokeBugDB.authenticateUser(email, password);
         }
-        else {
-            boolean authenticateLogin = pokeBugDB.authenticateUser();
-            if (authenticateLogin){
+
+        if (currentUser != null) {
+            if (currentUser instanceof Trainer) {
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-                return true;
+                System.out.println("Trainer deserves a login bonus: " + pokeDB.loginBonusCheck(email));
+            } else if (currentUser instanceof Professor) {
+                manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     /*

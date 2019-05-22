@@ -1,32 +1,47 @@
 package main;
 
 import main.pokemon.Pokemon;
+import main.users.Professor;
+import main.users.Trainer;
 import main.users.User;
-import scenes.controller.LoginController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DebugDatabase {
-    LoginController login;
-    User []users = new User[2];
-    Pokemon[] pokemons = new Pokemon[13];
+    ArrayList<User> users;
+    HashMap<String, String> userPasswords;
 
-    public User[] createUsers() {
-        users[0] = (new User("oak@prof") {
+    Pokemon[] pokemons;
+
+    private void createUsers() {
+        users = new ArrayList<>();
+        users.add((new Professor("oak@prof") {
+            @Override
+            protected void setPassword(String password) {
+                super.setPassword("root");
+            }
+        }));
+        /*
+        users[1] = (new Trainer("james@player") {
             @Override
             protected void setPassword(String password) {
                 super.setPassword("root");
             }
         });
-        users[1] = (new User("james@player") {
-            @Override
-            protected void setPassword(String password) {
-                super.setPassword("root");
+        */
+
+        userPasswords = new HashMap<>();
+        for (User u : users){
+            if (u instanceof Trainer){
+                userPasswords.put(((Trainer) u).getEmail(), "root");
+            } else if (u instanceof Professor){
+                userPasswords.put(((Professor) u).getEmail(), "root");
             }
-        });
-        return users;
+        }
     }
     public Pokemon[] getPokemons(){
+        pokemons = new Pokemon[13];
         pokemons[0] = new Pokemon(1,"Seaturtle",20,10,40,5,"Earth");
         pokemons[1] = new Pokemon(2,"Flappybird", 10,30,10,25,"Wind");
         pokemons[2] = new Pokemon(3, "Bulbasaur", 100, 10, 10, 10, "Grass, Poison");
@@ -42,19 +57,27 @@ public class DebugDatabase {
         pokemons[12] = new Pokemon(13, "Raichu", 100, 10, 10, 10, "Electric");
         return pokemons;
     }
-    public boolean authenticateUser() {
-        User[] users = createUsers();
-        String username;
-        username = login.getTxtFieldUsername();
+
+    public User authenticateUser(String username, String password) {
+        createUsers();
         System.out.println(username);
         for (User u : users){
-            if (u.toString().contains(username)) {
-                return true;
+            if (u instanceof Trainer) {
+                if (((Trainer) u).getEmail().equals(username)) {
+                    if (password.equals(userPasswords.get(((Trainer) u).getEmail()))) {
+                        return u;
+                    }
+                }
             }
-            else {
-                return false;
+            else if (u instanceof Professor) {
+                if (((Professor) u).getEmail().equals(username))
+                {
+                    if (password.equals(userPasswords.get(((Professor) u).getEmail()))) {
+                        return u;
+                    }
+                }
             }
         }
-        return true;
+        return null;
     }}
 

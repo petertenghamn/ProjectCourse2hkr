@@ -63,11 +63,8 @@ public class LoginController implements Controller {
         lblErrorLogin.setText("The email must contain @.");
     } else if (password.isEmpty()) {
         lblErrorLogin.setText("Password is empty.");
-    } else if (!main.authenticateLogin(email, password) && !main.isDeBugLoader()) {
+    } else if (!main.authenticateLogin(email, password)) {
         lblErrorLogin.setText("The information you entered is incorrect.");
-    }
-    else if (main.isDeBugLoader() && !debugDatabase.authenticateUser()){
-        lblErrorLogin.setText("The information you entered is incorrect");
     }
 }
 
