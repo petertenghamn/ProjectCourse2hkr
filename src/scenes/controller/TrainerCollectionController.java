@@ -199,6 +199,7 @@ public class TrainerCollectionController implements Controller {
                 if (mapper.getNickname().equals(listTeam.getSelectionModel().getSelectedItem())) {
                     team.remove(mapper);
                     main.removePokemonUserTeam(mapper);
+                    break;
                 }
             }
         }
