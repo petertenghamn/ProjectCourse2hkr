@@ -8,19 +8,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
+import main.pokemon.PokemonMapper;
 import main.scenemanager.SceneManager;
+import main.users.Trainer;
+import main.users.User;
+
 import java.util.ArrayList;
 
-public class ViewTrainerController implements Controller{
+public class ViewTrainerController implements Controller {
 
     @Override
-    public void setMain(Main m){
+    public void setMain(Main m) {
         //set the main so that you can call upon it to change scenes
         main = m;
     }
 
     @Override
-    public void setUp(){
+    public void setUp() {
         updateTrainers();
 
         listCollection.setVisible(false);
@@ -28,7 +32,7 @@ public class ViewTrainerController implements Controller{
     }
 
     @Override
-    public void reset(){
+    public void reset() {
         Image image = new Image("scenes/view/images/pokeLogo.png");
         imgView.setImage(image);
 
@@ -51,28 +55,22 @@ public class ViewTrainerController implements Controller{
     @FXML
     ListView listView, listTeam, listCollection;
 
-    public void selectTrainer(){
+    public void selectTrainer() {
         showImage();
         updateStats();
         showCollection();
         showTeam();
     }
 
-    private void updateTrainers(){
-        /* DON'T UNCOMMENT UNTIL THE Main.getTrainers() WORKS!
-        User[] trainers = main.getTrainers();
+    private void updateTrainers() {
+        ArrayList<User> trainers = main.getTrainers();
         ArrayList<String> names = new ArrayList<>();
 
-        for (User trainer : trainers){
-            names.add(((Trainer) trainer).getUsername());
+        for (User trainer : trainers) {
+            if (trainer instanceof Trainer) {
+                names.add(((Trainer) trainer).getUsername());
+            }
         }
-         DELETE THE ARRAY LIST CREATED BELOW!!!!!!!!!!!!!!!!!!!! */
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Ash");
-        names.add("Peter");
-        names.add("Viktor");
-        names.add("Gary");
-        names.add("Brock");
 
         ObservableList<String> observableNames = FXCollections.observableArrayList(names);
 
@@ -80,55 +78,98 @@ public class ViewTrainerController implements Controller{
 
     }
 
-    private void showImage(){
+    private void showImage() {
         Image trainer;
+        String name = listView.getSelectionModel().getSelectedItem().toString();
+        int random = (int) ((Math.random() * ((3 - 1) + 1) + 0));
 
-        // The Numbers represent the max - min + 1 + min
-        // This should be based on the amount of Trainer Pictures
-        int random = (int)((Math.random()*((4-1) +1)+ 1));
-
-        switch (random){
-            case 1:{
-                trainer = new Image("scenes/view/images/ash.png");
-                break;
-            }
-            case 2:{
-                trainer = new Image("scenes/view/images/boy.png");
-                break;
-            }
-            case 3:{
-                trainer = new Image("scenes/view/images/girl.png");
-                break;
-            }
-            case 4:{
-                trainer = new Image("scenes/view/images/RedheadGirlTrainer.png");
-                break;
-            }
-            default:{
-                trainer = new Image("scenes/view/images/pokeLogo.png");
-            }
+        if (name.equalsIgnoreCase("Ash")) {
+            trainer = new Image("scenes/view/images/ash.png");
+        } else if (random == 1) {
+            trainer = new Image("scenes/view/images/boy.png");
+        } else if (random == 2) {
+            trainer = new Image("scenes/view/images/girl.png");
+        } else if (random == 3) {
+            trainer = new Image("scenes/view/images/RedheadGirlTrainer.png");
+        } else {
+            trainer = new Image("scenes/view/images/pokeLogo.png");
         }
 
         imgView.setImage(trainer);
     }
 
-    // THIS NEEDS TO BE DONE AS IT'S A WORK AROUND!!
-    private void updateStats(){
-        int randomCurrency = (int)((Math.random()*((2500) +1)+ 0));
-        int randomWin = (int)((Math.random()*((4) +1)+ 0));
-        int randomLoss = (int)((Math.random()*((4-1) +1)+ 0));
+    private void updateStats() {
+        String name = listView.getSelectionModel().getSelectedItem().toString();
+        ArrayList<User> trainers = main.getTrainers();
+
+        int currency = 0;
+        int wins = 0;
+        int losses = 0;
+
+        for (User trainer : trainers){
+            if (name.equalsIgnoreCase(((Trainer) trainer).getUsername())){
+                currency = ((Trainer) trainer).getCurrency();
+                wins = ((Trainer) trainer).getWinCount();
+                losses = ((Trainer) trainer).getLossCount();
+            }
+        }
 
         lblName.setText(listView.getSelectionModel().getSelectedItem().toString());
-        lblCurrency.setText(Integer.toString(randomCurrency));
-        lblWins.setText(Integer.toString(randomWin));
-        lblLosses.setText(Integer.toString(randomLoss));
+        lblCurrency.setText(Integer.toString(currency));
+        lblWins.setText(Integer.toString(wins));
+        lblLosses.setText(Integer.toString(losses));
     }
 
-    private void showCollection(){
+    private void showCollection() {
         listCollection.setVisible(true);
+
+        String name = listView.getSelectionModel().getSelectedItem().toString();
+
+        ArrayList<User> trainers = main.getTrainers();
+        ArrayList<PokemonMapper> collection = new ArrayList<>();
+
+        for (User trainer : trainers) {
+            if (name.equalsIgnoreCase(((Trainer) trainer).getUsername())) {
+                collection = ((Trainer) trainer).getCollection();
+            }
+        }
+
+        ArrayList<String> pokeNicknames = new ArrayList<>();
+
+        for (PokemonMapper pokemon : collection) {
+            pokeNicknames.add(pokemon.getNickname());
+        }
+
+        // Needed for a ListView in JavaFX for some reason
+        ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
+
+        listCollection.setItems(collectionPokemon);
     }
 
-    private void showTeam(){
+    private void showTeam() {
         listTeam.setVisible(true);
+
+        String name = listView.getSelectionModel().getSelectedItem().toString();
+
+        ArrayList<User> trainers = main.getTrainers();
+        ArrayList<PokemonMapper> team = new ArrayList<>();
+
+        for (User trainer : trainers) {
+            if (name.equalsIgnoreCase(((Trainer) trainer).getUsername())) {
+                team = ((Trainer) trainer).getTeam();
+
+            }
+        }
+
+        ArrayList<String> pokeNicknames = new ArrayList<>();
+
+        for (PokemonMapper pokemon : team) {
+            pokeNicknames.add(pokemon.getNickname());
+        }
+
+        // Needed for a ListView in JavaFX for some reason
+        ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
+
+        listTeam.setItems(collectionPokemon);
     }
 }
