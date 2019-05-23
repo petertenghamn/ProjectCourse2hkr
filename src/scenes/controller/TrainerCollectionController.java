@@ -57,9 +57,6 @@ public class TrainerCollectionController implements Controller {
 
     @Override
     public void reset() {
-        updateListCollection();
-        updateListTeam();
-
         listCollection.getSelectionModel().clearSelection();
         listTeam.getSelectionModel().clearSelection();
 
@@ -79,7 +76,7 @@ public class TrainerCollectionController implements Controller {
         main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
     }
 
-    public void updateListCollection() {
+    private void updateListCollection() {
         User user = main.getCurrentUser();
 
         ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
@@ -116,7 +113,7 @@ public class TrainerCollectionController implements Controller {
         }
     }
 
-    public void updateListTeam() {
+    private void updateListTeam() {
         User user = main.getCurrentUser();
 
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
@@ -138,7 +135,7 @@ public class TrainerCollectionController implements Controller {
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
         for (PokemonMapper pokemon : team) {
-            if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+            if (pokemon.getNickname().equalsIgnoreCase(listTeam.getSelectionModel().getSelectedItem())) {
                 imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
 
                 // prints the stats to the scene
@@ -153,8 +150,6 @@ public class TrainerCollectionController implements Controller {
         }
     }
 
-    // This adds the selected pokemon from the collection to the team
-    // ** DOES NOT UPDATE THE DATABASE YET
     public void addTeam() {
         User user = main.getCurrentUser();
 
@@ -189,6 +184,27 @@ public class TrainerCollectionController implements Controller {
             ((Trainer) user).setTeam(team);
             updateListTeam();
         }
+    }
+
+    public void removeTeam(){
+        User user = main.getCurrentUser();
+
+        ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
+
+        if (team.size() <= 1){
+            System.out.println("Team size cannot be less than 1!");
+        }
+        else {
+            for (PokemonMapper mapper : team) {
+                if (mapper.getNickname().equals(listTeam.getSelectionModel().getSelectedItem())) {
+                    team.remove(mapper);
+                    main.removePokemonUserTeam(mapper);
+                }
+            }
+        }
+
+        ((Trainer) user).setTeam(team);
+        updateListTeam();
     }
 
     public void showHelp() {
