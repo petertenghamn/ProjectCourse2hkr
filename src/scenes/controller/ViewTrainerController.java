@@ -36,7 +36,7 @@ public class ViewTrainerController implements Controller {
         Image image = new Image("scenes/view/images/pokeLogo.png");
         imgView.setImage(image);
 
-        listTeam.setVisible(false);
+        listCollection.setVisible(false);
         listTeam.setVisible(false);
     }
 

@@ -145,3 +145,7 @@ INSERT INTO collection (nickname, user_id, pokemon_id) VALUES
 INSERT INTO user_has_team (collection_nickname, user_id) VALUES
  ((SELECT nickname FROM collection WHERE nickname LIKE 'ElectroRat'),
  (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'));
+ 
+ 
+-- some queries
+-- SELECT collection.user_id, pokemon_id, nickname FROM collection INNER JOIN user_has_team WHERE nickname LIKE collection_nickname AND collection.user_id = user_has_team.user_id;

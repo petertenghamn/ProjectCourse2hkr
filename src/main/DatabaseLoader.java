@@ -189,10 +189,11 @@ public class DatabaseLoader {
                 userInfo.next();
                 int userID = userInfo.getInt(1);
 
-                ResultSet rs = statement.executeQuery("SELECT pokemon_id, nickname FROM collection INNER JOIN user_has_team ON " +
-                        "collection.user_id LIKE user_has_team.user_id AND collection.user_id LIKE '" + userID + "';");
+                ResultSet rs = statement.executeQuery("SELECT collection.user_id, pokemon_id, nickname FROM collection INNER JOIN user_has_team WHERE nickname LIKE collection_nickname AND collection.user_id = user_has_team.user_id;");
                 while (rs.next()) {
-                    team.add(new PokemonMapper(rs.getInt(1), rs.getString(2)));
+                    if (rs.getInt(1) == userID) {
+                        team.add(new PokemonMapper(rs.getInt(2), rs.getString(3)));
+                    }
                 }
             } catch (SQLException ex) {
                 System.out.println("Error executing getUserTeam query");
