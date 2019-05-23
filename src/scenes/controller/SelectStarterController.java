@@ -144,7 +144,7 @@ public class SelectStarterController implements Controller {
 
     public void showHelp() {
 
-        if(help == true){
+        if(help){
             paneHelp.setVisible(false);
             help = false;
         }else{
