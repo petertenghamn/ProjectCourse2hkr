@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import main.Main;
 import main.pokemon.Pokemon;
@@ -21,6 +19,7 @@ import main.users.Trainer;
 import main.users.User;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BattleMainController implements Controller {
 
@@ -29,13 +28,11 @@ public class BattleMainController implements Controller {
     @FXML
     Pane paneHelp;
     private Main main;
-    private Pokemon[] userTeam = new Pokemon[6], enemyTeam = new Pokemon[6];
+    private Pokemon userPokemon, enemyPokemon;
+    private ArrayList<Pokemon> userTeam, enemyTeam;
     private ArrayList<String> battleMessages = new ArrayList<>();
-    private Boolean userTurn = true;
-    private int pokemonRemaining = 6, enemyRemaining = 6;
-    private boolean fighting = false;
     private double enemyHp, userHP;
-    private Boolean help = false;
+    private boolean help = false, escaping = false;
     @FXML
     private ListView<String> messageBoard;
     @FXML
@@ -63,39 +60,146 @@ public class BattleMainController implements Controller {
     // Generation of enemy team so that it's random every time.
     @Override
     public void setUp() {
-        // Need the pokemon to be in an array of Pokemon
-        ArrayList<PokemonMapper> mappedTeam = ((Trainer) main.getCurrentUser()).getTeam();
-        Pokemon[] allPokemons = main.getAllPokemon().toArray(new Pokemon[main.getAllPokemon().size()]);
+        //get pokemon of the trainer
+        userTeam = new ArrayList<>();
+        enemyTeam = new ArrayList<>();
+        User user = main.getCurrentUser();
+        Random rand = new Random();
 
-        for (int maxSix = 0; maxSix < mappedTeam.size(); maxSix++) {
-            userTeam[maxSix] = main.getPokemonById(mappedTeam.get(maxSix).getId());
-            pokemonRemaining = maxSix + 1;
+        if (user instanceof Trainer){
+            ArrayList<PokemonMapper> mapper = ((Trainer) user).getTeam();
+
+            for (PokemonMapper p : mapper){
+                userTeam.add(main.getPokemonById(p.getId()));
+            }
         }
 
-        // Generation of the enemy team takes random pokemon from the main pokemon array
-        for (int generate = 0; generate < 6; generate++) {
-            // Change the numbers on the random to fit the numbers of pokemon
-            enemyTeam[generate] = allPokemons[(int) (Math.random() * ((10 - 1) + 1)) + 1];
+        //check to see if you can battle, then display the amount of pokeballs according to team size
+        if (userTeam.size() == 0){
+            System.out.println("User does not have a team!");
+            main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
+            return;
         }
 
-        // The image setting up takes the first pokemon of each team
-        Image pokemon = main.getPokemonImage(userTeam[0].getName());
-        Image enemy = main.getPokemonImage(enemyTeam[0].getName());
+        setUserPokeballsVisible(userTeam.size());
 
-        imgPokemon.setImage(pokemon);
-        imgEnemy.setImage(enemy);
+        //setup enemies equal to the trainer's pokemon count
+        Pokemon[] allPokemon = main.getAllPokemon().toArray(new Pokemon[main.getAllPokemon().size()]);
+        for (int i = 0; i < userTeam.size(); i++){
+            Pokemon pokemon = allPokemon[rand.nextInt(allPokemon.length)];
 
-        lblPokemon.setText(userTeam[0].getName());
-        lblEnemy.setText(enemyTeam[0].getName());
+            System.out.println("Enemy got: " + pokemon.getName());
+            enemyTeam.add(pokemon);
+        }
 
-        getStats();
+        setEnemyPokeballsVisible(enemyTeam.size());
+
+        //select a random pokemon for user and enemy to start battle with
+        userPokemon = userTeam.get(rand.nextInt(userTeam.size()));
+        enemyPokemon = enemyTeam.get(rand.nextInt(enemyTeam.size()));
+
+        getUserStats();
+        getEnemyStats();
 
         lblPokemonHP.setText(userStats.get(0).toString());
         lblEnemyHP.setText(enemyStats.get(0).toString());
 
-        getAttackingFirst();
+        userHP = userStats.get(0);
+        enemyHp = enemyStats.get(0);
 
-        fighting = false;
+        updateLabels();
+    }
+
+    private void setUserPokeballsVisible(int count){
+        if (count == 1){
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(false);
+            teamBall3.setVisible(false);
+            teamBall4.setVisible(false);
+            teamBall5.setVisible(false);
+            teamBall6.setVisible(false);
+        } else if (count == 2) {
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(true);
+            teamBall3.setVisible(false);
+            teamBall4.setVisible(false);
+            teamBall5.setVisible(false);
+            teamBall6.setVisible(false);
+        }else if (count == 3) {
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(true);
+            teamBall3.setVisible(true);
+            teamBall4.setVisible(false);
+            teamBall5.setVisible(false);
+            teamBall6.setVisible(false);
+        }else if (count == 4) {
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(true);
+            teamBall3.setVisible(true);
+            teamBall4.setVisible(true);
+            teamBall5.setVisible(false);
+            teamBall6.setVisible(false);
+        }else if (count == 5) {
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(true);
+            teamBall3.setVisible(true);
+            teamBall4.setVisible(true);
+            teamBall5.setVisible(true);
+            teamBall6.setVisible(false);
+        }else if (count == 6) {
+            teamBall1.setVisible(true);
+            teamBall2.setVisible(true);
+            teamBall3.setVisible(true);
+            teamBall4.setVisible(true);
+            teamBall5.setVisible(true);
+            teamBall6.setVisible(true);
+        }
+    }
+
+    private void setEnemyPokeballsVisible(int count){
+        if (count == 1){
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(false);
+            enemyBall3.setVisible(false);
+            enemyBall4.setVisible(false);
+            enemyBall5.setVisible(false);
+            enemyBall6.setVisible(false);
+        } else if (count == 2) {
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(true);
+            enemyBall3.setVisible(false);
+            enemyBall4.setVisible(false);
+            enemyBall5.setVisible(false);
+            enemyBall6.setVisible(false);
+        }else if (count == 3) {
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(true);
+            enemyBall3.setVisible(true);
+            enemyBall4.setVisible(false);
+            enemyBall5.setVisible(false);
+            enemyBall6.setVisible(false);
+        }else if (count == 4) {
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(true);
+            enemyBall3.setVisible(true);
+            enemyBall4.setVisible(true);
+            enemyBall5.setVisible(false);
+            enemyBall6.setVisible(false);
+        }else if (count == 5) {
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(true);
+            enemyBall3.setVisible(true);
+            enemyBall4.setVisible(true);
+            enemyBall5.setVisible(true);
+            enemyBall6.setVisible(false);
+        }else if (count == 6) {
+            enemyBall1.setVisible(true);
+            enemyBall2.setVisible(true);
+            enemyBall3.setVisible(true);
+            enemyBall4.setVisible(true);
+            enemyBall5.setVisible(true);
+            enemyBall6.setVisible(true);
+        }
     }
 
     @Override
@@ -113,14 +217,14 @@ public class BattleMainController implements Controller {
         battleMessages.clear();
         messageBoard.getItems().clear();
 
-        pokemonRemaining = 6;
-        enemyRemaining = 6;
+        userPokemon = null;
+        enemyPokemon = null;
+        userTeam = new ArrayList<>();
+        enemyTeam = new ArrayList<>();
 
         btnFight.setVisible(true);
         btnFlee.setVisible(true);
         btnSwitch.setVisible(true);
-
-        fighting = false;
 
         teamBall1.setVisible(true);
         teamBall2.setVisible(true);
@@ -141,45 +245,39 @@ public class BattleMainController implements Controller {
         main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
     }
 
-    private void getAttackingFirst() {
-        // Compares Speeds to see who is going to attack first
-        if (userStats.get(1) >= enemyStats.get(1)) {
-            userTurn = true;
-        } else {
-            userTurn = false;
-        }
+    private boolean isUserAttackingFirst() {
+        // Compares Speeds to see if the user is attacking first or not
+        return userStats.get(1) >= enemyStats.get(1);
     }
 
     private void updateMessageBoard() {
         ObservableList<String> readableMessages = FXCollections.observableArrayList(battleMessages);
-
         messageBoard.setItems(readableMessages);
     }
 
-    private void updateProgressBar(Double damage) {
+    private void updateUserHealthBar(Double damage){
         // A full ProgressBar is value 1 so the damage needs to be less than 1
         damage = damage / 100;
+        hpPokemon.setProgress(hpPokemon.getProgress() - damage);
+    }
 
-        if (userTurn) {
-            hpEnemy.setProgress(hpEnemy.getProgress() - damage);
-        } else {
-            hpPokemon.setProgress(hpPokemon.getProgress() - damage);
-        }
+    private void updateEnemyHealthBar(Double damage){
+        // A full ProgressBar is value 1 so the damage needs to be less than 1
+        damage = damage / 100;
+        hpEnemy.setProgress(hpEnemy.getProgress() - damage);
     }
 
     private void updateLabels() {
-        lblPokemon.setText(userTeam[0].getName());
+        lblPokemon.setText(userPokemon.getName());
         lblPokemonHP.setText(Double.toString(userHP));
 
-        lblEnemy.setText(enemyTeam[0].getName());
+        lblEnemy.setText(enemyPokemon.getName());
         lblEnemyHP.setText(Double.toString(enemyHp));
     }
 
     public void attemptEscape() {
-        boolean escapeSuccess = true;
-
         double enemyHP = hpEnemy.getProgress();
-        int escapeChance = 0;
+        int escapeChance;
 
         // Randomizes a number to see if the user can escape
         // The higher the enemyHP the less likely the user is allowed to escape
@@ -205,34 +303,31 @@ public class BattleMainController implements Controller {
         // Later escapeChance could be used for more such as: Counting the escape as a loss
         if (escapeChance >= 5) {
             System.out.println("You escaped Successfully!");
-        } else {
-            escapeSuccess = false;
-        }
-
-        if (escapeSuccess) {
             main.requestSceneChange(SceneManager.sceneName.TRAINERMENU);
         } else {
             battleMessages.add(lblEnemy.getText() + " won't let you escape!");
-            userTurn = false;
             updateMessageBoard();
+            escaping = true;
             fightTurn();
         }
     }
 
     public void fightTurn() {
-        double damage = 0.0;
+        //play out one turn, depending on active pokemon speed, enemy or player goes accordingly
+        boolean userFirst = isUserAttackingFirst();
+        boolean enemyPlayed = false;
 
-        if (!fighting) {
-            enemyHp = enemyStats.get(0);
-            userHP = userStats.get(0);
+        if (!userFirst){
+            enemyTurn();
+            enemyPlayed = true;
         }
 
-        if (userTurn) {
-            // sets the active pokemon to fighting needed for the labels!
-            fighting = true;
+        if (!escaping){
+            double damage;
+
             // Ask Isak for future system
             // Damage = (Bonus * Attack) - Defense
-            damage = (calculateTypeBonus() * (userStats.get(2) * (int) ((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
+            damage = (calculateTypeBonus(true) * (userStats.get(2) * (int) ((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
 
             // HP = HP - Damage (Damage is rounded to the nearest integer)
             enemyHp = enemyHp - damage;
@@ -240,160 +335,77 @@ public class BattleMainController implements Controller {
             // Sets a message that the pokemon attacked
             battleMessages.add(lblPokemon.getText() + " Attacked for: " + damage + " points of damage!");
 
-            // If the enemy is below 0 then the pokemon is defeated
+            updateEnemyHealthBar(damage);
+
             if (enemyHp <= 0) {
-                switch (enemyRemaining) {
-                    case 1: {
-                        enemyRemaining = 0;
-                        enemyBall1.setVisible(false);
-                        endBattle();
-                        break;
-                    }
-                    case 2: {
-                        enemyRemaining = 1;
-                        enemyBall2.setVisible(false);
-                        break;
-                    }
-                    case 3: {
-                        enemyRemaining = 2;
-                        enemyBall3.setVisible(false);
-                        break;
-                    }
-                    case 4: {
-                        enemyRemaining = 3;
-                        enemyBall4.setVisible(false);
-                        break;
-                    }
-                    case 5: {
-                        enemyRemaining = 4;
-                        enemyBall5.setVisible(false);
-                        break;
-                    }
-                    case 6: {
-                        enemyRemaining = 5;
-                        enemyBall6.setVisible(false);
-                        break;
-                    }
-                    default: {
-                        System.out.println("More Pokemon were Defeated than Exist!");
-                    }
-                }
-                pokemonDefeated(lblEnemy.getText());
+                enemyPokemonDefeated(lblEnemy.getText());
             }
+        }
+        escaping = false;
 
-
-        } else {
-            fighting = true;
-            damage = (calculateTypeBonus() * (enemyStats.get(2) * (int) ((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
-            battleMessages.add(lblEnemy.getText() + " Attacked for: " + damage + " points of damage!");
-            userHP = userHP - damage;
-            if (userHP <= 0) {
-                switch (pokemonRemaining) {
-                    case 1: {
-                        teamBall1.setVisible(false);
-                        endBattle();
-                        break;
-                    }
-                    case 2: {
-                        teamBall2.setVisible(false);
-                        break;
-                    }
-                    case 3: {
-                        teamBall3.setVisible(false);
-                        break;
-                    }
-                    case 4: {
-                        teamBall4.setVisible(false);
-                        break;
-                    }
-                    case 5: {
-                        teamBall5.setVisible(false);
-                        break;
-                    }
-                    case 6: {
-                        teamBall6.setVisible(false);
-                        break;
-                    }
-                    default: {
-                        System.out.println("More Pokemon were Defeated than Exist!");
-                    }
-                }
-                pokemonDefeated(lblPokemon.getText());
-            }
+        if (!enemyPlayed){
+            enemyTurn();
         }
 
         updateMessageBoard();
-        updateProgressBar(damage);
         updateLabels();
+    }
 
-        if (userTurn) {
-            userTurn = false;
-            fightTurn();
-        } else {
-            userTurn = true;
+    private void enemyTurn(){
+        //enemies turn to fight the trainer
+        double damage = (calculateTypeBonus(false) * (enemyStats.get(2) * (int) ((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
+        battleMessages.add(lblEnemy.getText() + " Attacked for: " + damage + " points of damage!");
+        userHP = userHP - damage;
+
+        updateUserHealthBar(damage);
+
+        if (userHP <= 0){
+            userPokemonDefeated(lblPokemon.getText());
         }
     }
 
     public void switchPokemon() {
-        fighting = false;
-
-        // The active Pokemon is the first one in the array
-        if (userTurn) {
-            for (int index = 0; index < pokemonRemaining; index++) {
-                Pokemon temp = userTeam[index + 1];
-                if (temp != null) {
-                    userTeam[index + 1] = userTeam[index];
-                    userTeam[index] = temp;
-                } else {
-                    battleMessages.add("You don't have any other available Pokemon");
-                    updateMessageBoard();
-                }
-            }
-        } else {
-            for (int index = 0; index < enemyRemaining; index++) {
-                Pokemon temp = enemyTeam[index + 1];
-                enemyTeam[index + 1] = enemyTeam[index];
-                enemyTeam[index] = temp;
-            }
+        //try to swap out the pokemon for another one of theirs
+        if (userTeam.size() == 0){
+            battleMessages.add("You don't have any other available Pokemon");
+            updateMessageBoard();
+            endBattle();
+            return;
         }
 
-        if (userTurn) {
-            Image user = main.getPokemonImage(userTeam[0].getName());
-            imgPokemon.setImage(user);
+        Random rand = new Random();
+        Pokemon[] pokemon = userTeam.toArray(new Pokemon[userTeam.size()]);
+        userPokemon = pokemon[rand.nextInt(pokemon.length)];
 
-            lblPokemon.setText(userTeam[0].getName());
-            lblPokemonHP.setText(Integer.toString(userTeam[0].getHealth()));
+        getUserStats();
+        lblPokemonHP.setText(userStats.get(0).toString());
+        userHP = userStats.get(0);
 
-            userTurn = false;
-            fightTurn();
-        } else {
-            Image enemy = main.getPokemonImage(enemyTeam[0].getName());
-            imgEnemy.setImage(enemy);
-
-            lblEnemy.setText(enemyTeam[0].getName());
-            lblEnemyHP.setText(Integer.toString(enemyTeam[0].getHealth()));
-
-            userTurn = true;
-        }
-
-
+        updateLabels();
     }
 
-    private void getStats() {
-        enemyStats.clear();
+    private void enemySwitchPokemon(){
+        //enemy switches their currently active pokemon
+        if (enemyTeam.size() == 0){
+            battleMessages.add("Enemy doesn't have any other available Pokemon");
+            updateMessageBoard();
+            endBattle();
+            return;
+        }
+
+        Random rand = new Random();
+        Pokemon[] pokemon = enemyTeam.toArray(new Pokemon[enemyTeam.size()]);
+        enemyPokemon = pokemon[rand.nextInt(pokemon.length)];
+
+        getEnemyStats();
+        lblEnemyHP.setText(enemyStats.get(0).toString());
+        enemyHp = enemyStats.get(0);
+
+        updateLabels();
+    }
+
+    private void getUserStats() {
         userStats.clear();
-
-        // Might Change Later
-        Pokemon enemyPokemon = enemyTeam[0];
-        Pokemon userPokemon = userTeam[0];
-
-        // NOT DUPLICATE ONE IS ENEMY ONE IS POKEMON
-        enemyStats.add(enemyPokemon.getHealth());
-        enemyStats.add(enemyPokemon.getSpeed());
-        enemyStats.add(enemyPokemon.getAttack());
-        enemyStats.add(enemyPokemon.getDefense());
-
-        enemyType = enemyPokemon.getType();
 
         userStats.add(userPokemon.getHealth());
         userStats.add(userPokemon.getSpeed());
@@ -401,20 +413,51 @@ public class BattleMainController implements Controller {
         userStats.add(userPokemon.getDefense());
 
         userType = userPokemon.getType();
+
+        Image pokemon = main.getPokemonImage(userPokemon.getName());
+        imgPokemon.setImage(pokemon);
+        lblPokemon.setText(userPokemon.getName());
     }
 
-    private void pokemonDefeated(String name) {
+    private void getEnemyStats() {
+        enemyStats.clear();
+
+        enemyStats.add(enemyPokemon.getHealth());
+        enemyStats.add(enemyPokemon.getSpeed());
+        enemyStats.add(enemyPokemon.getAttack());
+        enemyStats.add(enemyPokemon.getDefense());
+
+        enemyType = enemyPokemon.getType();
+
+        Image enemy = main.getPokemonImage(enemyPokemon.getName());
+        imgEnemy.setImage(enemy);
+        lblEnemy.setText(enemyPokemon.getName());
+    }
+
+    private void userPokemonDefeated(String name) {
+        userTeam.remove(userPokemon);
+        setEnemyPokeballsVisible(userTeam.size());
+
         battleMessages.add(name + " has been knocked Unconscious!");
         updateMessageBoard();
         switchPokemon();
     }
 
+    private void enemyPokemonDefeated(String name){
+        enemyTeam.remove(enemyPokemon);
+        setEnemyPokeballsVisible(enemyTeam.size());
+
+        battleMessages.add(name + " has been knocked Unconscious!");
+        updateMessageBoard();
+        enemySwitchPokemon();
+    }
+
     // WORK IN PROGRESS
-    private Double calculateTypeBonus() {
+    private Double calculateTypeBonus(boolean isUser) {
         // This type is temp ( ͡° ͜ʖ ͡°)
         String tempType;
 
-        if (!userTurn) {
+        if (!isUser) {
             tempType = userType;
             userType = enemyType;
             enemyType = tempType;
@@ -464,11 +507,12 @@ public class BattleMainController implements Controller {
     private void endBattle() {
         User user = main.getCurrentUser();
 
-        if (userTurn){
+        if (userTeam.size() > 0 && enemyTeam.size() == 0){
             ((Trainer) user).setWinCount(((Trainer) user).getWinCount() + 1);
-        }else {
+        } else {
             ((Trainer) user).setLossCount(((Trainer) user).getLossCount() + 1);
         }
+        main.updateUserScore();
 
         btnFight.setVisible(false);
         btnFlee.setVisible(false);
@@ -481,7 +525,7 @@ public class BattleMainController implements Controller {
 
     public void showHelp() {
 
-        if(help == true){
+        if(help){
             paneHelp.setVisible(false);
             help = false;
         }else{

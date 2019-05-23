@@ -494,6 +494,30 @@ public class DatabaseLoader {
     }
 
     /*
+     * Update the users Score
+     */
+    public void updateUserScore(User user){
+        connectToDB();
+
+        if (connected){
+            if (user instanceof Trainer){
+                try {
+                    //get the players id from the user table belonging to the email, this will be used to query other tables
+                    statement.executeUpdate("UPDATE user_info SET " +
+                                    "win_count = " + ((Trainer) user).getWinCount() + ", " +
+                                    "loss_count = " + ((Trainer) user).getLossCount() + " " +
+                                    "WHERE email LIKE '" + ((Trainer) user).getEmail() + "';");
+                } catch (SQLException ex) {
+                    System.out.println("Error executing updateUserScore query!");
+                    System.out.println(ex);
+                }
+            }
+        }
+
+        disconnectFromDB();
+    }
+
+    /*
      * Add pokemon to the users collection
      */
     public void addPokemonUserCollection(User user, PokemonMapper pokemon){

@@ -145,24 +145,12 @@ public class Main extends Application {
     }
 
     /*
-     * Get the user that is logged in
-     *
-     * @returns User
-     */
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    /*
      * Method ran at program start (Initializes important classes)
      */
     @Override
     public void start(Stage primaryStage) {
         pokeDB = new DatabaseLoader();
         pokeBugDB = new DebugDatabase();
-        allPokemon = pokeDB.loadAllPokemon();
-
-        allTrainers = pokeDB.getTrainers();
         manager = new SceneManager(this, primaryStage);
     }
 
@@ -183,6 +171,23 @@ public class Main extends Application {
         manager.changeScene(SceneManager.sceneName.LOGIN);
     }
 
+
+    /*
+     * Get the user that is logged in
+     *
+     * @returns User
+     */
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    /*
+     * Update the current users score in the DB
+     */
+    public void updateUserScore(){
+        pokeDB.updateUserScore(currentUser);
+    }
+
     /*
      * Calls to the DB to verify the information entered is correct
      * Only changes screen if information is matched to a user in the DB
@@ -198,6 +203,7 @@ public class Main extends Application {
 
         if (currentUser != null) {
             if (currentUser instanceof Trainer) {
+                allPokemon = pokeDB.loadAllPokemon();
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
                 if (pokeDB.loginBonusCheck(email)){
                     System.out.println("Trainer received login bonus!");
@@ -208,6 +214,8 @@ public class Main extends Application {
                     System.out.println("Not eligible for login bonus");
                 }
             } else if (currentUser instanceof Professor) {
+                allPokemon = pokeDB.loadAllPokemon();
+                allTrainers = pokeDB.getTrainers();
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
             return true;
