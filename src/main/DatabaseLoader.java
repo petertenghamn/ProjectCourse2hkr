@@ -72,13 +72,79 @@ public class DatabaseLoader {
                     System.out.println("Pokemon Loaded: {" + rs.getInt(1) + "} " + rs.getString(2));
                 }
             } catch (SQLException ex) {
-                System.out.println("Error executing the query!");
+                System.out.println("Error executing the loadAllPokemon query!");
             }
             disconnectFromDB();
 
             return pokemon;
         }
         return null;
+    }
+
+    /*
+     * Add a new pokemon to the database
+     */
+    public void addPokemon(Pokemon pokemon){
+        connectToDB();
+
+        if (connected) {
+            /*
+            try {
+                ResultSet rs = statement.executeQuery("");
+                while (rs.next()) {
+
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error executing the query!");
+            }
+            */
+        }
+
+        disconnectFromDB();
+    }
+
+    /*
+     * update a pokemon in the database
+     */
+    public void editPokemon(Pokemon pokemon){
+        connectToDB();
+
+        if (connected) {
+            /*
+            try {
+                ResultSet rs = statement.executeQuery("");
+                while (rs.next()) {
+
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error executing the query!");
+            }
+            */
+        }
+
+        disconnectFromDB();
+    }
+
+    /*
+     * remove a pokemon from the database
+     */
+    public void removePokemon(Pokemon pokemon){
+        connectToDB();
+
+        if (connected) {
+            /*
+            try {
+                ResultSet rs = statement.executeQuery("");
+                while (rs.next()) {
+
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error executing the query!");
+            }
+            */
+        }
+
+        disconnectFromDB();
     }
 
     /*

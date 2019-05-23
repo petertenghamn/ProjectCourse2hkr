@@ -87,6 +87,64 @@ public class Main extends Application {
     }
 
     /*
+     * Add a pokemon to the pokeDB
+     * First checks to see that the pokemon does not already exist
+     *
+     * @returns boolean (false if failed to add)
+     */
+    public boolean addPokemon(Pokemon pokemon){
+        for (Pokemon p : allPokemon){
+            if (p.getIdTag() == pokemon.getIdTag() ||
+                    p.getName().equals(pokemon.getName())){
+                return false;
+            }
+        }
+
+        allPokemon.add(pokemon);
+        pokeDB.addPokemon(pokemon);
+        return true;
+    }
+
+    /*
+     * Edit a pokemon in the pokeDB
+     * First checks to see that the pokemon does exist
+     *
+     * @returns boolean (false if failed to edit)
+     */
+    public boolean editPokemon(Pokemon pokemon){
+        for (Pokemon p : allPokemon){
+            if (p.getIdTag() == pokemon.getIdTag()){
+                allPokemon.remove(p);
+                allPokemon.add(pokemon);
+                pokeDB.editPokemon(pokemon);
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    /*
+     * Remove a pokemon from the pokeDB
+     * First checks to see that the pokemon does exist
+     *
+     * @returns boolean (false if failed to remove)
+     */
+    public boolean removePokemon(Pokemon pokemon){
+        for (Pokemon p : allPokemon){
+            if (p.getIdTag() == pokemon.getIdTag() &&
+                    p.getName().equals(pokemon.getName())){
+
+                allPokemon.remove(p);
+                pokeDB.removePokemon(p);
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    /*
      * Get the user that is logged in
      *
      * @returns User
