@@ -160,7 +160,7 @@ public class TrainerCollectionController implements Controller {
 
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
-        if (team.size() == 6){
+        if (team.size() >= 6){
             System.out.println("Team size at max!");
         }
         else {

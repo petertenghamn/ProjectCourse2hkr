@@ -36,7 +36,7 @@ public class ShowAllPokemonController implements Controller {
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
-    Label lblNickname, lblError;
+    Label lblNickname, lblError, lblCurrency, lblCurrencyTitle;
     @FXML
     TextField txtNickname;
     @FXML
@@ -45,6 +45,8 @@ public class ShowAllPokemonController implements Controller {
     ImageView pokeBall;
     @FXML
     Pane paneHelp;
+
+    private int currency;
     private Main main;
     private Boolean canBuy = true;
     private Boolean help = false;
@@ -55,6 +57,10 @@ public class ShowAllPokemonController implements Controller {
         main = m;
 
         showPokemonCollection();
+
+        if (main.getCurrentUser() instanceof  Trainer){
+            updateCurrency();
+        }
     }
 
     @Override
@@ -62,9 +68,13 @@ public class ShowAllPokemonController implements Controller {
         if (main.getCurrentUser() instanceof Professor) {
             canBuy = false;
             btnHelp.setVisible(false);
+            lblCurrency.setVisible(false);
+            lblCurrencyTitle.setVisible(false);
         } else if (main.getCurrentUser() instanceof Trainer) {
             canBuy = true;
             btnHelp.setVisible(true);
+            lblCurrencyTitle.setVisible(true);
+            lblCurrency.setVisible(true);
         }
 
         pokeBall.setVisible(false);
@@ -107,6 +117,18 @@ public class ShowAllPokemonController implements Controller {
         lblError.setVisible(false);
     }
 
+    private void updateCurrency(){
+        User user = main.getCurrentUser();
+
+        if (user instanceof Trainer){
+            currency = ((Trainer) user).getCurrency();
+        }
+
+        String currencyString = ((Integer) currency).toString();
+
+        lblCurrency.setText(currencyString);
+    }
+
     private void showPokemonCollection() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
@@ -128,9 +150,15 @@ public class ShowAllPokemonController implements Controller {
 
         lblError.setVisible(false);
 
-        showStats(listView.getSelectionModel().getSelectedItem());
-        // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
-        showImage(listView.getSelectionModel().getSelectedItem());
+        if (listView.getSelectionModel().getSelectedItem() != null) {
+            showStats(listView.getSelectionModel().getSelectedItem());
+            // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
+            showImage(listView.getSelectionModel().getSelectedItem());
+        }
+        else {
+            System.out.println("You need to select something first!");
+        }
+
     }
 
     // Shows the Image of the Pokemon based on the pokemon's ID
