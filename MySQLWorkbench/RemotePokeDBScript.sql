@@ -10,6 +10,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `pokeDB`;
 USE `pokeDB`;
 
+-- DROP TABLE user_has_team;
+-- DROP TABLE collection;
+-- DROP TABLE pokemon;
+-- DROP TABLE user;
+-- DROP TABLE user_info;
+
 -- -----------------------------------------------------
 -- Table `pokeDB`.`pokemon`
 -- -----------------------------------------------------
@@ -73,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`collection` (
     FOREIGN KEY (`user_id`)
     REFERENCES `pokeDB`.`user` (`user_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_collection_pokemon1`
     FOREIGN KEY (`pokemon_id`)
     REFERENCES `pokeDB`.`pokemon` (`pokemon_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -94,13 +100,13 @@ CREATE TABLE IF NOT EXISTS `pokeDB`.`user_has_team` (
   CONSTRAINT `fk_user_has_collection_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `pokeDB`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_has_team_collection1`
     FOREIGN KEY (`collection_nickname`)
     REFERENCES `pokeDB`.`collection` (`nickname`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -148,4 +154,15 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
  
  
 -- some queries
+
+-- SELECT * FROM user;
+-- SELECT * FROM user_info;
+ SELECT * FROM pokemon;
+-- SELECT * FROM collection;
+-- SELECT * FROM user_has_team;
+
 -- SELECT collection.user_id, pokemon_id, nickname FROM collection INNER JOIN user_has_team WHERE nickname LIKE collection_nickname AND collection.user_id = user_has_team.user_id;
+
+-- DELETE FROM pokemon WHERE pokemon_id = 4;
+
+-- INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (4, 'Charmander', 39, 5, 4, 65, 'Fire', 50);

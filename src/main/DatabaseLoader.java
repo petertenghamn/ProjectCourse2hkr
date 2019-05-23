@@ -88,16 +88,14 @@ public class DatabaseLoader {
         connectToDB();
 
         if (connected) {
-            /*
             try {
-                ResultSet rs = statement.executeQuery("");
-                while (rs.next()) {
-
-                }
+                System.out.println("(TODO): PokeDB addPokemon doesn't add type correctly to the pokemon in DB yet!");
+                statement.executeUpdate("INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES " +
+                        "(" + pokemon.getIdTag() + ", '" + pokemon.getName() + "', " + pokemon.getHealth() + ", " +
+                        pokemon.getAttack() + ", " + pokemon.getDefense() + ", " + pokemon.getSpeed() + ", '', " + pokemon.getCost() + ");");
             } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
             }
-            */
         }
 
         disconnectFromDB();
@@ -110,6 +108,7 @@ public class DatabaseLoader {
         connectToDB();
 
         if (connected) {
+            System.out.println("Havn't made the query yet! please implement!");
             /*
             try {
                 ResultSet rs = statement.executeQuery("");
@@ -132,16 +131,11 @@ public class DatabaseLoader {
         connectToDB();
 
         if (connected) {
-            /*
             try {
-                ResultSet rs = statement.executeQuery("");
-                while (rs.next()) {
-
-                }
+                statement.executeUpdate("DELETE FROM pokemon WHERE pokemon_id = " + pokemon.getIdTag() + ";");
             } catch (SQLException ex) {
                 System.out.println("Error executing the query!");
             }
-            */
         }
 
         disconnectFromDB();
