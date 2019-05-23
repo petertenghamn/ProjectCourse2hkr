@@ -3,10 +3,7 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -18,6 +15,7 @@ import main.users.Trainer;
 import main.users.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class ShowAllPokemonController implements Controller {
@@ -33,6 +31,8 @@ public class ShowAllPokemonController implements Controller {
     Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed, lblPrice;
     @FXML
     ImageView imageView;
+    @FXML
+    ChoiceBox<String> filterType;
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -56,9 +56,9 @@ public class ShowAllPokemonController implements Controller {
         //set the main so that you can call upon it to change scenes
         main = m;
 
-        showPokemonCollection();
+        showFilteredID();
 
-        if (main.getCurrentUser() instanceof  Trainer){
+        if (main.getCurrentUser() instanceof Trainer) {
             updateCurrency();
         }
     }
@@ -85,6 +85,15 @@ public class ShowAllPokemonController implements Controller {
         btnNickname.setVisible(false);
         lblError.setVisible(false);
 
+        ArrayList<String> filterTypes = new ArrayList<>();
+
+        filterTypes.add("ID #");
+        filterTypes.add("Name");
+        filterTypes.add("Type");
+
+        ObservableList<String> observableList = FXCollections.observableArrayList(filterTypes);
+
+        filterType.setItems(observableList);
     }
 
     @Override
@@ -117,28 +126,18 @@ public class ShowAllPokemonController implements Controller {
         lblError.setVisible(false);
     }
 
-    private void updateCurrency(){
+    private void updateCurrency() {
         User user = main.getCurrentUser();
 
-        if (user instanceof Trainer){
+        if (user instanceof Trainer) {
             currency = ((Trainer) user).getCurrency();
         }
 
         String currencyString = ((Integer) currency).toString();
 
         lblCurrency.setText(currencyString);
-    }
 
-    private void showPokemonCollection() {
-        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
-        ArrayList<String> pokemonNames = new ArrayList<>();
-
-        for (Pokemon pokemon : allPokemon) {
-            pokemonNames.add(pokemon.getName());
-        }
-
-        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
-        listView.setItems(observableListPokemons);
+        filterType.getSelectionModel().clearAndSelect(0);
     }
 
     public void showPokemon() {
@@ -153,8 +152,7 @@ public class ShowAllPokemonController implements Controller {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             showStats(listView.getSelectionModel().getSelectedItem());
             showImage(listView.getSelectionModel().getSelectedItem());
-        }
-        else {
+        } else {
             System.out.println("You need to select something first!");
         }
 
@@ -259,14 +257,87 @@ public class ShowAllPokemonController implements Controller {
 
     public void showHelp() {
 
-        if(help == true){
+        if (help == true) {
             paneHelp.setVisible(false);
             help = false;
-        }else{
+        } else {
             paneHelp.setVisible(true);
             help = true;
         }
     }
 
+    public void changeFilter() {
+        String selection = filterType.getSelectionModel().getSelectedItem();
+
+        if (selection.equalsIgnoreCase("ID #")){
+            showFilteredID();
+        }else if (selection.equalsIgnoreCase("Name")){
+            showFilteredName();
+        }else if (selection.equalsIgnoreCase("Type")){
+            showFilteredType();
+        }
+    }
+
+    private void showFilteredName() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        for (Pokemon pokemon : allPokemon) {
+            pokemonNames.add(pokemon.getName());
+        }
+
+        Collections.sort(pokemonNames);
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+
+    }
+
+    private void showFilteredType() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+
+        ArrayList<String> pokemonFire = new ArrayList<>();
+        ArrayList<String> pokemonWater = new ArrayList<>();
+        ArrayList<String> pokemonGrass = new ArrayList<>();
+        ArrayList<String> pokemonElectric = new ArrayList<>();
+
+        for (Pokemon pokemon : allPokemon) {
+            if (pokemon.getType().contains("Fire")) {
+                pokemonFire.add(pokemon.getName());
+            } else if (pokemon.getType().contains("Water")) {
+                pokemonWater.add(pokemon.getName());
+            } else if (pokemon.getType().contains("Grass")) {
+                pokemonGrass.add(pokemon.getName());
+            } else if (pokemon.getType().contains("Electric")) {
+                pokemonElectric.add(pokemon.getName());
+            } else {
+                System.out.println("Error Assigning Pokemon " + pokemon.getName() + "'s Type");
+            }
+        }
+
+        ArrayList<String> pokemonNames = new ArrayList<>();
+        pokemonNames.addAll(pokemonFire);
+        pokemonNames.addAll(pokemonWater);
+        pokemonNames.addAll(pokemonGrass);
+        pokemonNames.addAll(pokemonElectric);
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    private void showFilteredID() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        for (Pokemon pokemon : allPokemon) {
+            pokemonNames.add(pokemon.getName());
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+        listView.setItems(observableListPokemons);
+    }
 }
 
