@@ -99,5 +99,15 @@
             <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="293.0" prefHeight="90.0" prefWidth="200.0" text="     You can catch the same Pokémon as many times as you want, as long as you give them different names. Create yourself a team of 6 Pikachus, why not?" wrapText="true" />
          </children>
       </Pane>
+      <Label fx:id="lblCurrencyTitle" layoutX="930.0" layoutY="69.0" text="Your Currency:" underline="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCurrency" layoutX="930.0" layoutY="118.0" text="Your Currency:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

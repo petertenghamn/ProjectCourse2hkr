@@ -2,8 +2,11 @@ package scenes.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import main.Main;
 import main.scenemanager.SceneManager;
+import main.users.Trainer;
+import main.users.User;
 
 public class TrainerMenuController implements Controller {
 
@@ -20,7 +23,7 @@ public class TrainerMenuController implements Controller {
 
     @Override
     public void setUp(){
-
+        updateStats();
     }
 
     @Override
@@ -31,6 +34,21 @@ public class TrainerMenuController implements Controller {
     @FXML
     Button btnCollection, btnBattle, btnFindPokemon;
 
+    @FXML
+    Label lblWins, lblLosses, lblCurrency, labelWelcomeTrainer;
+
+    private void updateStats(){
+        User user = main.getCurrentUser();
+
+        int currency = ((Trainer) user).getCurrency();
+        int wins = ((Trainer) user).getWinCount();
+        int losses = ((Trainer) user).getLossCount();
+
+        labelWelcomeTrainer.setText("Welcome: " + ((Trainer) user).getUsername());
+        lblCurrency.setText(((Integer) currency).toString());
+        lblWins.setText(((Integer) wins).toString());
+        lblLosses.setText(((Integer) losses).toString());
+    }
 
     // All of these methods change the Scene to a new one and nothing else
 

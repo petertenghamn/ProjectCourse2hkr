@@ -18,6 +18,7 @@ import main.pokemon.Pokemon;
 import main.pokemon.PokemonMapper;
 import main.scenemanager.SceneManager;
 import main.users.Trainer;
+import main.users.User;
 
 import java.util.ArrayList;
 
@@ -461,6 +462,14 @@ public class BattleMainController implements Controller {
     }
 
     private void endBattle() {
+        User user = main.getCurrentUser();
+
+        if (userTurn){
+            ((Trainer) user).setWinCount(((Trainer) user).getWinCount() + 1);
+        }else {
+            ((Trainer) user).setLossCount(((Trainer) user).getLossCount() + 1);
+        }
+
         btnFight.setVisible(false);
         btnFlee.setVisible(false);
         btnSwitch.setVisible(false);
