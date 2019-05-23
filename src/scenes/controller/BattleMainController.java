@@ -28,14 +28,13 @@ public class BattleMainController implements Controller {
     Button btnFight, btnFlee, btnSwitch, btnHelp;
     @FXML
     Pane paneHelp;
+
     private Main main;
     private Pokemon[] userTeam = new Pokemon[6], enemyTeam = new Pokemon[6];
     private ArrayList<String> battleMessages = new ArrayList<>();
     private Boolean userTurn = true;
     private int pokemonRemaining = 6, enemyRemaining = 6;
-    private boolean fighting = false;
-    private double enemyHp, userHP;
-    private Boolean help = false;
+
     @FXML
     private ListView<String> messageBoard;
     @FXML
@@ -48,19 +47,24 @@ public class BattleMainController implements Controller {
     private Ellipse enemyBall1, enemyBall2, enemyBall3, enemyBall4, enemyBall5, enemyBall6;
     @FXML
     private Ellipse teamBall1, teamBall2, teamBall3, teamBall4, teamBall5, teamBall6;
+
+
     // These are used for the Battle System
     // They are stored in this order: HP, Speed, Attack, Defense
     private ArrayList<Integer> userStats = new ArrayList<>();
     private ArrayList<Integer> enemyStats = new ArrayList<>();
     private String enemyType, userType;
+    // Fighting is used to check if the active pokemon is currently engaged in a fight. This keeps track of their HP
+    private boolean userFighting = false;
+    private boolean enemyFighting = false;
+    private double enemyHp, userHP;
+    private Boolean help = false;
 
     @Override
     public void setMain(Main m) {
         main = m;
     }
 
-    // The setUp MUST have:
-    // Generation of enemy team so that it's random every time.
     @Override
     public void setUp() {
         // Need the pokemon to be in an array of Pokemon
@@ -95,7 +99,47 @@ public class BattleMainController implements Controller {
 
         getAttackingFirst();
 
-        fighting = false;
+        // Fighting is to check if the currently active pokemon is fighting
+        userFighting = false;
+        enemyFighting = false;
+
+        // The set up of the pokeball indicator for the user
+        for (int i = 0; i < pokemonRemaining; i++){
+            switch (i){
+                case 0:{
+                    teamBall1.setVisible(true);
+                    break;
+                }
+                case 1:{
+                    teamBall2.setVisible(true);
+                    break;
+                }
+                case 2:{
+                    teamBall3.setVisible(true);
+                    break;
+                }
+                case 3:{
+                    teamBall4.setVisible(true);
+                    break;
+                }
+                case 4:{
+                    teamBall5.setVisible(true);
+                    break;
+                }
+                case 5:{
+                    teamBall6.setVisible(true);
+                    break;
+                }
+            }
+        }
+
+        // If difficulties are implemented change later to look like the user
+        enemyBall1.setVisible(true);
+        enemyBall2.setVisible(true);
+        enemyBall3.setVisible(true);
+        enemyBall4.setVisible(true);
+        enemyBall5.setVisible(true);
+        enemyBall6.setVisible(true);
     }
 
     @Override
@@ -120,21 +164,19 @@ public class BattleMainController implements Controller {
         btnFlee.setVisible(true);
         btnSwitch.setVisible(true);
 
-        fighting = false;
+        teamBall1.setVisible(false);
+        teamBall2.setVisible(false);
+        teamBall3.setVisible(false);
+        teamBall4.setVisible(false);
+        teamBall5.setVisible(false);
+        teamBall6.setVisible(false);
 
-        teamBall1.setVisible(true);
-        teamBall2.setVisible(true);
-        teamBall3.setVisible(true);
-        teamBall4.setVisible(true);
-        teamBall5.setVisible(true);
-        teamBall6.setVisible(true);
-
-        enemyBall1.setVisible(true);
-        enemyBall2.setVisible(true);
-        enemyBall3.setVisible(true);
-        enemyBall4.setVisible(true);
-        enemyBall5.setVisible(true);
-        enemyBall6.setVisible(true);
+        enemyBall1.setVisible(false);
+        enemyBall2.setVisible(false);
+        enemyBall3.setVisible(false);
+        enemyBall4.setVisible(false);
+        enemyBall5.setVisible(false);
+        enemyBall6.setVisible(false);
     }
 
     public void backToTrainerMenu() {
@@ -156,14 +198,25 @@ public class BattleMainController implements Controller {
         messageBoard.setItems(readableMessages);
     }
 
+    // Requires the  HP label to be correct before updating!
     private void updateProgressBar(Double damage) {
-        // A full ProgressBar is value 1 so the damage needs to be less than 1
+        // A full progress bar is 1.0
         damage = damage / 100;
 
+        Double enemyProgress = Double.parseDouble(lblEnemyHP.getText());
+        Double userProgress = Double.parseDouble(lblPokemonHP.getText());
+
+        // HP must be in a scale of 1.00 being 100
+        enemyProgress = enemyProgress / 100;
+        userProgress = userProgress / 100;
+
+        enemyProgress = enemyProgress - damage;
+        userProgress = userProgress - damage;
+
         if (userTurn) {
-            hpEnemy.setProgress(hpEnemy.getProgress() - damage);
+            hpEnemy.setProgress(enemyProgress);
         } else {
-            hpPokemon.setProgress(hpPokemon.getProgress() - damage);
+            hpPokemon.setProgress(userProgress);
         }
     }
 
@@ -222,14 +275,16 @@ public class BattleMainController implements Controller {
     public void fightTurn() {
         double damage = 0.0;
 
-        if (!fighting) {
-            enemyHp = enemyStats.get(0);
+        if (!userFighting) {
             userHP = userStats.get(0);
+        }
+        if (!enemyFighting){
+            enemyHp = enemyStats.get(0);
         }
 
         if (userTurn) {
             // sets the active pokemon to fighting needed for the labels!
-            fighting = true;
+            userFighting = true;
             // Ask Isak for future system
             // Damage = (Bonus * Attack) - Defense
             damage = (calculateTypeBonus() * (userStats.get(2) * (int) ((Math.random() * userStats.get(2)) + 1)) - (enemyStats.get(3) / 2.0));
@@ -283,7 +338,7 @@ public class BattleMainController implements Controller {
 
 
         } else {
-            fighting = true;
+            enemyFighting = true;
             damage = (calculateTypeBonus() * (enemyStats.get(2) * (int) ((Math.random() * enemyStats.get(2)) + 1)) - (userStats.get(3) / 2.0));
             battleMessages.add(lblEnemy.getText() + " Attacked for: " + damage + " points of damage!");
             userHP = userHP - damage;
@@ -335,10 +390,11 @@ public class BattleMainController implements Controller {
     }
 
     public void switchPokemon() {
-        fighting = false;
+        userFighting = false;
+        enemyFighting = false;
 
         // The active Pokemon is the first one in the array
-        if (userTurn) {
+        if (!userTurn) {
             for (int index = 0; index < pokemonRemaining; index++) {
                 Pokemon temp = userTeam[index + 1];
                 if (temp != null) {
@@ -387,7 +443,6 @@ public class BattleMainController implements Controller {
         Pokemon enemyPokemon = enemyTeam[0];
         Pokemon userPokemon = userTeam[0];
 
-        // NOT DUPLICATE ONE IS ENEMY ONE IS POKEMON
         enemyStats.add(enemyPokemon.getHealth());
         enemyStats.add(enemyPokemon.getSpeed());
         enemyStats.add(enemyPokemon.getAttack());
