@@ -30,7 +30,7 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     ListView<String> listView;
     @FXML
-    Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed;
+    Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed, lblPrice;
     @FXML
     ImageView imageView;
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
@@ -152,7 +152,6 @@ public class ShowAllPokemonController implements Controller {
 
         if (listView.getSelectionModel().getSelectedItem() != null) {
             showStats(listView.getSelectionModel().getSelectedItem());
-            // Don't know if it's better to use the name of the pokemon here or not let me know! - Öjvind
             showImage(listView.getSelectionModel().getSelectedItem());
         }
         else {
@@ -177,6 +176,7 @@ public class ShowAllPokemonController implements Controller {
         lblAtk.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
         lblDf.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
         lblSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
+        lblPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
     }
 
     public void backButton() {

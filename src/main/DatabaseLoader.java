@@ -67,7 +67,7 @@ public class DatabaseLoader {
                 while (rs.next()) {
                     //int id, int health, int speed, int attack, int defense, String name, String type
                     pokemon.add(new Pokemon(rs.getInt(1), rs.getNString(2), rs.getInt(3),
-                            rs.getInt(4), rs.getInt(5), rs.getInt(6),
+                            rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(9), 
                             rs.getString(7) + ((rs.getString(8).isEmpty()) ? "" : (" and " + rs.getString(8)))));
                     System.out.println("Pokemon Loaded: {" + rs.getInt(1) + "} " + rs.getString(2));
                 }

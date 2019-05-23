@@ -2,10 +2,10 @@ package main.pokemon;
 
 public class Pokemon {
 
-    private int idTag, health, speed, attack, defense;
+    private int idTag, health, speed, attack, defense, cost;
     private String name, type;
 
-    public Pokemon(int id, String name, int health, int attack, int defense, int speed, String type) {
+    public Pokemon(int id, String name, int health, int attack, int defense, int speed, int cost, String type) {
         idTag = id;
         this.health = health;
         this.speed = speed;
@@ -13,6 +13,7 @@ public class Pokemon {
         this.defense = defense;
         this.name = name;
         this.type = type;
+        this.cost = cost;
     }
 
     // Getter Methods After this Comment
@@ -43,4 +44,6 @@ public class Pokemon {
     public String getType() {
         return type;
     }
+
+    public int getCost() { return cost; }
 }
