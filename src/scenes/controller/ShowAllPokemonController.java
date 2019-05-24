@@ -3,7 +3,10 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -31,8 +34,7 @@ public class ShowAllPokemonController implements Controller {
     Label lblName, lblID, lblType, lblHP, lblAtk, lblDf, lblSpeed, lblPrice;
     @FXML
     ImageView imageView;
-    @FXML
-    ChoiceBox<String> filterType;
+
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -51,12 +53,16 @@ public class ShowAllPokemonController implements Controller {
     private Boolean canBuy = true;
     private Boolean help = false;
 
+    // This is Used for the Search
+    @FXML
+    TextField txtSearch;
+
     @Override
     public void setMain(Main m) {
         //set the main so that you can call upon it to change scenes
         main = m;
 
-        showFilteredID();
+        showSortedID();
 
         if (main.getCurrentUser() instanceof Trainer) {
             updateCurrency();
@@ -84,16 +90,6 @@ public class ShowAllPokemonController implements Controller {
         btnNoNickname.setVisible(false);
         btnNickname.setVisible(false);
         lblError.setVisible(false);
-
-        ArrayList<String> filterTypes = new ArrayList<>();
-
-        filterTypes.add("ID #");
-        filterTypes.add("Name");
-        filterTypes.add("Type");
-
-        ObservableList<String> observableList = FXCollections.observableArrayList(filterTypes);
-
-        filterType.setItems(observableList);
     }
 
     @Override
@@ -124,6 +120,8 @@ public class ShowAllPokemonController implements Controller {
         imageView.setVisible(true);
         pokeBall.setVisible(false);
         lblError.setVisible(false);
+
+        txtSearch.clear();
     }
 
     private void updateCurrency() {
@@ -137,7 +135,6 @@ public class ShowAllPokemonController implements Controller {
 
         lblCurrency.setText(currencyString);
 
-        filterType.getSelectionModel().clearAndSelect(0);
     }
 
     public void showPokemon() {
@@ -266,36 +263,118 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
-    public void changeFilter() {
-        String selection = filterType.getSelectionModel().getSelectedItem();
-
-        if (selection.equalsIgnoreCase("ID #")){
-            showFilteredID();
-        }else if (selection.equalsIgnoreCase("Name")){
-            showFilteredName();
-        }else if (selection.equalsIgnoreCase("Type")){
-            showFilteredType();
-        }
-    }
-
-    private void showFilteredName() {
+    // All the following methods are used by the search Function
+    public void search() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        String search = txtSearch.getText();
 
-        ArrayList<String> pokemonNames = new ArrayList<>();
+        // The Name of the Pokemon should be returned to the ListView
+        ArrayList<String> searchResults = new ArrayList<>();
 
+        // The following searches should be future proof
+        // Search for certain types
         for (Pokemon pokemon : allPokemon) {
-            pokemonNames.add(pokemon.getName());
+            if (search.contains(pokemon.getType())) {
+                searchResults.add(pokemon.getName());
+            }
+            // Using Type: Modifier sorts all Pokemon by type
+            else if (search.contains("Type:")) {
+                showSortedType();
+                return; // Return Needs to be there or else the program shows no results! // The return just exits this method
+            }
         }
 
-        Collections.sort(pokemonNames);
+        // Search for a specific Pokemon
+        for (Pokemon pokemon : allPokemon) {
+            if (search.equalsIgnoreCase(pokemon.getName())) {
+                searchResults.add(pokemon.getName());
+            }
+            // Using Name: modifier sorts all Pokemon by Name
+            else if (search.contains("Name:")) {
+                showSortedName();
+                return; // Return Needs to be there or else the program shows no results! // The return just exits this method
+            }
+        }
 
-        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+        // Search for Pokemon by ID
+        for (Pokemon pokemon : allPokemon) {
+            // Specify the Search to:
+            if (search.contains("ID:")) {
+                // ID the Same as:
+                if (search.contains("=")) {
+                    if (pokemon.getIdTag() == Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // ID is less than:
+                else if (search.contains(">")) {
+                    if (pokemon.getIdTag() >= Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // ID is greater than:
+                else if (search.contains("<")) {
+                    if (pokemon.getIdTag() <= Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // IF no search modifier then the program just sorts by ID
+                else {
+                    showSortedID();
+                    return; // Return Needs to be there or else the program shows no results! // The return just exits this method
+                }
+            }
+        }
 
-        listView.setItems(observableListPokemons);
+        // Search for Pokemon by HP
+        for (Pokemon pokemon : allPokemon) {
+            // Specify the Search to:
+            if (search.contains("HP:")) {
+                // Higher HP Than:
+                if (search.contains(">")) {
+                    if (pokemon.getHealth() >= Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // Less HP Than:
+                else if (search.contains("<")) {
+                    if (pokemon.getHealth() <= Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // Equal HP To:
+                else if (search.contains("=")) {
+                    if (pokemon.getHealth() == Integer.parseInt(search.substring(5))) {
+                        searchResults.add(pokemon.getName());
+                    }
+                }
+                // Sort All pokemon by HP
+                else {
+                    showSortedHP();
+                    return; // Return Needs to be there or else the program shows no results! // The return just exits this method
+                }
+            }
+        }
 
+
+        // IF the results are empty tells the user
+        if (searchResults.isEmpty()) {
+            searchResults.add("There are no results!");
+            searchResults.add("");
+            searchResults.add("Make sure your spelling is correct");
+            searchResults.add("Or try searching for something else");
+            searchResults.add("");
+            searchResults.add("Tip: ");
+            searchResults.add("You can search for specific stats");
+            searchResults.add("by typing for ex) ID: = 5 or HP: > 50");
+            searchResults.add("Make sure there is space after modifiers");
+        }
+
+        ObservableList<String> observableResults = FXCollections.observableArrayList(searchResults);
+        listView.setItems(observableResults);
     }
 
-    private void showFilteredType() {
+    private void showSortedType() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
 
         ArrayList<String> pokemonFire = new ArrayList<>();
@@ -328,7 +407,7 @@ public class ShowAllPokemonController implements Controller {
         listView.setItems(observableListPokemons);
     }
 
-    private void showFilteredID() {
+    private void showSortedID() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
 
@@ -337,6 +416,39 @@ public class ShowAllPokemonController implements Controller {
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+        listView.setItems(observableListPokemons);
+    }
+
+    private void showSortedName() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        for (Pokemon pokemon : allPokemon) {
+            pokemonNames.add(pokemon.getName());
+        }
+
+        Collections.sort(pokemonNames);
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    private void showSortedHP() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        for (Pokemon pokemon : allPokemon){
+            for (Pokemon higherHP : allPokemon){
+                if (higherHP.getHealth() > pokemon.getHealth()){
+                    pokemonNames.add(higherHP.getName());
+                }
+            }
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
         listView.setItems(observableListPokemons);
     }
 }
