@@ -2,11 +2,13 @@ package scenes.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import main.DebugDatabase;
 import main.Main;
 import main.pokemon.Pokemon;
 import main.pokemon.PokemonMapper;
@@ -35,6 +37,7 @@ public class TrainerCollectionController implements Controller {
     Label lblName, lblHP, lblAtk, lblDf, lblType, lblID, lblSpeed;
     private Main main;
     private ShowAllPokemonController showAll = new ShowAllPokemonController();
+    DebugDatabase debugDatabase;
 
     @Override
     public void setMain(Main m) {
@@ -44,13 +47,18 @@ public class TrainerCollectionController implements Controller {
 
     @Override
     public void setUp() {
+        if (!main.isDeBugLoader()){
         updateListCollection();
         updateListTeam();
     }
 
+    }
+
     @Override
     public void reset() {
-        updateListCollection();
+        if (!main.isDeBugLoader()) {
+            updateListCollection();
+        }
         updateListTeam();
 
         listCollection.getSelectionModel().clearSelection();
@@ -73,40 +81,51 @@ public class TrainerCollectionController implements Controller {
     }
 
     public void updateListCollection() {
-        User user = main.getCurrentUser();
+            User user = main.getCurrentUser();
+            ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+            ArrayList<String> pokeNicknames = new ArrayList<>();
 
-        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
-        ArrayList<String> pokeNicknames = new ArrayList<>();
+            for (PokemonMapper pokemon : collection) {
+                pokeNicknames.add(pokemon.getNickname());
+            }
 
-        for (PokemonMapper pokemon : collection) {
-            pokeNicknames.add(pokemon.getNickname());
-        }
+            // Needed for a ListView in JavaFX for some reason
+            ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
 
-        // Needed for a ListView in JavaFX for some reason
-        ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
+            listCollection.setItems(collectionPokemon);
 
-        listCollection.setItems(collectionPokemon);
     }
 
     public void showSelectedCollection() {
-        User user = main.getCurrentUser();
+        if (!main.isDeBugLoader()) {
+            User user = main.getCurrentUser();
+            ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
 
-        ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
+            for (PokemonMapper pokemon : collection) {
+                if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
+                    imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
 
-        for (PokemonMapper pokemon : collection) {
-            if (pokemon.getNickname().equalsIgnoreCase(listCollection.getSelectionModel().getSelectedItem())) {
-                imageView.setImage(main.getPokemonImage(main.getPokemonById(pokemon.getId()).getName()));
-
-                // prints the stats to the scene
-                lblName.setText(pokemon.getNickname());
-                lblType.setText(main.getPokemonById(pokemon.getId()).getType());
-                lblID.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getIdTag()));
-                lblHP.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getHealth()));
-                lblAtk.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getAttack()));
-                lblDf.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getDefense()));
-                lblSpeed.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getSpeed()));
+                    // prints the stats to the scene
+                    lblName.setText(pokemon.getNickname());
+                    lblType.setText(main.getPokemonById(pokemon.getId()).getType());
+                    lblID.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getIdTag()));
+                    lblHP.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getHealth()));
+                    lblAtk.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getAttack()));
+                    lblDf.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getDefense()));
+                    lblSpeed.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getSpeed()));
+                }
             }
         }
+        else{
+            ArrayList<Pokemon> collection = main.getMariosPokemon();
+            ArrayList<String> names = new ArrayList<>();
+            for (Pokemon p : collection){
+                names.add(p.getName());
+            }
+            ObservableList<String> observableListPokemons = FXCollections.observableArrayList(names);
+            listCollection.setItems(observableListPokemons);}
+
+
     }
 
     public void updateListTeam() {

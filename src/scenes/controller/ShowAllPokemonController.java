@@ -183,14 +183,26 @@ public class ShowAllPokemonController implements Controller {
 
     public void pokemonNoNickname() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
-
-        for (Pokemon pokemon : allPokemon) {
-            if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                main.acquirePokemon(pokemon.getIdTag(), null, true);
+        if (!main.isDeBugLoader()) {
+            for (Pokemon pokemon : allPokemon) {
+                if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
+                    main.acquirePokemon(pokemon.getIdTag(), null, true);
+                }
             }
+            catchPokemon();
+            lblError.setVisible(false);
         }
-        catchPokemon();
-        lblError.setVisible(false);
+        // Debug
+        else{
+            for (Pokemon pokemon : allPokemon) {
+                if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
+                    main.addtoMariosPokemon(pokemon);
+                }
+            }
+            catchPokemon();
+            lblError.setVisible(false);
+        }
+
     }
 
     private void catchPokemon() {

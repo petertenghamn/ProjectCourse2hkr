@@ -27,12 +27,7 @@ public class LoginController implements Controller {
     @FXML
     ImageView imgView;
 
-    public String getTxtFieldUsername() {
-        String username = txtFieldUsername.getText();
-        return username;
-    }
     private Main main;
-    private DebugDatabase debugDatabase;
 
     @Override
     public void setMain(Main m) {
@@ -76,5 +71,6 @@ public class LoginController implements Controller {
         System.out.println("Debug controller activated");
         main.setDeBugLoader(true);
         main.setAllPokemon();
+        main.setMariosPokemon();
     }
 }

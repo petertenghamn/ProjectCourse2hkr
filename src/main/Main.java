@@ -34,6 +34,9 @@ public class Main extends Application {
     //stored list of all pokemon retrieved from the database
     private ArrayList<Pokemon> allPokemon;
 
+    //
+    private ArrayList<Pokemon> mariosPokemon;
+
     //List of All Trainers in the program
     private ArrayList<User> allTrainers;
 
@@ -55,6 +58,16 @@ public class Main extends Application {
       
     public void setAllPokemon() {
         allPokemon = pokeBugDB.getPokemons();
+    }
+    //
+    public ArrayList<Pokemon> getMariosPokemon(){
+        return mariosPokemon;
+    }
+    public void setMariosPokemon(){
+        mariosPokemon = pokeBugDB.getMarioCollection();
+    }
+    public void addtoMariosPokemon(Pokemon x){
+        mariosPokemon.add(x);
     }
 
     /*

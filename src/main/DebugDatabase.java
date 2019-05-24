@@ -1,6 +1,7 @@
 package main;
 
 import main.pokemon.Pokemon;
+import main.pokemon.PokemonMapper;
 import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
@@ -13,6 +14,13 @@ public class DebugDatabase {
     private ArrayList<Pokemon> pokemons;
     private ArrayList<User> users;
     private HashMap<String, String> userPasswords;
+    private PokemonMapper pokemap;
+    private ArrayList<String> ashCollection = new ArrayList<>();
+    private ArrayList<Pokemon> marioCollection = new ArrayList<>();
+
+    public ArrayList<String> getAshCollection() {
+        return ashCollection;
+    }
 
     public DebugDatabase(){
         pokemons = new ArrayList<>();
@@ -32,19 +40,18 @@ public class DebugDatabase {
 
         users = new ArrayList<>();
         users.add((new Professor("oak@prof") {
-            @Override
-            protected void setPassword(String password) {
-                super.setPassword("root");
-            }
         }));
-        /*
-        users[1] = (new Trainer("james@player") {
-            @Override
-            protected void setPassword(String password) {
-                super.setPassword("root");
-            }
-        });
-        */
+        users.add((new Trainer("ash@train","ash",100,0,0, new ArrayList<>(), new ArrayList<>())));
+        users.add((new Trainer("mario@train","mario",100,0,0, new ArrayList<>(), new ArrayList<>())));
+        ashCollection.add(pokemons.get(1).getName());
+        ashCollection.add(pokemons.get(4).getName());
+        ashCollection.add(pokemons.get(6).getName());
+        ashCollection.add(pokemons.get(8).getName());
+        marioCollection.add(pokemons.get(2));
+        marioCollection.add(pokemons.get(7));
+        marioCollection.add(pokemons.get(8));
+        marioCollection.add(pokemons.get(11));
+        marioCollection.add(pokemons.get(12));
 
         userPasswords = new HashMap<>();
         for (User u : users){
@@ -54,6 +61,13 @@ public class DebugDatabase {
                 userPasswords.put(((Professor) u).getEmail(), "root");
             }
         }
+    }
+    public ArrayList<Pokemon> getMarioCollection(){
+        ArrayList<Pokemon> arrayList = new ArrayList<>();
+        arrayList.add(pokemons.get(2));
+        arrayList.add(pokemons.get(4));
+        arrayList.add(pokemons.get(7));
+        return arrayList;
     }
 
     public ArrayList<Pokemon> getPokemons(){
