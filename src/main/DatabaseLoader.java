@@ -5,6 +5,13 @@ import main.pokemon.PokemonMapper;
 import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
+import java.security.spec.KeySpec;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DatabaseLoader {
 
+    //mysqlserver
     private String remoteUsername = "pokedb";
     private String remotePassword = "electrorat!";
 
@@ -20,6 +28,33 @@ public class DatabaseLoader {
 
     private Connection con;
     private boolean connected;
+
+    //encryption
+    private static String key = "hkr12345group115"; // 128 bit key
+    private static String salt = "ssshhhhhhhhhhh!!!!";
+    private Key aesKey;
+    private Cipher cipher;
+
+
+    public DatabaseLoader(){
+        // Create key and cipher
+        try {
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            KeySpec spec = new PBEKeySpec(key.toCharArray(), salt.getBytes(), 65536, 256);
+            SecretKey tmp = factory.generateSecret(spec);
+            aesKey = new SecretKeySpec(tmp.getEncoded(), "AES");
+            cipher = Cipher.getInstance("AES");
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        /*
+        testing encryption
+        String password = "12345";
+        System.out.println(encryptPassword(password));
+        */
+    }
 
     /*
      * Try to make a connection to the database
@@ -327,7 +362,7 @@ public class DatabaseLoader {
 
                 while (rs.next()) {
                     if (rs.getString(2).equals(email)) {
-                        if (rs.getString(3).equals(password)) {
+                        if (decryptPassword(rs.getString(3)).equals(password)) {
                             return getUserInfo(rs.getBoolean(1), email);
                         } else {
                             disconnectFromDB();
@@ -447,7 +482,7 @@ public class DatabaseLoader {
                 try {
                     statement.executeUpdate("INSERT INTO user_info (email, password, username, currency, login_bonus, win_count, loss_count) VALUES" +
                             "('" + ((Trainer) user).getEmail() + "', '" +
-                            ((Trainer) user).getNewUserPassword() + "', '" +
+                            encryptPassword(((Trainer) user).getNewUserPassword()) + "', '" +
                             ((Trainer) user).getUsername() + "', " +
                             ((Trainer) user).getCurrency() + ", " +
                             "curdate(), " +
@@ -604,5 +639,49 @@ public class DatabaseLoader {
         }
 
         disconnectFromDB();
+    }
+
+    private String encryptPassword(String password){
+        try
+        {
+            // encrypt the text
+            cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+            byte[] encrypted = cipher.doFinal(password.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b: encrypted) {
+                sb.append((char)b);
+            }
+
+            // the encrypted String
+            password = sb.toString();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return password;
+    }
+
+    private String decryptPassword(String password){
+        try {
+            // now convert the string to byte array
+            // for decryption
+            byte[] bb = new byte[password.length()];
+            for (int i=0; i<password.length(); i++) {
+                bb[i] = (byte) password.charAt(i);
+            }
+
+            // decrypt the text
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+            password = new String(cipher.doFinal(bb));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return password;
     }
 }
