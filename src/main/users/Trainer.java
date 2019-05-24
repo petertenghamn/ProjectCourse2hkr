@@ -47,6 +47,8 @@ public class Trainer extends User {
 
     public void pay(int amount){ this.currency -= amount; }
 
+    public void reward(int amount) { this.currency += amount; }
+
     public void recieveLoginBonus(){ this.currency += 10; }
 
     public int getWinCount() {

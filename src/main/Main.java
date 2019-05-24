@@ -184,6 +184,16 @@ public class Main extends Application {
     /*
      * Update the current users score in the DB
      */
+    public void giveUserReward(int amount){
+        if (currentUser instanceof Trainer){
+            ((Trainer) currentUser).reward(amount);
+        }
+        pokeDB.updateUserCurrency(currentUser);
+    }
+
+    /*
+     * Update the current users score in the DB
+     */
     public void updateUserScore(){
         pokeDB.updateUserScore(currentUser);
     }

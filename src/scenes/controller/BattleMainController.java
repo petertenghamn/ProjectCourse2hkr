@@ -350,6 +350,7 @@ public class BattleMainController implements Controller {
         //play out one turn, depending on active pokemon speed, enemy or player goes accordingly
         boolean userFirst = isUserAttackingFirst();
         boolean enemyPlayed = false;
+        boolean enemyKnockedOut = false;
 
         if (!userFirst){
             enemyTurn();
@@ -372,12 +373,13 @@ public class BattleMainController implements Controller {
             updateEnemyHealthBar(damage);
 
             if (enemyHp <= 0) {
+                enemyKnockedOut = true;
                 enemyPokemonDefeated(lblEnemy.getText());
             }
         }
         escaping = false;
 
-        if (!enemyPlayed && !battleEnded){
+        if (!enemyPlayed && !battleEnded && !enemyKnockedOut){
             enemyTurn();
         }
 
@@ -553,6 +555,7 @@ public class BattleMainController implements Controller {
 
         if (userTeam.size() > 0 && enemyTeam.size() == 0){
             ((Trainer) user).setWinCount(((Trainer) user).getWinCount() + 1);
+            main.giveUserReward(25);
         } else {
             ((Trainer) user).setLossCount(((Trainer) user).getLossCount() + 1);
         }
