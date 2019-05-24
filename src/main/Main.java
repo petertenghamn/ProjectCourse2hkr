@@ -17,7 +17,6 @@ public class Main extends Application {
     private DatabaseLoader pokeDB;
     private SceneManager manager;
     private DebugDatabase pokeBugDB;
-    private ArrayList<User> debugUsers;
     private boolean deBugLoader = false;
 
     public void setDeBugLoader(boolean deBugLoader) {
@@ -54,7 +53,9 @@ public class Main extends Application {
     }
       
     public void setAllPokemon() {
-        allPokemon = pokeBugDB.getPokemons();
+        if (!deBugLoader) {
+            allPokemon = pokeBugDB.getPokemons();
+        }
     }
 
     /*
@@ -101,7 +102,11 @@ public class Main extends Application {
         }
 
         allPokemon.add(pokemon);
-        pokeDB.addPokemon(pokemon);
+        if (!deBugLoader) {
+            pokeDB.addPokemon(pokemon);
+        } else {
+            pokeBugDB.addPokemon(pokemon);
+        }
         return true;
     }
 
@@ -188,14 +193,18 @@ public class Main extends Application {
         if (currentUser instanceof Trainer){
             ((Trainer) currentUser).reward(amount);
         }
-        pokeDB.updateUserCurrency(currentUser);
+        if (!deBugLoader) {
+            pokeDB.updateUserCurrency(currentUser);
+        }
     }
 
     /*
      * Update the current users score in the DB
      */
     public void updateUserScore(){
-        pokeDB.updateUserScore(currentUser);
+        if (!deBugLoader) {
+            pokeDB.updateUserScore(currentUser);
+        }
     }
 
     /*
@@ -213,19 +222,31 @@ public class Main extends Application {
 
         if (currentUser != null) {
             if (currentUser instanceof Trainer) {
-                allPokemon = pokeDB.loadAllPokemon();
+                if (!deBugLoader) {
+                    allPokemon = pokeDB.loadAllPokemon();
+                }else {
+                    allPokemon = pokeBugDB.getPokemons();
+                }
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
                 if (pokeDB.loginBonusCheck(email)){
                     System.out.println("Trainer received login bonus!");
                     ((Trainer) currentUser).recieveLoginBonus();
-                    pokeDB.updateUserCurrency(currentUser);
+                    if (!deBugLoader) {
+                        pokeDB.updateUserCurrency(currentUser);
+                    }
                 }
                 else {
                     System.out.println("Not eligible for login bonus");
                 }
             } else if (currentUser instanceof Professor) {
-                allPokemon = pokeDB.loadAllPokemon();
-                allTrainers = pokeDB.getTrainers();
+                if (!deBugLoader) {
+                    allPokemon = pokeDB.loadAllPokemon();
+                    allTrainers = pokeDB.getTrainers();
+                }else {
+                    allPokemon = pokeBugDB.getPokemons();
+                    allTrainers = pokeBugDB.getTrainers();
+                }
+
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
             return true;

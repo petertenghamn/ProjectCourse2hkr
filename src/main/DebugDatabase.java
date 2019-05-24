@@ -1,6 +1,7 @@
 package main;
 
 import main.pokemon.Pokemon;
+import main.pokemon.PokemonMapper;
 import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
@@ -31,20 +32,13 @@ public class DebugDatabase {
         pokemons.add(new Pokemon(13, "Raichu", 100, 10, 10, 10, 100, "Electric"));
 
         users = new ArrayList<>();
-        users.add((new Professor("oak@prof") {
-            @Override
-            protected void setPassword(String password) {
-                super.setPassword("root");
-            }
-        }));
-        /*
-        users[1] = (new Trainer("james@player") {
-            @Override
-            protected void setPassword(String password) {
-                super.setPassword("root");
-            }
-        });
-        */
+        users.add(new Professor("oak@prof"));
+        ArrayList<PokemonMapper> mapper = new ArrayList<>();
+        mapper.add(new PokemonMapper(3, "Bulby"));
+        users.add(new Trainer("ash@train", "Ash", 100, 0, 0, mapper, new ArrayList<>()));
+        mapper.clear();
+        mapper.add(new PokemonMapper(12, "Pika"));
+        users.add(new Trainer("mario@train", "Mario", 100, 0, 0, mapper, new ArrayList<>()));
 
         userPasswords = new HashMap<>();
         for (User u : users){
@@ -56,8 +50,22 @@ public class DebugDatabase {
         }
     }
 
+    public ArrayList<User> getTrainers(){
+        ArrayList<User> trainers = new ArrayList<>();
+        for (User u : users){
+            if (u instanceof Trainer){
+                trainers.add(u);
+            }
+        }
+        return trainers;
+    }
+
     public ArrayList<Pokemon> getPokemons(){
         return pokemons;
+    }
+
+    public void addPokemon(Pokemon pokemon){
+        pokemons.add(pokemon);
     }
 
     public User authenticateUser(String username, String password) {
