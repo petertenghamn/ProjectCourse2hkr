@@ -3,6 +3,7 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -10,6 +11,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Ellipse;
 import main.Main;
 import main.pokemon.Pokemon;
@@ -18,8 +21,11 @@ import main.scenemanager.SceneManager;
 import main.users.Trainer;
 import main.users.User;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class BattleMainController implements Controller {
 
@@ -51,6 +57,8 @@ public class BattleMainController implements Controller {
     private ArrayList<Integer> enemyStats = new ArrayList<>();
     private String enemyType, userType;
 
+    // This is used for the Music and the Controller must implement Initializable
+
     @Override
     public void setMain(Main m) {
         main = m;
@@ -60,6 +68,8 @@ public class BattleMainController implements Controller {
     // Generation of enemy team so that it's random every time.
     @Override
     public void setUp() {
+        // The Music and Sounds of the Battle Scene Start here
+
         //get pokemon of the trainer
         userTeam = new ArrayList<>();
         enemyTeam = new ArrayList<>();
