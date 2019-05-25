@@ -17,8 +17,7 @@ import main.users.Professor;
 import main.users.Trainer;
 import main.users.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 
 public class ShowAllPokemonController implements Controller {
@@ -278,7 +277,7 @@ public class ShowAllPokemonController implements Controller {
                 searchResults.add(pokemon.getName());
             }
             // Using Type: Modifier sorts all Pokemon by type
-            else if (search.contains("Type:")) {
+            else if (search.contains("Type") || search.contains("type")) {
                 showSortedType();
                 return; // Return Needs to be there or else the program shows no results! // The return just exits this method
             }
@@ -290,31 +289,40 @@ public class ShowAllPokemonController implements Controller {
                 searchResults.add(pokemon.getName());
             }
             // Using Name: modifier sorts all Pokemon by Name
-            else if (search.contains("Name:")) {
+            else if (search.contains("Name") || search.contains("name")) {
                 showSortedName();
                 return; // Return Needs to be there or else the program shows no results! // The return just exits this method
             }
         }
 
-        // Search for Pokemon by ID
-        for (Pokemon pokemon : allPokemon) {
-            // Specify the Search to:
-            if (search.contains("ID:")) {
+        // Specify the Search to:
+        if (search.contains("ID:") || search.contains("id:")) {
+            // Search for Pokemon by ID
+            for (Pokemon pokemon : allPokemon) {
                 // ID the Same as:
                 if (search.contains("=")) {
-                    if (pokemon.getIdTag() == Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf("=")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getIdTag() == number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
                 // ID is less than:
                 else if (search.contains(">")) {
-                    if (pokemon.getIdTag() >= Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf(">")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getIdTag() >= number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
                 // ID is greater than:
                 else if (search.contains("<")) {
-                    if (pokemon.getIdTag() <= Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf("<")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getIdTag() <= number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
@@ -326,25 +334,34 @@ public class ShowAllPokemonController implements Controller {
             }
         }
 
-        // Search for Pokemon by HP
-        for (Pokemon pokemon : allPokemon) {
-            // Specify the Search to:
-            if (search.contains("HP:")) {
+        // Specify the Search to:
+        if (search.contains("HP:") || search.contains("hp:") || search.contains("Health:") || search.contains("health:")) {
+            // Search for Pokemon by HP
+            for (Pokemon pokemon : allPokemon) {
                 // Higher HP Than:
                 if (search.contains(">")) {
-                    if (pokemon.getHealth() >= Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf(">")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getHealth() >= number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
                 // Less HP Than:
                 else if (search.contains("<")) {
-                    if (pokemon.getHealth() <= Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf("<")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getHealth() <= number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
                 // Equal HP To:
                 else if (search.contains("=")) {
-                    if (pokemon.getHealth() == Integer.parseInt(search.substring(5))) {
+                    //get the value entered to compare with
+                    String numericPart = search.substring(search.indexOf("=")+1);
+                    int number = Integer.parseInt(numericPart);
+                    if (pokemon.getHealth() == number) {
                         searchResults.add(pokemon.getName());
                     }
                 }
@@ -376,31 +393,40 @@ public class ShowAllPokemonController implements Controller {
 
     private void showSortedType() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        Map<String, ArrayList<String>> typeMap = new TreeMap<>();
 
-        ArrayList<String> pokemonFire = new ArrayList<>();
-        ArrayList<String> pokemonWater = new ArrayList<>();
-        ArrayList<String> pokemonGrass = new ArrayList<>();
-        ArrayList<String> pokemonElectric = new ArrayList<>();
-
+        //creates a hashmap of <type, pokemonNameArray> to group all pokemon accordingly
         for (Pokemon pokemon : allPokemon) {
-            if (pokemon.getType().contains("Fire")) {
-                pokemonFire.add(pokemon.getName());
-            } else if (pokemon.getType().contains("Water")) {
-                pokemonWater.add(pokemon.getName());
-            } else if (pokemon.getType().contains("Grass")) {
-                pokemonGrass.add(pokemon.getName());
-            } else if (pokemon.getType().contains("Electric")) {
-                pokemonElectric.add(pokemon.getName());
-            } else {
-                System.out.println("Error Assigning Pokemon " + pokemon.getName() + "'s Type");
+            if (!typeMap.containsKey(pokemon.getType())){
+                if (pokemon.getType().contains("and")){
+                    //group by their first type listed
+                    String parse = pokemon.getType().substring(0, pokemon.getType().indexOf(" "));
+                    if (!typeMap.containsKey(parse)){
+                        typeMap.put(parse, new ArrayList<>());
+                        typeMap.get(parse).add(pokemon.getName());
+                    }
+                    else
+                    {
+                        typeMap.get(parse).add(pokemon.getName());
+                    }
+                }
+                else
+                {
+                    typeMap.put(pokemon.getType(), new ArrayList<>());
+                    typeMap.get(pokemon.getType()).add(pokemon.getName());
+                }
+            }
+            else
+            {
+                typeMap.get(pokemon.getType()).add(pokemon.getName());
             }
         }
 
         ArrayList<String> pokemonNames = new ArrayList<>();
-        pokemonNames.addAll(pokemonFire);
-        pokemonNames.addAll(pokemonWater);
-        pokemonNames.addAll(pokemonGrass);
-        pokemonNames.addAll(pokemonElectric);
+
+        for (ArrayList<String> array : typeMap.values()){
+            pokemonNames.addAll(array);
+        }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
 
