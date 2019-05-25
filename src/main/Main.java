@@ -253,7 +253,7 @@ public class Main extends Application {
     /*
      * Assign the selected pokemon to the new trainer and finalize by adding the trainer to the DB
      */
-    public void acquirePokemon(int pokemonID, String nickname, boolean checkCost) {
+    public boolean acquirePokemon(int pokemonID, String nickname, boolean checkCost) {
         if (currentUser instanceof Trainer) {
             ArrayList<PokemonMapper> collection = ((Trainer) currentUser).getCollection();
 
@@ -290,6 +290,7 @@ public class Main extends Application {
                         pokeDB.addPokemonUserCollection(currentUser, caughtPokemon);
                     } else {
                         System.out.println("You cannot afford: " + cost);
+                        return false;
                     }
                 } else {
                     PokemonMapper caughtPokemon = new PokemonMapper(pokemonID, nickname);
@@ -298,8 +299,10 @@ public class Main extends Application {
                 }
             } else {
                 System.out.println("There is already a Pokemon with that name in your collection: " + nickname);
+                return false;
             }
         }
+        return true;
     }
 
     /*

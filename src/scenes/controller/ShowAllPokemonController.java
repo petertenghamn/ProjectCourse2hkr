@@ -201,10 +201,11 @@ public class ShowAllPokemonController implements Controller {
                 lblError.setVisible(true);
                 lblError.setText("Nickname is empty!");
             } else if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText(), true);
-            } else {
-                catchPokemon();
-                lblError.setVisible(false);
+                if (main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText(), true)){
+                    catchPokemon();
+                    lblError.setVisible(false);
+                    updateCurrency();
+                }
             }
         }
     }
@@ -214,11 +215,13 @@ public class ShowAllPokemonController implements Controller {
 
         for (Pokemon pokemon : allPokemon) {
             if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                main.acquirePokemon(pokemon.getIdTag(), null, true);
+                if (main.acquirePokemon(pokemon.getIdTag(), null, true)){
+                    catchPokemon();
+                    lblError.setVisible(false);
+                    updateCurrency();
+                }
             }
         }
-        catchPokemon();
-        lblError.setVisible(false);
     }
 
     private void catchPokemon() {
