@@ -166,6 +166,8 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- UPDATE user_info SET login_bonus = '2019-05-09' WHERE email LIKE 'ash@trainer';
 -- UPDATE user_info SET currency = 500 WHERE email LIKE 'ash@trainer';
 -- UPDATE user_info SET win_count = 2, loss_count = 3 WHERE email LIKE 'ash@trainer';
+-- UPDATE user_info SET password = '12345' WHERE email LIKE 'ash@trainer';
+-- UPDATE user_info SET password = '12345' WHERE email LIKE 'oak@professor';
 
 -- DELETE FROM pokemon WHERE pokemon_id = 4;
 

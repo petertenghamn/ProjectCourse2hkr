@@ -362,7 +362,8 @@ public class DatabaseLoader {
 
                 while (rs.next()) {
                     if (rs.getString(2).equals(email)) {
-                        if (decryptPassword(rs.getString(3)).equals(password)) {
+                        //if (decryptPassword(rs.getString(3)).equals(password)) {
+                        if (rs.getString(3).equals(password)) {
                             return getUserInfo(rs.getBoolean(1), email);
                         } else {
                             disconnectFromDB();
@@ -482,7 +483,8 @@ public class DatabaseLoader {
                 try {
                     statement.executeUpdate("INSERT INTO user_info (email, password, username, currency, login_bonus, win_count, loss_count) VALUES" +
                             "('" + ((Trainer) user).getEmail() + "', '" +
-                            encryptPassword(((Trainer) user).getNewUserPassword()) + "', '" +
+                            //encryptPassword(((Trainer) user).getNewUserPassword()) + "', '" +
+                            ((Trainer) user).getNewUserPassword() + "', '" +
                             ((Trainer) user).getUsername() + "', " +
                             ((Trainer) user).getCurrency() + ", " +
                             "curdate(), " +
