@@ -2,6 +2,7 @@ package main.scenemanager;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.scenemanager.loader.FileLoader;
@@ -62,6 +63,7 @@ public class SceneManager {
     }
     private Map<sceneName, SceneMapper> sceneMap;
     private SceneMapper currentScene;
+    private SceneMapper loginBonusPopup;
 
     public SceneManager(Main m, Stage ps){
         main = m;
@@ -79,16 +81,21 @@ public class SceneManager {
     }
 
     public <T extends Controller,K extends Parent> void addScene(String id, K scene, T controller){
-        sceneName enumID = getEnumFromID(id);
+        if (id.equalsIgnoreCase("loginbonus")) {
+            loginBonusPopup = new SceneMapper <T, K>(controller, scene);
+        }
+        else
+        {
+            sceneName enumID = getEnumFromID(id);
 
-        sceneMap.put(
-                enumID,
-                new SceneMapper<T,K>(
-                        controller,
-                        scene
-                )
-        );
-
+            sceneMap.put(
+                    enumID,
+                    new SceneMapper<T, K>(
+                            controller,
+                            scene
+                    )
+            );
+        }
     }
 
     //loads all FXML files along with their controllers
@@ -107,5 +114,20 @@ public class SceneManager {
         primaryScene.setRoot(currentScene.getParent());
 
         currentScene.getController().setUp();
+    }
+
+    /*
+    private Stage root;
+    private Scene primaryScene;
+    private SceneMapper currentScene;
+     */
+
+    public void showLoginBonus(){
+        Stage window = new Stage();
+        window.setTitle("");
+        window.initModality(Modality.APPLICATION_MODAL);
+
+        window.setScene(new Scene(loginBonusPopup.getParent()));
+        window.show();
     }
 }

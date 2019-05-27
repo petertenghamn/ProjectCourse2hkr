@@ -182,6 +182,26 @@ public class Main extends Application {
     }
 
     /*
+     * Check to see if the user should get a login bonus
+     */
+    public void loginBonusCheck(){
+        if (currentUser instanceof Trainer) {
+            if (pokeDB.loginBonusCheck(((Trainer) currentUser).getEmail())){
+                ((Trainer) currentUser).recieveLoginBonus();
+                pokeDB.updateUserCurrency(currentUser);
+
+                //create popup window
+                manager.showLoginBonus();
+                System.out.println("Trainer received login bonus!");
+            }
+            else
+            {
+                System.out.println("Trainer not eligible for login bonus!");
+            }
+        }
+    }
+
+    /*
      * Update the current users score in the DB
      */
     public void giveUserReward(int amount){
@@ -215,14 +235,11 @@ public class Main extends Application {
             if (currentUser instanceof Trainer) {
                 allPokemon = pokeDB.loadAllPokemon();
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-                if (pokeDB.loginBonusCheck(email)){
-                    System.out.println("Trainer received login bonus!");
-                    ((Trainer) currentUser).recieveLoginBonus();
-                    pokeDB.updateUserCurrency(currentUser);
-                }
-                else {
-                    System.out.println("Not eligible for login bonus");
-                }
+
+                //for testing
+                System.out.printf("%n%s%n%s%n%s%n%n", "For Testing", "Login bonus always is shown on login of trainer", "Disable in line ~241 of main");
+                manager.showLoginBonus();
+
             } else if (currentUser instanceof Professor) {
                 allPokemon = pokeDB.loadAllPokemon();
                 allTrainers = pokeDB.getTrainers();

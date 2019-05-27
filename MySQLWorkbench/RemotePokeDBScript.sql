@@ -156,17 +156,16 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- some queries
 
 -- SELECT * FROM user;
- SELECT * FROM user_info;
+-- SELECT * FROM user_info;
 -- SELECT * FROM pokemon;
 -- SELECT * FROM collection;
 -- SELECT * FROM user_has_team;
 
 -- SELECT collection.user_id, pokemon_id, nickname FROM collection INNER JOIN user_has_team WHERE nickname LIKE collection_nickname AND collection.user_id = user_has_team.user_id;
 
+-- UPDATE user_info SET login_bonus = '2019-05-09' WHERE email LIKE 'ash@trainer';
 -- UPDATE user_info SET currency = 500 WHERE email LIKE 'ash@trainer';
 -- UPDATE user_info SET win_count = 2, loss_count = 3 WHERE email LIKE 'ash@trainer';
- UPDATE user_info SET password = 'sﾾﾀT ￊﾻVﾚￜ0	ﾒ' WHERE email LIKE 'ash@trainer';
- UPDATE user_info SET password = 'sﾾﾀT ￊﾻVﾚￜ0	ﾒ' WHERE email LIKE 'oak@professor';
 
 -- DELETE FROM pokemon WHERE pokemon_id = 4;
 
