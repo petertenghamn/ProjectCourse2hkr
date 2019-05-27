@@ -24,6 +24,7 @@ public class TrainerMenuController implements Controller {
     @Override
     public void setUp(){
         updateStats();
+        main.loginBonusCheck();
     }
 
     @Override
@@ -68,4 +69,7 @@ public class TrainerMenuController implements Controller {
         main.logoutUser();
     }
 
+    public void confirmButton(){
+
+    }
 }
