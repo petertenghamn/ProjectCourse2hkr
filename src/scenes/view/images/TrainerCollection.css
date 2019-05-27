@@ -60,6 +60,12 @@
     -fx-font-weight: bold;
 }
 
+#ttType{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
+}
+
 #lblType {
     -fx-font: 20px Garamond;
 }
@@ -67,6 +73,12 @@
 #labelID {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
+}
+
+#ttID{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
 }
 
 #lblID {
@@ -78,6 +90,12 @@
     -fx-font-weight: bold;
 }
 
+#ttHP{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
+}
+
 #lblHP {
     -fx-font: 20px Garamond;
 }
@@ -85,6 +103,12 @@
 #labelAttack {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
+}
+
+#ttAttack{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
 }
 
 #lblAtk {
@@ -96,6 +120,12 @@
     -fx-font-weight: bold;
 }
 
+#ttSpeed{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
+}
+
 #lblSpeed {
     -fx-font: 20px Garamond;
 }
@@ -103,6 +133,12 @@
 #labelDefence {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
+}
+
+#ttDefence{
+    -fx-font: 17px Garamond;
+    -fx-show-duration: 60s;
+    -fx-show-delay: 0s;
 }
 
 #lblDf {

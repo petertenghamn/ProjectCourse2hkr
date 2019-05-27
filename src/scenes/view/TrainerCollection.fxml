@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,19 +12,19 @@
 
 <AnchorPane fx:id="trainerCollectionAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/TrainerCollection.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.TrainerCollectionController">
     <children>
-        <Pane fx:id="pane1" layoutX="58.0" layoutY="12.0" prefHeight="429.0" prefWidth="226.0">
+        <Pane fx:id="pane1" layoutX="30.0" layoutY="12.0" prefHeight="429.0" prefWidth="255.0">
             <children>
-                <Label fx:id="labelMyCollection" layoutX="27.0" layoutY="14.0" text="My collection" />
-                <Button fx:id="btnSelect1" blendMode="MULTIPLY" layoutX="74.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSelectedCollection" text="Select" />
-                <ListView fx:id="listCollection" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0" />
+                <Label fx:id="labelMyCollection" layoutX="41.0" layoutY="14.0" text="My collection" />
+                <Button fx:id="btnSelect1" blendMode="MULTIPLY" layoutX="89.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSelectedCollection" text="Select" />
+                <ListView fx:id="listCollection" layoutX="10.0" layoutY="61.0" prefHeight="307.0" prefWidth="235.0" />
             </children>
         </Pane>
-        <Pane fx:id="pane2" layoutX="916.0" layoutY="12.0" prefHeight="429.0" prefWidth="226.0">
+        <Pane fx:id="pane2" layoutX="920.0" layoutY="12.0" prefHeight="429.0" prefWidth="255.0">
             <children>
-                <Label fx:id="labelMyTeam" layoutX="57.0" layoutY="14.0" text="My team" />
-                <ListView fx:id="listTeam" layoutX="13.0" layoutY="61.0" prefHeight="307.0" prefWidth="200.0" />
+                <Label fx:id="labelMyTeam" layoutX="71.0" layoutY="14.0" text="My team" />
+                <ListView fx:id="listTeam" layoutX="10.0" layoutY="61.0" prefHeight="307.0" prefWidth="235.0" />
                 <Button fx:id="btnSelect2" layoutX="18.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSelectedTeam" text="Select" />
-            <Button fx:id="btnRemove" layoutX="113.0" layoutY="376.0" mnemonicParsing="false" onAction="#removeTeam" text="Remove" />
+            <Button fx:id="btnRemove" layoutX="147.0" layoutY="376.0" mnemonicParsing="false" onAction="#removeTeam" text="Remove" />
             </children>
         </Pane>
         <Pane fx:id="pane3" layoutX="454.0" layoutY="18.0" prefHeight="314.0" prefWidth="255.0">
@@ -43,40 +44,58 @@
                         <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblName" layoutX="149.0" layoutY="37.0" text="0" />
+                <Label fx:id="lblName" alignment="TOP_LEFT" layoutX="158.0" layoutY="31.0" prefHeight="63.0" prefWidth="112.0" wrapText="true" />
                 <Label fx:id="labelType" layoutX="268.0" layoutY="27.0" text="Type:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttType" autoFix="false" consumeAutoHidingEvents="false" text="All Pokémon are assigned certain types. &#10;Each type has several strengths and weaknesses in &#10;both attack and defence. Depending on the types &#10;of each Pokémon, they can deal double damage or &#10;be knocked out faster." wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="lblType" layoutX="356.0" layoutY="32.0" text="0" />
                 <Label fx:id="labelID" layoutX="192.0" layoutY="102.0" text="ID:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttID" autoFix="false" consumeAutoHidingEvents="false" text="Each Pokémon has its unique ID, making it easier to&#10;identify. For example, a Pikachu with a nickname it's&#10;still a Pikachu even if its name is changed. The ID helps&#10;distinguishing the Pokémon. &#10;" wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="lblID" layoutX="247.0" layoutY="107.0" text="0" />
                 <Label fx:id="labelHealth" layoutX="53.0" layoutY="187.0" text="Health:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttHP" autoFix="false" consumeAutoHidingEvents="false" text="The Health Points, or HP for short determine how much &#10;damage a Pokémon can receive before fainting. &#10;Once the HP reach 0, the Pokémon faints and is &#10;either replaced by anothe one or the battle is over." wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="lblHP" layoutX="162.0" layoutY="192.0" text="0" />
                 <Label fx:id="labelAttack" layoutX="55.0" layoutY="279.0" text="Attack:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttAttack" autoFix="false" consumeAutoHidingEvents="false" text="The Attack stat determines how much damage a &#10;Pokémon deals when using a physical move." wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="lblAtk" layoutX="162.0" layoutY="284.0" text="0" />
                 <Label fx:id="labelSpeed" layoutX="272.0" layoutY="187.0" text="Speed:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttSpeed" autoFix="false" consumeAutoHidingEvents="false" text="The Speed stat determines the order of Pokémon that &#10;can act in battle. Pokémon with higher Speed at the start &#10;of any turn will generally make a move before ones with &#10;lower Speed; in the case that two Pokémon have the same &#10;Speed, one of them will randomly go first." wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="labelDefence" layoutX="272.0" layoutY="279.0" text="Defence: ">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
+               <tooltip>
+                  <Tooltip fx:id="ttDefence" autoFix="false" consumeAutoHidingEvents="false" text="The Defence stat  determines how much damage a &#10;Pokémon receives when it is hit with a physical move." wrapText="true" />
+               </tooltip>
                 </Label>
                 <Label fx:id="lblSpeed" layoutX="393.0" layoutY="192.0" text="0" />
                 <Label fx:id="lblDf" layoutX="393.0" layoutY="284.0" text="0" />
