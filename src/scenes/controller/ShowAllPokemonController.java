@@ -45,7 +45,7 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     ImageView pokeBall;
     @FXML
-    Pane paneHelp;
+    Pane paneHelp, pane3;
 
     private int currency;
     private Main main;
@@ -75,11 +75,13 @@ public class ShowAllPokemonController implements Controller {
             btnHelp.setVisible(false);
             lblCurrency.setVisible(false);
             lblCurrencyTitle.setVisible(false);
+            pane3.setVisible(false);
         } else if (main.getCurrentUser() instanceof Trainer) {
             canBuy = true;
             btnHelp.setVisible(true);
             lblCurrencyTitle.setVisible(true);
             lblCurrency.setVisible(true);
+            pane3.setVisible(true);
         }
 
         pokeBall.setVisible(false);

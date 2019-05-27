@@ -60,7 +60,7 @@
     -fx-font-weight: bold;
 }
 
-#ttType{
+#ttType {
     -fx-font: 17px Garamond;
     -fx-show-duration: 60s;
     -fx-show-delay: 0s;
