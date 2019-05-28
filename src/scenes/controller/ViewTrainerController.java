@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
@@ -29,6 +30,16 @@ public class ViewTrainerController implements Controller {
 
         listCollection.setVisible(false);
         listTeam.setVisible(false);
+
+        String email = "";
+
+        if (listView.getItems().size() > 0){
+            listView.getSelectionModel().selectFirst();
+            showImage();
+            updateStats();
+            showCollection();
+            showTeam();
+        }
     }
 
     @Override
@@ -38,6 +49,7 @@ public class ViewTrainerController implements Controller {
 
         listCollection.setVisible(false);
         listTeam.setVisible(false);
+        String email = "";
     }
 
     private Main main;
@@ -47,13 +59,14 @@ public class ViewTrainerController implements Controller {
     }
 
     @FXML
-    Label lblLosses, lblWins, lblName, lblCurrency;
+    TextField txtLosses, txtWins, txtName, txtCurrency;
 
     @FXML
     ImageView imgView;
 
     @FXML
     ListView listView, listTeam, listCollection;
+    String email;
 
     public void selectTrainer() {
         showImage();
@@ -75,7 +88,6 @@ public class ViewTrainerController implements Controller {
         ObservableList<String> observableNames = FXCollections.observableArrayList(names);
 
         listView.setItems(observableNames);
-
     }
 
     private void showImage() {
@@ -102,22 +114,24 @@ public class ViewTrainerController implements Controller {
         String name = listView.getSelectionModel().getSelectedItem().toString();
         ArrayList<User> trainers = main.getTrainers();
 
+        email = "";
         int currency = 0;
         int wins = 0;
         int losses = 0;
 
         for (User trainer : trainers){
             if (name.equalsIgnoreCase(((Trainer) trainer).getUsername())){
+                email = ((Trainer) trainer).getEmail();
                 currency = ((Trainer) trainer).getCurrency();
                 wins = ((Trainer) trainer).getWinCount();
                 losses = ((Trainer) trainer).getLossCount();
             }
         }
 
-        lblName.setText(listView.getSelectionModel().getSelectedItem().toString());
-        lblCurrency.setText(Integer.toString(currency));
-        lblWins.setText(Integer.toString(wins));
-        lblLosses.setText(Integer.toString(losses));
+        txtName.setText(listView.getSelectionModel().getSelectedItem().toString());
+        txtCurrency.setText(Integer.toString(currency));
+        txtWins.setText(Integer.toString(wins));
+        txtLosses.setText(Integer.toString(losses));
     }
 
     private void showCollection() {
@@ -171,5 +185,39 @@ public class ViewTrainerController implements Controller {
         ObservableList<String> collectionPokemon = FXCollections.observableArrayList(pokeNicknames);
 
         listTeam.setItems(collectionPokemon);
+    }
+
+    public void updateTrainer(){
+        if (!txtName.getText().isEmpty() && Integer.parseInt(txtWins.getText()) >= 0 && Integer.parseInt(txtLosses.getText()) >= 0 && Integer.parseInt(txtCurrency.getText()) >= 0) {
+            ArrayList<User> trainers = main.getTrainers();
+
+            for (User trainer : trainers) {
+                if (trainer instanceof Trainer) {
+                    if (((Trainer) trainer).getEmail().equals(email)) {
+                        ((Trainer) trainer).setUsername(txtName.getText());
+                        ((Trainer) trainer).setWinCount(Integer.parseInt(txtWins.getText()));
+                        ((Trainer) trainer).setLossCount(Integer.parseInt(txtLosses.getText()));
+                        ((Trainer) trainer).setCurrency(Integer.parseInt(txtCurrency.getText()));
+
+                        main.editTrainerStats(trainer);
+                        setUp();
+                    }
+                }
+            }
+        }
+        else {
+            if (txtName.getText().isEmpty()) {
+                System.out.println("Name cannot be empty!");
+            }
+            else if (Integer.parseInt(txtWins.getText()) < 0){
+                System.out.println("Wins cannot be negative!");
+            }
+            else if (Integer.parseInt(txtLosses.getText()) < 0){
+                System.out.println("Losses cannot be negative!");
+            }
+            else if (Integer.parseInt(txtCurrency.getText()) < 0){
+                System.out.println("Currency cannot be negative!");
+            }
+        }
     }
 }

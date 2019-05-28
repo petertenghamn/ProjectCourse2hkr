@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,18 +20,19 @@
       </Pane>
       <Pane fx:id="pane1" layoutX="450.0" layoutY="14.0" prefHeight="499.0" prefWidth="300.0">
          <children>
-            <Label fx:id="lblName" layoutX="110.0" layoutY="14.0" text="Name" />
+            <TextField fx:id="txtName" alignment="CENTER" layoutX="76.0" layoutY="22.0" />
             <ImageView fx:id="imgView" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/pokeLogo.png" />
                </image>
             </ImageView>
             <Label fx:id="labelWon" layoutX="54.0" layoutY="298.0" text="Won:" />
-            <Label fx:id="lblWins" layoutX="189.0" layoutY="307.0" />
-            <Label fx:id="labelLost" layoutX="56.0" layoutY="368.0" text="Lost:" />
-            <Label fx:id="lblLosses" layoutX="189.0" layoutY="377.0" />
-            <Label fx:id="labelCurrency" layoutX="57.0" layoutY="426.0" text="Currency: " />
-            <Label fx:id="lblCurrency" layoutX="189.0" layoutY="435.0" />
+            <TextField fx:id="txtWins" layoutX="120.0" layoutY="305.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label fx:id="labelLost" layoutX="56.0" layoutY="358.0" text="Lost:" />
+            <TextField fx:id="txtLosses" layoutX="120.0" layoutY="365.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label fx:id="labelCurrency" layoutX="57.0" layoutY="416.0" text="Currency: " />
+            <TextField fx:id="txtCurrency" layoutX="174.0" layoutY="423.0" prefHeight="25.0" prefWidth="100.0" />
+            <Button layoutX="123.0" layoutY="461.0" mnemonicParsing="false" onAction="#updateTrainer" text="Update" />
          </children>
       </Pane>
       <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="1061.0" layoutY="714.0" mnemonicParsing="false" onAction="#backToProfessorMenu" text="Back" />

@@ -121,20 +121,21 @@ public class Main extends Application {
      *
      * @returns boolean (false if failed to edit)
      */
-    public boolean editPokemon(Pokemon pokemon){
-        //should check each field for a change and call that variable to update in the db, for that pokemon?
-        //should be safer that way, but maybe with some checks just update the entire pokemon in one go? or atleast within the same method with checks...
-
-        for (Pokemon p : allPokemon){
-            if (p.getIdTag() == pokemon.getIdTag()){
-                allPokemon.remove(p);
-                allPokemon.add(pokemon);
-                pokeDB.editPokemon(pokemon);
-                return false;
+    public boolean editPokemon(int pokeID, Pokemon pokemon){
+        //check to see if the changed ID conflicts with another pokemon's ID
+        if (pokeID != pokemon.getIdTag()) {
+            for (Pokemon p : allPokemon) {
+                if (p.getIdTag() == pokemon.getIdTag()) {
+                    return false;
+                }
             }
         }
 
-        return false;
+        pokeDB.editPokemon(pokeID, pokemon);
+        allPokemon = new ArrayList<>();
+        allPokemon = pokeDB.loadAllPokemon();
+
+        return true;
     }
 
     /*
@@ -158,6 +159,13 @@ public class Main extends Application {
     }
 
     /*
+     * Update the trainer's information in the DB
+     */
+    public void editTrainerStats(User user){
+        pokeDB.editTrainer(user);
+    }
+
+    /*
      * Method ran at program start (Initializes important classes)
      */
     @Override
@@ -165,10 +173,6 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeBugDB = new DebugDatabase();
         manager = new SceneManager(this, primaryStage);
-
-        for (String s : getTypeSelection()){
-            System.out.println("Type: " + s);
-        }
     }
 
     /*
@@ -253,18 +257,16 @@ public class Main extends Application {
         }
 
         if (currentUser != null) {
+            allPokemon = pokeDB.loadAllPokemon();
             if (currentUser instanceof Trainer) {
-                allPokemon = pokeDB.loadAllPokemon();
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
             } else if (currentUser instanceof Professor) {
-                allPokemon = pokeDB.loadAllPokemon();
                 allTrainers = pokeDB.getTrainers();
                 manager.changeScene(SceneManager.sceneName.PROFESSORMENU);
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /*

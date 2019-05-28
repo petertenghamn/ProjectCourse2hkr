@@ -53,6 +53,11 @@ public class TrainerCollectionController implements Controller {
     public void setUp() {
         updateListCollection();
         updateListTeam();
+
+        if (listCollection.getItems().size() > 0){
+            listCollection.getSelectionModel().selectFirst();
+            showSelectedCollection();
+        }
     }
 
     @Override
