@@ -52,9 +52,19 @@ public class Main extends Application {
     public ArrayList<Pokemon> getAllPokemon() {
         return allPokemon;
     }
-      
+
+    /*
+     * Get all pokemon from the debug database
+     */
     public void setAllPokemon() {
         allPokemon = pokeBugDB.getPokemons();
+    }
+
+    /*
+     * Get all possible pokemon types from the database
+     */
+    public ArrayList<String> getTypeSelection(){
+        return pokeDB.getTypeSelection();
     }
 
     /*
@@ -112,6 +122,9 @@ public class Main extends Application {
      * @returns boolean (false if failed to edit)
      */
     public boolean editPokemon(Pokemon pokemon){
+        //should check each field for a change and call that variable to update in the db, for that pokemon?
+        //should be safer that way, but maybe with some checks just update the entire pokemon in one go? or atleast within the same method with checks...
+
         for (Pokemon p : allPokemon){
             if (p.getIdTag() == pokemon.getIdTag()){
                 allPokemon.remove(p);
@@ -152,6 +165,10 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeBugDB = new DebugDatabase();
         manager = new SceneManager(this, primaryStage);
+
+        for (String s : getTypeSelection()){
+            System.out.println("Type: " + s);
+        }
     }
 
     /*

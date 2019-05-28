@@ -117,9 +117,43 @@ public class DatabaseLoader {
     }
 
     /*
+     * Load all of the pokemon stats from the database
+     *
+     * @return Pokemon[]
+     */
+    public ArrayList<String> getTypeSelection(){
+        ArrayList<String> types = new ArrayList<>();
+
+        connectToDB();
+
+        try{
+            ResultSet rs = statement.executeQuery("SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';");
+            rs.next();
+            //convert the query into array of strings
+            
+
+            System.out.println(rs.getString(1));
+
+            //Array sqlTypes = rs.getArray("COLUMN_TYPE");
+            //types = ((String[])sqlTypes.getArray());
+        }
+        catch(SQLException ex){
+            System.out.println(ex);
+            System.out.println("Error executing the getTypeSelection query!");
+        }
+
+        disconnectFromDB();
+
+        return types;
+    }
+
+
+    /*
      * Add a new pokemon to the database
      */
     public void addPokemon(Pokemon pokemon){
+        System.out.println("(TODO): PokeDB addPokemon doesn't add pokemon safely to the DB yet!");
+        /*
         connectToDB();
 
         if (connected) {
@@ -134,6 +168,7 @@ public class DatabaseLoader {
         }
 
         disconnectFromDB();
+        */
     }
 
     /*
@@ -163,6 +198,8 @@ public class DatabaseLoader {
      * remove a pokemon from the database
      */
     public void removePokemon(Pokemon pokemon){
+        System.out.println("(TODO): PokeDB removePokemon doesn't remove pokemon safely from the DB yet!");
+        /*
         connectToDB();
 
         if (connected) {
@@ -174,6 +211,7 @@ public class DatabaseLoader {
         }
 
         disconnectFromDB();
+        */
     }
 
     /*

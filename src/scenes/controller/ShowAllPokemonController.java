@@ -3,10 +3,7 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -34,6 +31,13 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     ImageView imageView;
 
+    // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE PROFESSOR! --------------------------------------------------------
+    @FXML
+    TextField txtName, txtID, txtHealth, txtSpeed, txtAttack, txtDefence, txtPrice;
+    String oldID;
+    @FXML
+    ChoiceBox<String> choiceFirstType, choiceSecondType;
+
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -49,7 +53,6 @@ public class ShowAllPokemonController implements Controller {
 
     private int currency;
     private Main main;
-    private Boolean canBuy = true;
     private Boolean help = false;
 
     // This is Used for the Search
@@ -71,13 +74,11 @@ public class ShowAllPokemonController implements Controller {
     @Override
     public void setUp() {
         if (main.getCurrentUser() instanceof Professor) {
-            canBuy = false;
             btnHelp.setVisible(false);
             lblCurrency.setVisible(false);
             lblCurrencyTitle.setVisible(false);
             pane3.setVisible(false);
         } else if (main.getCurrentUser() instanceof Trainer) {
-            canBuy = true;
             btnHelp.setVisible(true);
             lblCurrencyTitle.setVisible(true);
             lblCurrency.setVisible(true);

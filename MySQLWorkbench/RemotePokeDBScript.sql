@@ -172,3 +172,8 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- DELETE FROM pokemon WHERE pokemon_id = 4;
 
 -- INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (4, 'Charmander', 39, 5, 4, 65, 'Fire', 50);
+
+SELECT type 
+FROM INFORMATION_SCHEMA.COLUMNS WHERE
+TABLE_NAME = 'pokemon' 
+AND COLUMN_NAME = 'first_type';
