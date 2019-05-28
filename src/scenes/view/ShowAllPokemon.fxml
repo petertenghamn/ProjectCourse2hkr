@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -30,6 +31,7 @@
                     </font>
                 </Label>
                 <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" text="0" />
+            <TextField fx:id="txtName" layoutX="117.0" layoutY="337.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelType" layoutX="228.0" layoutY="330.0" text="Type:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -39,6 +41,8 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" text="0" />
+            <ChoiceBox fx:id="choiceFirstType" layoutX="305.0" layoutY="325.0" prefHeight="25.0" prefWidth="140.0" />
+            <ChoiceBox fx:id="choiceSecondType" layoutX="305.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" />
                 <Label fx:id="labelID" layoutX="162.0" layoutY="387.0" text="ID:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -48,6 +52,7 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" text="0" />
+            <TextField fx:id="txtID" layoutX="208.0" layoutY="392.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelHealth" layoutX="27.0" layoutY="488.0" text="Health:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -57,6 +62,7 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" text="0" />
+            <TextField fx:id="txtHealth" layoutX="123.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelSpeed" layoutX="232.0" layoutY="488.0" text="Speed:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -66,6 +72,7 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblSpeed" layoutX="347.0" layoutY="493.0" text="0" />
+            <TextField fx:id="txtSpeed" layoutX="320.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelAttack" layoutX="25.0" layoutY="561.0" text="Attack:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -75,6 +82,7 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" text="0" />
+            <TextField fx:id="txtAttack" layoutX="117.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelDefence" layoutX="228.0" layoutY="561.0" text="Defence: ">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -84,6 +92,7 @@
                </tooltip>
                 </Label>
                 <Label fx:id="lblDf" layoutX="347.0" layoutY="566.0" text="0" />
+            <TextField fx:id="txtDefence" layoutX="343.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
                 <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="132.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/pokeLogo.png" />
@@ -105,6 +114,8 @@
                </font>
             </Label>
             <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" text="0" />
+            <TextField fx:id="txtPrice" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
+            <Button fx:id="btnUpdate" layoutX="205.0" layoutY="669.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="217.0" layoutY="714.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />

@@ -3,10 +3,7 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -34,6 +31,16 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     ImageView imageView;
 
+    // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE PROFESSOR! --------------------------------------------------------
+    @FXML
+    TextField txtName, txtID, txtHealth, txtSpeed, txtAttack, txtDefence, txtPrice;
+    private int oldID;
+    @FXML
+    ChoiceBox<String> choiceFirstType, choiceSecondType;
+    private ArrayList<String> types;
+    @FXML
+    Button btnUpdate;
+
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -49,7 +56,6 @@ public class ShowAllPokemonController implements Controller {
 
     private int currency;
     private Main main;
-    private Boolean canBuy = true;
     private Boolean help = false;
 
     // This is Used for the Search
@@ -71,17 +77,28 @@ public class ShowAllPokemonController implements Controller {
     @Override
     public void setUp() {
         if (main.getCurrentUser() instanceof Professor) {
-            canBuy = false;
-            btnHelp.setVisible(false);
-            lblCurrency.setVisible(false);
-            lblCurrencyTitle.setVisible(false);
-            pane3.setVisible(false);
+            setUpProfessor();
+
+            txtID.setText("0");
+            txtName.setText("");
+            txtHealth.setText("0");
+            txtAttack.setText("0");
+            txtDefence.setText("0");
+            txtSpeed.setText("0");
+            txtPrice.setText("0");
+
+            types = new ArrayList<>();
+            types.add("None");
+            types.addAll(main.getTypeSelection());
+            ObservableList<String> typeArr = FXCollections.observableList(types);
+
+            choiceFirstType.setItems(typeArr);
+            choiceSecondType.setItems(typeArr);
+
+            choiceFirstType.getSelectionModel().selectFirst();
+            choiceSecondType.getSelectionModel().selectFirst();
         } else if (main.getCurrentUser() instanceof Trainer) {
-            canBuy = true;
-            btnHelp.setVisible(true);
-            lblCurrencyTitle.setVisible(true);
-            lblCurrency.setVisible(true);
-            pane3.setVisible(true);
+            setUpTrainer();
         }
 
         pokeBall.setVisible(false);
@@ -91,6 +108,67 @@ public class ShowAllPokemonController implements Controller {
         btnNoNickname.setVisible(false);
         btnNickname.setVisible(false);
         lblError.setVisible(false);
+
+        if (listView.getItems().size() > 0) {
+            listView.getSelectionModel().selectFirst();
+            showPokemon();
+        }
+    }
+
+    private void setUpProfessor(){
+        btnHelp.setVisible(false);
+        lblCurrency.setVisible(false);
+        lblCurrencyTitle.setVisible(false);
+        pane3.setVisible(false);
+
+        txtName.setVisible(true);
+        txtID.setVisible(true);
+        txtHealth.setVisible(true);
+        txtSpeed.setVisible(true);
+        txtAttack.setVisible(true);
+        txtDefence.setVisible(true);
+        txtPrice.setVisible(true);
+        choiceFirstType.setVisible(true);
+        choiceSecondType.setVisible(true);
+
+        btnUpdate.setVisible(true);
+
+        lblName.setVisible(false);
+        lblID.setVisible(false);
+        lblType.setVisible(false);
+        lblHP.setVisible(false);
+        lblAtk.setVisible(false);
+        lblDf.setVisible(false);
+        lblSpeed.setVisible(false);
+        lblPrice.setVisible(false);
+    }
+
+    private void setUpTrainer(){
+        btnHelp.setVisible(true);
+        lblCurrencyTitle.setVisible(true);
+        lblCurrency.setVisible(true);
+        pane3.setVisible(true);
+
+        txtName.setVisible(false);
+        txtID.setVisible(false);
+        txtHealth.setVisible(false);
+        txtSpeed.setVisible(false);
+        txtAttack.setVisible(false);
+        txtDefence.setVisible(false);
+        txtPrice.setVisible(false);
+        choiceFirstType.setVisible(false);
+        choiceSecondType.setVisible(false);
+
+        btnUpdate.setVisible(false);
+
+        lblName.setVisible(true);
+        lblID.setVisible(true);
+        lblType.setVisible(true);
+        lblHP.setVisible(true);
+        lblAtk.setVisible(true);
+        lblDf.setVisible(true);
+        lblSpeed.setVisible(true);
+        lblPrice.setVisible(true);
     }
 
     @Override
@@ -100,6 +178,7 @@ public class ShowAllPokemonController implements Controller {
         Image image = new Image("scenes/view/images/pokeLogo.png");
         imageView.setImage(image);
 
+        //Trainer
         lblName.setText("0");
         lblAtk.setText("0");
         lblDf.setText("0");
@@ -107,6 +186,17 @@ public class ShowAllPokemonController implements Controller {
         lblID.setText("0");
         lblSpeed.setText("0");
         lblHP.setText("0");
+
+        //Professor
+        txtID.setText("0");
+        txtName.setText("");
+        txtHealth.setText("0");
+        txtAttack.setText("0");
+        txtDefence.setText("0");
+        txtSpeed.setText("0");
+        txtPrice.setText("0");
+        choiceFirstType.getSelectionModel().selectFirst();
+        choiceSecondType.getSelectionModel().selectFirst();
 
         lblNickname.setVisible(false);
         txtNickname.setVisible(false);
@@ -156,6 +246,25 @@ public class ShowAllPokemonController implements Controller {
 
     }
 
+    public void updatePokemon(){
+        //tell the main to update the pokemon selected information
+        if (oldID == 0) {
+            System.out.println("Please select a pokemon to edit first!");
+        }
+        else if (choiceFirstType.getValue().equals("None")){
+            System.out.println("First type cannot be None. Please select a first type!");
+        }
+        else
+        {
+            Pokemon edit = new Pokemon(Integer.parseInt(txtID.getText()), txtName.getText(), Integer.parseInt(txtHealth.getText()),
+                    Integer.parseInt(txtAttack.getText()), Integer.parseInt(txtDefence.getText()), Integer.parseInt(txtSpeed.getText()), Integer.parseInt(txtPrice.getText()),
+                    (choiceFirstType.getValue()) + ((choiceSecondType.getValue().equals("None")) ? "" : " and " + choiceSecondType.getValue()));
+            if (!main.editPokemon(oldID, edit)){
+                System.out.println("Error: Possibly conflicts with another pokemon's ID");
+            }
+        }
+    }
+
     // Shows the Image of the Pokemon based on the pokemon's ID
     private void showImage(String selection) {
         // Moved the code to main so it could be used by other methods around the application
@@ -173,6 +282,59 @@ public class ShowAllPokemonController implements Controller {
         lblDf.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
         lblSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
         lblPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
+
+        //for professor editing
+        oldID = main.getPokemonByName(selection).getIdTag();
+
+        txtName.setText(main.getPokemonByName(selection).getName());
+        txtID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
+        txtHealth.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
+        txtAttack.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
+        txtDefence.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
+        txtSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
+        txtPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
+        showTypeSelection(main.getPokemonByName(selection));
+    }
+
+    private void showTypeSelection(Pokemon pokemon){
+        //split up the string type of the pokemon to display on two options
+        ObservableList<String> types = choiceFirstType.getItems();
+
+        if (pokemon.getType().contains("and")){
+            String[] strings = pokemon.getType().split(" and ");
+            for (int i = 0; i < types.size(); i++){
+                if (types.get(i).equalsIgnoreCase(strings[0])){
+                    choiceFirstType.getSelectionModel().select(i);
+                } else if (types.get(i).equalsIgnoreCase(strings[1])){
+                    choiceSecondType.getSelectionModel().select(i);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < types.size(); i++){
+                if (types.get(i).equalsIgnoreCase(pokemon.getType())){
+                    choiceFirstType.getSelectionModel().select(i);
+                }
+            }
+            choiceSecondType.getSelectionModel().selectFirst();
+        }
+
+
+        /*
+        if (pokemon.getType().contains("and")){
+            //group by their first type listed
+            String parse = pokemon.getType().substring(0, pokemon.getType().indexOf(" "));
+            if (!typeMap.containsKey(parse)){
+                typeMap.put(parse, new ArrayList<>());
+                typeMap.get(parse).add(pokemon.getName());
+            }
+            else
+            {
+                typeMap.get(parse).add(pokemon.getName());
+            }
+        }
+        */
     }
 
     public void backButton() {

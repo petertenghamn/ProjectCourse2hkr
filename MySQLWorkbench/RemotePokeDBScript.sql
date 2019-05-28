@@ -169,6 +169,17 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- UPDATE user_info SET password = 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ' WHERE email LIKE 'ash@trainer';
 -- UPDATE user_info SET password = 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ' WHERE email LIKE 'oak@professor';
 
--- DELETE FROM pokemon WHERE pokemon_id = 4;
+-- UPDATE user_info SET username = '', win_count = 0, loss_count = 0, currency = 0 WHERE email LIKE 'james@teamrocket';
+
+-- insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) values
+-- (99, 'FireLizard', 39, 5, 4, 65, 'Fire', 50);
+
+-- UPDATE pokemon SET pokemon_id = 100 WHERE pokemon_id = 99;
+ 
+-- UPDATE pokemon SET name = 'Slizard', health = 999, attack = 99, defense = 99, speed = 99, first_type = 'Fire', second_type = ' ', cost = 1000 WHERE pokemon_id = 100;
+
+-- DELETE FROM pokemon WHERE pokemon_id = 100;
 
 -- INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (4, 'Charmander', 39, 5, 4, 65, 'Fire', 50);
+
+-- SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';

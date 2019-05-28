@@ -25,6 +25,8 @@ public class Trainer extends User {
         return super.email;
     }
 
+    public void setUsername(String username) { this.username = username; }
+
     public String getUsername(){
         return username;
     }

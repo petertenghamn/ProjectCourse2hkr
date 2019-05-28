@@ -117,9 +117,49 @@ public class DatabaseLoader {
     }
 
     /*
+     * Load all of the pokemon stats from the database
+     *
+     * @return Pokemon[]
+     */
+    public ArrayList<String> getTypeSelection(){
+        ArrayList<String> types = new ArrayList<>();
+
+        connectToDB();
+
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';");
+            rs.next();
+            //convert the query into array of strings
+            String[] strArr = rs.getString(1).split(",");
+
+            for (String s : strArr) {
+                //remove anything not needed
+                if (!s.contains("enum")) {
+                    char[] remove = ")' ".toCharArray();
+                    for (char c : remove) {
+                        s = removeChar(s, c);
+                    }
+                    types.add(s);
+                }
+            }
+        }
+        catch(SQLException ex){
+            System.out.println(ex);
+            System.out.println("Error executing the getTypeSelection query!");
+        }
+
+        disconnectFromDB();
+
+        return types;
+    }
+
+
+    /*
      * Add a new pokemon to the database
      */
     public void addPokemon(Pokemon pokemon){
+        System.out.println("(TODO): PokeDB addPokemon doesn't add pokemon safely to the DB yet!");
+        /*
         connectToDB();
 
         if (connected) {
@@ -134,26 +174,52 @@ public class DatabaseLoader {
         }
 
         disconnectFromDB();
+        */
     }
 
     /*
      * update a pokemon in the database
      */
-    public void editPokemon(Pokemon pokemon){
+    public void editPokemon(int oldID, Pokemon pokemon){
         connectToDB();
 
         if (connected) {
-            System.out.println("Havn't made the query yet! please implement!");
-            /*
-            try {
-                ResultSet rs = statement.executeQuery("");
-                while (rs.next()) {
+            if (pokemon.getIdTag() != oldID) {
+                try {
+                    statement.executeUpdate("UPDATE pokemon SET pokemon_id = " + pokemon.getIdTag() + " WHERE pokemon_id = " + oldID + ";");
+                } catch (SQLException ex) {
+                    System.out.println("Error executing editPokemon Update!");
+                }
+            }
 
+            try {
+                if (pokemon.getType().contains(" and ")) {
+                    String[] type = pokemon.getType().split(" and ");
+                    statement.executeUpdate("UPDATE pokemon SET name = '" + pokemon.getName() + "', " +
+                            "health = " + pokemon.getHealth() + ", " +
+                            "attack = " + pokemon.getAttack() + ", " +
+                            "defense = " + pokemon.getDefense() + ", " +
+                            "speed = " + pokemon.getSpeed() + ", " +
+                            "first_type = '" + type[0] + "', " +
+                            "second_type = '" + ((type[1].isEmpty()) ? " " : type[1]) + "', " +
+                            "cost = " + pokemon.getCost() + " " +
+                            "WHERE pokemon_id = " + pokemon.getIdTag() + ";");
+                }
+                else
+                {
+                    statement.executeUpdate("UPDATE pokemon SET name = '" + pokemon.getName() + "', " +
+                            "health = " + pokemon.getHealth() + ", " +
+                            "attack = " + pokemon.getAttack() + ", " +
+                            "defense = " + pokemon.getDefense() + ", " +
+                            "speed = " + pokemon.getSpeed() + ", " +
+                            "first_type = '" + pokemon.getType() + "', " +
+                            "second_type = ' ', " +
+                            "cost = " + pokemon.getCost() + " " +
+                            "WHERE pokemon_id = " + pokemon.getIdTag() + ";");
                 }
             } catch (SQLException ex) {
-                System.out.println("Error executing the query!");
+                System.out.println("Error executing editPokemon Update!");
             }
-            */
         }
 
         disconnectFromDB();
@@ -163,6 +229,8 @@ public class DatabaseLoader {
      * remove a pokemon from the database
      */
     public void removePokemon(Pokemon pokemon){
+        System.out.println("(TODO): PokeDB removePokemon doesn't remove pokemon safely from the DB yet!");
+        /*
         connectToDB();
 
         if (connected) {
@@ -174,6 +242,7 @@ public class DatabaseLoader {
         }
 
         disconnectFromDB();
+        */
     }
 
     /*
@@ -237,6 +306,30 @@ public class DatabaseLoader {
 
         disconnectFromDB();
         return trainers;
+    }
+
+    /*
+     * update a pokemon in the database
+     */
+    public void editTrainer(User user){
+        connectToDB();
+
+        if (connected) {
+            try {
+                if (user instanceof Trainer) {
+                    statement.executeUpdate("UPDATE user_info SET " +
+                            "username = '" + ((Trainer) user).getUsername() + "', " +
+                            "win_count = " + ((Trainer) user).getWinCount() + ", " +
+                            "loss_count = " + ((Trainer) user).getLossCount() + ", " +
+                            "currency = " + ((Trainer) user).getCurrency() + " " +
+                            "WHERE email LIKE '" + ((Trainer) user).getEmail() + "';");
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error executing editPokemon Update!");
+            }
+        }
+
+        disconnectFromDB();
     }
 
     /*
@@ -641,6 +734,28 @@ public class DatabaseLoader {
         disconnectFromDB();
     }
 
+    /*
+     * Remove character from a string
+     *
+     * @return String
+     */
+    private static String removeChar(String s, char c) {
+        StringBuilder output = new StringBuilder();
+        char[] array = s.toCharArray();
+        for (char i : array){
+            if (i != c){
+                output.append(i);
+            }
+        }
+
+        return output.toString();
+    }
+
+    /*
+     * Create an encrypted password from the String input
+     *
+     * @return String
+     */
     private String encryptPassword(String password){
         try
         {
@@ -664,6 +779,11 @@ public class DatabaseLoader {
         return password;
     }
 
+    /*
+     * decrypt the password from the String input
+     *
+     * @return String
+     */
     private String decryptPassword(String password){
         try {
             // now convert the string to byte array
