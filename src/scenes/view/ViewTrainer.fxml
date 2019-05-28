@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="viewTrainerAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ViewTrainer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ViewTrainerController">
+<AnchorPane fx:id="viewTrainerAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ViewTrainer.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ViewTrainerController">
    <children>
       <Pane fx:id="pane3" layoutX="53.0" layoutY="30.0" prefHeight="359.0" prefWidth="268.0">
          <children>
             <Label fx:id="labelRegisteredTrainers" layoutX="14.0" layoutY="14.0" text="Registered trainers" />
-            <ListView fx:id="listView" layoutX="21.0" layoutY="53.0" prefHeight="253.0" prefWidth="226.0" />
+            <ListView fx:id="listView" layoutX="21.0" layoutY="53.0" onMouseClicked="#selectTrainer" prefHeight="253.0" prefWidth="226.0" />
             <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="95.0" layoutY="314.0" mnemonicParsing="false" onAction="#selectTrainer" text="Select" />
          </children>
       </Pane>

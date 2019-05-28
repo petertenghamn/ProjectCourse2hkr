@@ -17,6 +17,7 @@ public class SceneManager {
     private FileLoader fileLoader;
     private Stage root;
     private Scene primaryScene;
+    private Stage popup;
 
     //enum to store all the names of possible scenes to change to
     public enum sceneName { MISSING, LOGIN, NEWUSER, SELECTSTARTER, TRAINERMENU, PROFESSORMENU, SHOWALLPOKEMON, TRAINERCOLLECTION, BATTLEMAIN, VIEWTRAINER }
@@ -78,6 +79,11 @@ public class SceneManager {
         primaryScene = new Scene(currentScene.getParent());
         root.setScene(primaryScene);
         root.show();
+
+        popup = new Stage();
+        popup.setTitle("");
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setScene(new Scene(loginBonusPopup.getParent()));
     }
 
     public <T extends Controller,K extends Parent> void addScene(String id, K scene, T controller){
@@ -123,11 +129,6 @@ public class SceneManager {
      */
 
     public void showLoginBonus(){
-        Stage window = new Stage();
-        window.setTitle("");
-        window.initModality(Modality.APPLICATION_MODAL);
-
-        window.setScene(new Scene(loginBonusPopup.getParent()));
-        window.show();
+        popup.show();
     }
 }

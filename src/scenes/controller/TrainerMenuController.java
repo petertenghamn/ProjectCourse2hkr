@@ -13,7 +13,7 @@ public class TrainerMenuController implements Controller {
     // The Trainer Menu is just that a menu that contains different buttons that take you to new scenes
 
     private Main main;
-
+    private boolean login = false;
 
     @Override
     public void setMain(Main m) {
@@ -23,8 +23,11 @@ public class TrainerMenuController implements Controller {
 
     @Override
     public void setUp(){
+        if (!login) {
+            main.loginBonusCheck();
+            login = true;
+        }
         updateStats();
-        main.loginBonusCheck();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class TrainerMenuController implements Controller {
     }
 
     public void logoutButton() {
+        login = false;
         main.logoutUser();
     }
 

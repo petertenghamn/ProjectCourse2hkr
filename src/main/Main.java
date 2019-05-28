@@ -197,6 +197,10 @@ public class Main extends Application {
             else
             {
                 System.out.println("Trainer not eligible for login bonus!");
+
+                //for testing
+                System.out.printf("%n%s%n%s%n%s%n%n", "For Testing", "Login bonus always is shown on login of trainer", "Disable in line ~202 of main");
+                manager.showLoginBonus();
             }
         }
     }
@@ -235,11 +239,6 @@ public class Main extends Application {
             if (currentUser instanceof Trainer) {
                 allPokemon = pokeDB.loadAllPokemon();
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
-
-                //for testing
-                System.out.printf("%n%s%n%s%n%s%n%n", "For Testing", "Login bonus always is shown on login of trainer", "Disable in line ~241 of main");
-                manager.showLoginBonus();
-
             } else if (currentUser instanceof Professor) {
                 allPokemon = pokeDB.loadAllPokemon();
                 allTrainers = pokeDB.getTrainers();
