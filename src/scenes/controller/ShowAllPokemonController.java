@@ -34,13 +34,10 @@ public class ShowAllPokemonController implements Controller {
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE PROFESSOR! --------------------------------------------------------
     @FXML
     TextField txtName, txtID, txtHealth, txtSpeed, txtAttack, txtDefence, txtPrice;
-    private int oldID;
     @FXML
     ChoiceBox<String> choiceFirstType, choiceSecondType;
-    private ArrayList<String> types;
     @FXML
     Button btnUpdate;
-
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -53,14 +50,14 @@ public class ShowAllPokemonController implements Controller {
     ImageView pokeBall;
     @FXML
     Pane paneHelp, pane3;
-
-    private int currency;
-    private Main main;
-    private Boolean help = false;
-
     // This is Used for the Search
     @FXML
     TextField txtSearch;
+    private int oldID;
+    private ArrayList<String> types;
+    private int currency;
+    private Main main;
+    private Boolean help = false;
 
     @Override
     public void setMain(Main m) {
@@ -108,6 +105,7 @@ public class ShowAllPokemonController implements Controller {
         btnNoNickname.setVisible(false);
         btnNickname.setVisible(false);
         lblError.setVisible(false);
+        paneHelp.setVisible(false);
 
         if (listView.getItems().size() > 0) {
             listView.getSelectionModel().selectFirst();
@@ -115,7 +113,7 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
-    private void setUpProfessor(){
+    private void setUpProfessor() {
         btnHelp.setVisible(false);
         lblCurrency.setVisible(false);
         lblCurrencyTitle.setVisible(false);
@@ -143,7 +141,7 @@ public class ShowAllPokemonController implements Controller {
         lblPrice.setVisible(false);
     }
 
-    private void setUpTrainer(){
+    private void setUpTrainer() {
         btnHelp.setVisible(true);
         lblCurrencyTitle.setVisible(true);
         lblCurrency.setVisible(true);
@@ -246,12 +244,11 @@ public class ShowAllPokemonController implements Controller {
 
     }
 
-    public void updatePokemon(){
+    public void updatePokemon() {
         //tell the main to update the pokemon selected information
         if (oldID == 0) {
             System.out.println("Please select a pokemon to edit first!");
-        }
-        else if (choiceFirstType.getValue().equals("None")){
+        } else if (choiceFirstType.getValue().equals("None")) {
             System.out.println("First type cannot be None. Please select a first type!");
         }
         //check to see the values are within bounds
@@ -261,36 +258,27 @@ public class ShowAllPokemonController implements Controller {
                 Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000 ||
                 Integer.parseInt(txtDefence.getText()) <= 0 || Integer.parseInt(txtDefence.getText()) >= 1000 ||
                 Integer.parseInt(txtSpeed.getText()) <= 0 || Integer.parseInt(txtSpeed.getText()) >= 1000 ||
-                Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000)
-        {
-            if (txtName.getText().isEmpty()){
+                Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000) {
+            if (txtName.getText().isEmpty()) {
                 System.out.println("Name cannot be empty!");
-            }
-            else if (Integer.parseInt(txtID.getText()) <= 0 || Integer.parseInt(txtID.getText()) >= 1000){
+            } else if (Integer.parseInt(txtID.getText()) <= 0 || Integer.parseInt(txtID.getText()) >= 1000) {
                 System.out.println("ID needs to be between 1-999");
-            }
-            else if (Integer.parseInt(txtHealth.getText()) <= 0 || Integer.parseInt(txtHealth.getText()) >= 1000){
+            } else if (Integer.parseInt(txtHealth.getText()) <= 0 || Integer.parseInt(txtHealth.getText()) >= 1000) {
                 System.out.println("Health needs to be between 1-999");
-            }
-            else if (Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000){
+            } else if (Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000) {
                 System.out.println("Attack needs to be between 1-999");
-            }
-            else if (Integer.parseInt(txtDefence.getText()) <= 0 || Integer.parseInt(txtDefence.getText()) >= 1000){
+            } else if (Integer.parseInt(txtDefence.getText()) <= 0 || Integer.parseInt(txtDefence.getText()) >= 1000) {
                 System.out.println("Defence needs to be between 1-999");
-            }
-            else if (Integer.parseInt(txtSpeed.getText()) <= 0 || Integer.parseInt(txtSpeed.getText()) >= 1000){
+            } else if (Integer.parseInt(txtSpeed.getText()) <= 0 || Integer.parseInt(txtSpeed.getText()) >= 1000) {
                 System.out.println("Speed needs to be between 1-999");
-            }
-            else if (Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000){
+            } else if (Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000) {
                 System.out.println("Price needs to be between 1-999");
             }
-        }
-        else
-        {
+        } else {
             Pokemon edit = new Pokemon(Integer.parseInt(txtID.getText()), txtName.getText(), Integer.parseInt(txtHealth.getText()),
                     Integer.parseInt(txtAttack.getText()), Integer.parseInt(txtDefence.getText()), Integer.parseInt(txtSpeed.getText()), Integer.parseInt(txtPrice.getText()),
                     (choiceFirstType.getValue()) + ((choiceSecondType.getValue().equals("None")) ? "" : " and " + choiceSecondType.getValue()));
-            if (!main.editPokemon(oldID, edit)){
+            if (!main.editPokemon(oldID, edit)) {
                 System.out.println("Error: Possibly conflicts with another pokemon's ID");
             }
         }
@@ -327,24 +315,22 @@ public class ShowAllPokemonController implements Controller {
         showTypeSelection(main.getPokemonByName(selection));
     }
 
-    private void showTypeSelection(Pokemon pokemon){
+    private void showTypeSelection(Pokemon pokemon) {
         //split up the string type of the pokemon to display on two options
         ObservableList<String> types = choiceFirstType.getItems();
 
-        if (pokemon.getType().contains("and")){
+        if (pokemon.getType().contains("and")) {
             String[] strings = pokemon.getType().split(" and ");
-            for (int i = 0; i < types.size(); i++){
-                if (types.get(i).equalsIgnoreCase(strings[0])){
+            for (int i = 0; i < types.size(); i++) {
+                if (types.get(i).equalsIgnoreCase(strings[0])) {
                     choiceFirstType.getSelectionModel().select(i);
-                } else if (types.get(i).equalsIgnoreCase(strings[1])){
+                } else if (types.get(i).equalsIgnoreCase(strings[1])) {
                     choiceSecondType.getSelectionModel().select(i);
                 }
             }
-        }
-        else
-        {
-            for (int i = 0; i < types.size(); i++){
-                if (types.get(i).equalsIgnoreCase(pokemon.getType())){
+        } else {
+            for (int i = 0; i < types.size(); i++) {
+                if (types.get(i).equalsIgnoreCase(pokemon.getType())) {
                     choiceFirstType.getSelectionModel().select(i);
                 }
             }
@@ -396,7 +382,7 @@ public class ShowAllPokemonController implements Controller {
                 lblError.setVisible(true);
                 lblError.setText("Nickname is empty!");
             } else if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                if (main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText(), true)){
+                if (main.acquirePokemon(pokemon.getIdTag(), txtNickname.getText(), true)) {
                     catchPokemon();
                     lblError.setVisible(false);
                     updateCurrency();
@@ -410,7 +396,7 @@ public class ShowAllPokemonController implements Controller {
 
         for (Pokemon pokemon : allPokemon) {
             if (pokemon.getName().equalsIgnoreCase(listView.getSelectionModel().getSelectedItem())) {
-                if (main.acquirePokemon(pokemon.getIdTag(), null, true)){
+                if (main.acquirePokemon(pokemon.getIdTag(), null, true)) {
                     catchPokemon();
                     lblError.setVisible(false);
                     updateCurrency();
@@ -500,7 +486,7 @@ public class ShowAllPokemonController implements Controller {
                 // ID the Same as:
                 if (search.contains("=")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("=")+1);
+                    String numericPart = search.substring(search.indexOf("=") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getIdTag() == number) {
                         searchResults.add(pokemon.getName());
@@ -509,7 +495,7 @@ public class ShowAllPokemonController implements Controller {
                 // ID is less than:
                 else if (search.contains(">")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf(">")+1);
+                    String numericPart = search.substring(search.indexOf(">") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getIdTag() >= number) {
                         searchResults.add(pokemon.getName());
@@ -518,7 +504,7 @@ public class ShowAllPokemonController implements Controller {
                 // ID is greater than:
                 else if (search.contains("<")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("<")+1);
+                    String numericPart = search.substring(search.indexOf("<") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getIdTag() <= number) {
                         searchResults.add(pokemon.getName());
@@ -539,7 +525,7 @@ public class ShowAllPokemonController implements Controller {
                 // Higher HP Than:
                 if (search.contains(">")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf(">")+1);
+                    String numericPart = search.substring(search.indexOf(">") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getHealth() >= number) {
                         searchResults.add(pokemon.getName());
@@ -548,7 +534,7 @@ public class ShowAllPokemonController implements Controller {
                 // Less HP Than:
                 else if (search.contains("<")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("<")+1);
+                    String numericPart = search.substring(search.indexOf("<") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getHealth() <= number) {
                         searchResults.add(pokemon.getName());
@@ -557,7 +543,7 @@ public class ShowAllPokemonController implements Controller {
                 // Equal HP To:
                 else if (search.contains("=")) {
                     //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("=")+1);
+                    String numericPart = search.substring(search.indexOf("=") + 1);
                     int number = Integer.parseInt(numericPart);
                     if (pokemon.getHealth() == number) {
                         searchResults.add(pokemon.getName());
@@ -595,34 +581,28 @@ public class ShowAllPokemonController implements Controller {
 
         //creates a hashmap of <type, pokemonNameArray> to group all pokemon accordingly
         for (Pokemon pokemon : allPokemon) {
-            if (!typeMap.containsKey(pokemon.getType())){
-                if (pokemon.getType().contains("and")){
+            if (!typeMap.containsKey(pokemon.getType())) {
+                if (pokemon.getType().contains("and")) {
                     //group by their first type listed
                     String parse = pokemon.getType().substring(0, pokemon.getType().indexOf(" "));
-                    if (!typeMap.containsKey(parse)){
+                    if (!typeMap.containsKey(parse)) {
                         typeMap.put(parse, new ArrayList<>());
                         typeMap.get(parse).add(pokemon.getName());
-                    }
-                    else
-                    {
+                    } else {
                         typeMap.get(parse).add(pokemon.getName());
                     }
-                }
-                else
-                {
+                } else {
                     typeMap.put(pokemon.getType(), new ArrayList<>());
                     typeMap.get(pokemon.getType()).add(pokemon.getName());
                 }
-            }
-            else
-            {
+            } else {
                 typeMap.get(pokemon.getType()).add(pokemon.getName());
             }
         }
 
         ArrayList<String> pokemonNames = new ArrayList<>();
 
-        for (ArrayList<String> array : typeMap.values()){
+        for (ArrayList<String> array : typeMap.values()) {
             pokemonNames.addAll(array);
         }
 
@@ -663,9 +643,9 @@ public class ShowAllPokemonController implements Controller {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
 
-        for (Pokemon pokemon : allPokemon){
-            for (Pokemon higherHP : allPokemon){
-                if (higherHP.getHealth() > pokemon.getHealth()){
+        for (Pokemon pokemon : allPokemon) {
+            for (Pokemon higherHP : allPokemon) {
+                if (higherHP.getHealth() > pokemon.getHealth()) {
                     pokemonNames.add(higherHP.getName());
                 }
             }

@@ -1,44 +1,76 @@
-#professorMenuAnc{
+#professorMenuAnc {
     -fx-background-size: 1200, 800;
     -fx-background-image: url("magikarpBackground.jpg");
 }
-#pane1{
+
+#pane1 {
     -fx-background-color: rgba(255, 255, 255, .2);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 2);
 }
-#labelWelcomeProfessor{
+
+#labelWelcomeProfessor {
     -fx-font: 70px Garamond;
 }
-#labelQuestion{
+
+#labelPokemon {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblPokemons {
+    -fx-font: 20px Garamond;
+}
+
+#labelTrainers {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblTrainers {
+    -fx-font: 20px Garamond;
+}
+
+#labelQuestion {
     -fx-font: 45px Garamond;
 }
-#pane2{
+
+#lblEmail {
+    -fx-font: 15px Garamond;
+}
+
+#pane2 {
     -fx-background-color: rgba(255, 255, 255, .2);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 2);
 }
-#btnShowTrainers{
+
+#btnShowTrainers {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
+
 #btnShowTrainers:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
-#btnViewPokemon{
+
+#btnViewPokemon {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
+
 #btnViewPokemon:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
-#btnLogout{
+
+#btnLogout {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
+
 #btnLogout:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);

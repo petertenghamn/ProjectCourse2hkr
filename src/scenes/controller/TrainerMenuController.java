@@ -12,6 +12,10 @@ public class TrainerMenuController implements Controller {
 
     // The Trainer Menu is just that a menu that contains different buttons that take you to new scenes
 
+    @FXML
+    Button btnCollection, btnBattle, btnFindPokemon;
+    @FXML
+    Label lblWins, lblLosses, lblCurrency, labelWelcomeTrainer;
     private Main main;
     private boolean login = false;
 
@@ -22,7 +26,7 @@ public class TrainerMenuController implements Controller {
     }
 
     @Override
-    public void setUp(){
+    public void setUp() {
         if (!login) {
             main.loginBonusCheck();
             login = true;
@@ -35,20 +39,14 @@ public class TrainerMenuController implements Controller {
 
     }
 
-    @FXML
-    Button btnCollection, btnBattle, btnFindPokemon;
-
-    @FXML
-    Label lblWins, lblLosses, lblCurrency, labelWelcomeTrainer;
-
-    private void updateStats(){
+    private void updateStats() {
         User user = main.getCurrentUser();
 
         int currency = ((Trainer) user).getCurrency();
         int wins = ((Trainer) user).getWinCount();
         int losses = ((Trainer) user).getLossCount();
 
-        labelWelcomeTrainer.setText("Welcome: " + ((Trainer) user).getUsername());
+        labelWelcomeTrainer.setText("Welcome " + ((Trainer) user).getUsername() + "!");
         lblCurrency.setText(((Integer) currency).toString());
         lblWins.setText(((Integer) wins).toString());
         lblLosses.setText(((Integer) losses).toString());
@@ -73,7 +71,7 @@ public class TrainerMenuController implements Controller {
         main.logoutUser();
     }
 
-    public void confirmButton(){
+    public void confirmButton() {
 
     }
 }

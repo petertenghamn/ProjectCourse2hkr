@@ -53,8 +53,9 @@ public class TrainerCollectionController implements Controller {
     public void setUp() {
         updateListCollection();
         updateListTeam();
+        paneHelp.setVisible(false);
 
-        if (listCollection.getItems().size() > 0){
+        if (listCollection.getItems().size() > 0) {
             listCollection.getSelectionModel().selectFirst();
             showSelectedCollection();
         }
@@ -160,10 +161,9 @@ public class TrainerCollectionController implements Controller {
 
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
-        if (team.size() >= 6){
+        if (team.size() >= 6) {
             System.out.println("Team size at max!");
-        }
-        else {
+        } else {
             ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
 
             for (PokemonMapper mapper : collection) {
@@ -191,15 +191,14 @@ public class TrainerCollectionController implements Controller {
         }
     }
 
-    public void removeTeam(){
+    public void removeTeam() {
         User user = main.getCurrentUser();
 
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
-        if (team.size() <= 1){
+        if (team.size() <= 1) {
             System.out.println("Team size cannot be less than 1!");
-        }
-        else {
+        } else {
             for (PokemonMapper mapper : team) {
                 if (mapper.getNickname().equals(listTeam.getSelectionModel().getSelectedItem())) {
                     team.remove(mapper);
@@ -215,10 +214,10 @@ public class TrainerCollectionController implements Controller {
 
     public void showHelp() {
 
-        if(help){
+        if (help) {
             paneHelp.setVisible(false);
             help = false;
-        }else{
+        } else {
             paneHelp.setVisible(true);
             help = true;
         }

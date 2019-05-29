@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
+<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
         <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="63.0" layoutY="714.0" mnemonicParsing="false" onAction="#showPokemon" prefHeight="60.0" prefWidth="120.0" text="Select" />
         <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
@@ -23,15 +23,15 @@
             <Button fx:id="btnSearch" blendMode="MULTIPLY" layoutX="365.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" text="Search" />
             </children>
         </Pane>
-        <Pane fx:id="pane2" layoutX="466.0" layoutY="46.0" prefHeight="708.0" prefWidth="456.0">
+        <Pane fx:id="pane2" layoutX="466.0" layoutY="46.0" prefHeight="724.0" prefWidth="456.0">
             <children>
                 <Label fx:id="labelName" layoutX="27.0" layoutY="330.0" text="Name:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" text="0" />
-            <TextField fx:id="txtName" layoutX="117.0" layoutY="337.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" />
+            <TextField fx:id="txtName" blendMode="MULTIPLY" layoutX="117.0" layoutY="334.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelType" layoutX="228.0" layoutY="330.0" text="Type:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -40,9 +40,9 @@
                   <Tooltip fx:id="ttType" autoFix="false" consumeAutoHidingEvents="false" text="All Pokémon are assigned certain types. &#10;Each type has several strengths and weaknesses in &#10;both attack and defence. Depending on the types &#10;of each Pokémon, they can deal double damage or &#10;be knocked out faster." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" text="0" />
-            <ChoiceBox fx:id="choiceFirstType" layoutX="305.0" layoutY="325.0" prefHeight="25.0" prefWidth="140.0" />
-            <ChoiceBox fx:id="choiceSecondType" layoutX="305.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" />
+                <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" />
+            <ChoiceBox fx:id="choiceFirstType" blendMode="MULTIPLY" layoutX="305.0" layoutY="325.0" prefHeight="25.0" prefWidth="140.0" />
+            <ChoiceBox fx:id="choiceSecondType" blendMode="MULTIPLY" layoutX="305.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" />
                 <Label fx:id="labelID" layoutX="162.0" layoutY="387.0" text="ID:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -51,8 +51,8 @@
                   <Tooltip fx:id="ttID" autoFix="false" consumeAutoHidingEvents="false" text="Each Pokémon has its unique ID, making it easier to&#10;identify. For example, a Pikachu with a nickname it's&#10;still a Pikachu even if its name is changed. The ID helps&#10;distinguishing the Pokémon. " wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" text="0" />
-            <TextField fx:id="txtID" layoutX="208.0" layoutY="392.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" />
+            <TextField fx:id="txtID" blendMode="MULTIPLY" layoutX="208.0" layoutY="392.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelHealth" layoutX="27.0" layoutY="488.0" text="Health:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -61,8 +61,8 @@
                   <Tooltip fx:id="ttHP" autoFix="false" consumeAutoHidingEvents="false" text="The Health Points, or HP for short determine how much &#10;damage a Pokémon can receive before fainting. &#10;Once the HP reach 0, the Pokémon faints and is &#10;either replaced by anothe one or the battle is over." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" text="0" />
-            <TextField fx:id="txtHealth" layoutX="123.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" />
+            <TextField fx:id="txtHealth" blendMode="MULTIPLY" layoutX="123.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelSpeed" layoutX="232.0" layoutY="488.0" text="Speed:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -71,8 +71,8 @@
                   <Tooltip fx:id="ttSpeed" autoFix="false" consumeAutoHidingEvents="false" text="The Speed stat determines the order of Pokémon that &#10;can act in battle. Pokémon with higher Speed at the start &#10;of any turn will generally make a move before ones with &#10;lower Speed; in the case that two Pokémon have the same &#10;Speed, one of them will randomly go first." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblSpeed" layoutX="347.0" layoutY="493.0" text="0" />
-            <TextField fx:id="txtSpeed" layoutX="320.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblSpeed" layoutX="347.0" layoutY="493.0" />
+            <TextField fx:id="txtSpeed" blendMode="MULTIPLY" layoutX="320.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelAttack" layoutX="25.0" layoutY="561.0" text="Attack:">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -81,8 +81,8 @@
                   <Tooltip fx:id="ttAttack" autoFix="false" consumeAutoHidingEvents="false" text="The Attack stat determines how much damage a &#10;Pokémon deals when using a physical move." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" text="0" />
-            <TextField fx:id="txtAttack" layoutX="117.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" />
+            <TextField fx:id="txtAttack" blendMode="MULTIPLY" layoutX="117.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
                 <Label fx:id="labelDefence" layoutX="228.0" layoutY="561.0" text="Defence: ">
                     <font>
                         <Font name="System Bold" size="25.0" />
@@ -91,8 +91,8 @@
                   <Tooltip fx:id="ttDefence" autoFix="false" consumeAutoHidingEvents="false" text="The Defence stat  determines how much damage a &#10;Pokémon receives when it is hit with a physical move." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblDf" layoutX="347.0" layoutY="566.0" text="0" />
-            <TextField fx:id="txtDefence" layoutX="343.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="lblDf" layoutX="347.0" layoutY="566.0" />
+            <TextField fx:id="txtDefence" blendMode="MULTIPLY" layoutX="343.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
                 <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="132.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/pokeLogo.png" />
@@ -113,13 +113,13 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" text="0" />
-            <TextField fx:id="txtPrice" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
-            <Button fx:id="btnUpdate" layoutX="205.0" layoutY="669.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
+            <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" />
+            <TextField fx:id="txtPrice" blendMode="MULTIPLY" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
+            <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="202.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="217.0" layoutY="714.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
-        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="217.0" layoutY="694.0" mnemonicParsing="false" onAction="#getNewPokemon" prefHeight="60.0" text="Catch a new Pokémon!" visible="false" />
+        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="193.0" layoutY="714.0" mnemonicParsing="false" onAction="#getNewPokemon" prefHeight="60.0" prefWidth="231.0" text="Catch a new Pokémon!" visible="false" />
       <Button fx:id="btnHelp" blendMode="MULTIPLY" layoutX="1133.0" layoutY="760.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
       <Pane fx:id="paneHelp" layoutX="975.0" layoutY="267.0" prefHeight="494.0" prefWidth="211.0" visible="false">
          <children>

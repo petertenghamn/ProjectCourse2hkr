@@ -6,33 +6,41 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="professorMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ProfessorMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ProfessorMenuController">
-   <children>
-      <Pane fx:id="pane1" layoutY="30.0" prefHeight="88.0" prefWidth="1200.0">
-         <children>
-            <Label fx:id="labelWelcomeProfessor" layoutX="331.0" layoutY="3.0" text="Welcome professor!" />
-         </children>
-      </Pane>
-      <Pane fx:id="pane2" layoutX="108.0" layoutY="288.0" prefHeight="427.0" prefWidth="489.0">
-         <children>
-            <Button fx:id="btnShowTrainers" blendMode="OVERLAY" layoutX="45.0" layoutY="79.0" mnemonicParsing="false" onAction="#showTrainers" prefHeight="50.0" prefWidth="400.0" text="Show trainers" />
-            <Button fx:id="btnViewPokemon" blendMode="OVERLAY" layoutX="45.0" layoutY="189.0" mnemonicParsing="false" onAction="#viewAllPokemon" prefHeight="50.0" prefWidth="400.0" text="View all Pokémon" />
-            <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="45.0" layoutY="303.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout" />
-         </children>
-      </Pane>
-      <Label fx:id="labelQuestion" layoutX="46.0" layoutY="208.0" text="What would you like to do today?" />
-      <Label layoutX="55.0" layoutY="141.0" text="Known Pokemons: ">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="538.0" layoutY="141.0" text="Registered Trainers: ">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblPokemons" layoutX="326.0" layoutY="148.0" text="10000" />
-      <Label fx:id="lblTrainers" layoutX="767.0" layoutY="148.0" text="10000" />
-      <Label fx:id="lblEmail" layoutX="1043.0" layoutY="769.0" text="profesor@pokemon.com" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="professorMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
+            stylesheets="@images/ProfessorMenu.css" xmlns="http://javafx.com/javafx/10.0.1"
+            fx:controller="scenes.controller.ProfessorMenuController">
+    <children>
+        <Pane fx:id="pane1" layoutY="30.0" prefHeight="88.0" prefWidth="1200.0">
+            <children>
+                <Label fx:id="labelWelcomeProfessor" layoutX="331.0" layoutY="3.0" text="Welcome professor!"/>
+            </children>
+        </Pane>
+        <Pane fx:id="pane2" layoutX="111.0" layoutY="316.0" prefHeight="427.0" prefWidth="489.0">
+            <children>
+                <Button fx:id="btnShowTrainers" blendMode="OVERLAY" layoutX="45.0" layoutY="79.0"
+                        mnemonicParsing="false" onAction="#showTrainers" prefHeight="50.0" prefWidth="400.0"
+                        text="Show trainers"/>
+                <Button fx:id="btnViewPokemon" blendMode="OVERLAY" layoutX="45.0" layoutY="189.0"
+                        mnemonicParsing="false" onAction="#viewAllPokemon" prefHeight="50.0" prefWidth="400.0"
+                        text="View all Pokémon"/>
+                <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="45.0" layoutY="303.0" mnemonicParsing="false"
+                        onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout"/>
+            </children>
+        </Pane>
+        <Label fx:id="labelQuestion" layoutX="46.0" layoutY="230.0" text="What would you like to do today?"/>
+        <Label fx:id="labelPokemon" layoutX="46.0" layoutY="161.0" text="Known Pokémon: ">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <Label fx:id="labelTrainers" layoutX="367.0" layoutY="161.0" text="Registered Trainers: ">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblPokemons" layoutX="281.0" layoutY="166.0" text="10000"/>
+        <Label fx:id="lblTrainers" layoutX="634.0" layoutY="166.0" text="10000"/>
+        <Label fx:id="lblEmail" layoutX="1043.0" layoutY="769.0" text="profesor@pokemon.com"/>
+    </children>
 </AnchorPane>
