@@ -1,0 +1,24 @@
+#dailyBonusAnc {
+    -fx-background-color: #1486b0;
+}
+
+#lbl1 {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lbl2 {
+    -fx-font: 20px Garamond;
+}
+
+#btnConfirm {
+    -fx-font: 15px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnConfirm:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+

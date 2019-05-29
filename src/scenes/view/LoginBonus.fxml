@@ -4,10 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.LoginBonusController">
-   <children>
-      <Label layoutX="66.0" layoutY="15.0" text="Daily reward reveived!" />
-      <Label layoutX="55.0" layoutY="33.0" text="You gained 10 Pokébucks!" />
-      <Button fx:id="btnConfirm" layoutX="96.0" layoutY="62.0" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dailyBonusAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="127.0" prefWidth="267.0"
+            stylesheets="@images/LoginBonus.css" xmlns="http://javafx.com/javafx/10.0.1"
+            fx:controller="scenes.controller.LoginBonusController">
+    <children>
+        <Label fx:id="lbl1" layoutX="39.0" layoutY="14.0" text="Daily reward received!" textFill="#fffafa"/>
+        <Label fx:id="lbl2" layoutX="32.0" layoutY="51.0" text="You gained 10 Pokébucks!" textFill="WHITE"/>
+        <Button fx:id="btnConfirm" blendMode="MULTIPLY" layoutX="98.0" layoutY="85.0" mnemonicParsing="false"
+                onAction="#confirm" text="Confirm"/>
+    </children>
 </AnchorPane>
