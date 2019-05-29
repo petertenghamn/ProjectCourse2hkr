@@ -252,7 +252,7 @@ public class ShowAllPokemonController implements Controller {
             System.out.println("First type cannot be None. Please select a first type!");
         }
         //check to see the values are within bounds
-        else if (!txtName.getText().isEmpty() ||
+        else if (txtName.getText().isEmpty() ||
                 Integer.parseInt(txtID.getText()) <= 0 || Integer.parseInt(txtID.getText()) >= 1000 ||
                 Integer.parseInt(txtHealth.getText()) <= 0 || Integer.parseInt(txtHealth.getText()) >= 1000 ||
                 Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000 ||
