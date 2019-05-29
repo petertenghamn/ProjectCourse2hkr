@@ -254,6 +254,37 @@ public class ShowAllPokemonController implements Controller {
         else if (choiceFirstType.getValue().equals("None")){
             System.out.println("First type cannot be None. Please select a first type!");
         }
+        //check to see the values are within bounds
+        else if (!txtName.getText().isEmpty() ||
+                Integer.parseInt(txtID.getText()) <= 0 || Integer.parseInt(txtID.getText()) >= 1000 ||
+                Integer.parseInt(txtHealth.getText()) <= 0 || Integer.parseInt(txtHealth.getText()) >= 1000 ||
+                Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000 ||
+                Integer.parseInt(txtDefence.getText()) <= 0 || Integer.parseInt(txtDefence.getText()) >= 1000 ||
+                Integer.parseInt(txtSpeed.getText()) <= 0 || Integer.parseInt(txtSpeed.getText()) >= 1000 ||
+                Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000)
+        {
+            if (txtName.getText().isEmpty()){
+                System.out.println("Name cannot be empty!");
+            }
+            else if (Integer.parseInt(txtID.getText()) <= 0 || Integer.parseInt(txtID.getText()) >= 1000){
+                System.out.println("ID needs to be between 1-999");
+            }
+            else if (Integer.parseInt(txtHealth.getText()) <= 0 || Integer.parseInt(txtHealth.getText()) >= 1000){
+                System.out.println("Health needs to be between 1-999");
+            }
+            else if (Integer.parseInt(txtAttack.getText()) <= 0 || Integer.parseInt(txtAttack.getText()) >= 1000){
+                System.out.println("Attack needs to be between 1-999");
+            }
+            else if (Integer.parseInt(txtDefence.getText()) <= 0 || Integer.parseInt(txtDefence.getText()) >= 1000){
+                System.out.println("Defence needs to be between 1-999");
+            }
+            else if (Integer.parseInt(txtSpeed.getText()) <= 0 || Integer.parseInt(txtSpeed.getText()) >= 1000){
+                System.out.println("Speed needs to be between 1-999");
+            }
+            else if (Integer.parseInt(txtPrice.getText()) <= 0 || Integer.parseInt(txtPrice.getText()) >= 1000){
+                System.out.println("Price needs to be between 1-999");
+            }
+        }
         else
         {
             Pokemon edit = new Pokemon(Integer.parseInt(txtID.getText()), txtName.getText(), Integer.parseInt(txtHealth.getText()),

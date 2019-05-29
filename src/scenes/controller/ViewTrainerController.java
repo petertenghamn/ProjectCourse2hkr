@@ -200,7 +200,7 @@ public class ViewTrainerController implements Controller {
                         ((Trainer) trainer).setCurrency(Integer.parseInt(txtCurrency.getText()));
 
                         main.editTrainerStats(trainer);
-                        setUp();
+                        updateTrainers();
                     }
                 }
             }
