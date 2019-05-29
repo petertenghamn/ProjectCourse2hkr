@@ -23,8 +23,44 @@
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
+#choiceFirstType {
+    -fx-font: 15px Garamond;
+}
+
+#choiceSecondType {
+    -fx-font: 15px Garamond;
+}
+
 #txtSearch {
     -fx-font: 17px Garamond;
+}
+
+#txtName {
+    -fx-font: 15px Garamond;
+}
+
+#txtID {
+    -fx-font: 15px Garamond;
+}
+
+#txtHealth {
+    -fx-font: 15px Garamond;
+}
+
+#txtSpeed {
+    -fx-font: 15px Garamond;
+}
+
+#txtAttack {
+    -fx-font: 15px Garamond;
+}
+
+#txtDefence {
+    -fx-font: 15px Garamond;
+}
+
+#txtPrice {
+    -fx-font: 15px Garamond;
 }
 
 #listView {
@@ -237,6 +273,17 @@
 }
 
 #btnGetNewPokemon:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnUpdate {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnUpdate:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }

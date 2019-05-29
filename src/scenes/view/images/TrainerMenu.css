@@ -9,6 +9,35 @@
 #labelWelcomeTrainer{
     -fx-font: 70px Garamond;
 }
+
+#labelWins{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblWins {
+    -fx-font: 20px Garamond;
+}
+
+#labelLosses{
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblLosses{
+    -fx-font: 20px Garamond;
+}
+
+#labelCurrency {
+    -fx-font: 30px Garamond;
+    -fx-font-weight: bold;
+}
+
+#lblCurrency {
+    -fx-font: 20px Garamond;
+
+}
+
 #labelQuestion{
     -fx-font: 45px Garamond;
 }

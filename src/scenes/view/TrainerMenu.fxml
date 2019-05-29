@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="trainerMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/TrainerMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.TrainerMenuController">
+<AnchorPane fx:id="trainerMenuAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
+            stylesheets="@images/TrainerMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.TrainerMenuController">
    <children>
       <Pane fx:id="pane1" layoutY="30.0" prefHeight="84.0" prefWidth="1200.0">
          <children>
@@ -22,23 +23,23 @@
             <Button fx:id="btnLogout" blendMode="OVERLAY" layoutX="44.0" layoutY="324.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="50.0" prefWidth="400.0" text="Logout" />
          </children>
       </Pane>
-      <Label layoutX="108.0" layoutY="131.0" text="Wins: ">
+      <Label fx:id="labelWins" layoutX="24.0" layoutY="145.0" text="Wins: ">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="373.0" layoutY="131.0" text="Losses: ">
+      <Label fx:id="labelLosses" layoutX="184.0" layoutY="145.0" text="Losses: ">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="668.0" layoutY="131.0" text="Currency:">
+      <Label fx:id="labelCurrency" layoutX="376.0" layoutY="145.0" text="Currency:">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblWins" layoutX="180.0" layoutY="137.0" text="10000" />
-      <Label fx:id="lblLosses" layoutX="457.0" layoutY="137.0" text="10000" />
-      <Label fx:id="lblCurrency" layoutX="770.0" layoutY="137.0" text="10000" />
+      <Label fx:id="lblWins" layoutX="104.0" layoutY="150.0" text="10000" />
+      <Label fx:id="lblLosses" layoutX="286.0" layoutY="150.0" text="10000" />
+      <Label fx:id="lblCurrency" layoutX="506.0" layoutY="150.0" text="10000" />
    </children>
 </AnchorPane>

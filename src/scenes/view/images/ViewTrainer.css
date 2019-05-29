@@ -18,6 +18,23 @@
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 5, 0.0, 0, 2);
 }
 
+#txtName {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+}
+
+#txtWins {
+    -fx-font: 15px Garamond;
+}
+
+#txtLosses {
+    -fx-font: 15px Garamond;
+}
+
+#txtCurrency {
+    -fx-font: 15px Garamond;
+}
+
 #labelRegisteredTrainers {
     -fx-font: 30px Garamond;
     -fx-font-weight: bold;
@@ -81,6 +98,17 @@
 }
 
 #btnSelect:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnUpdate {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnUpdate:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
