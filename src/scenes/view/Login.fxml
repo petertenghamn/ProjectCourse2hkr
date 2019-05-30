@@ -26,5 +26,6 @@
         </ImageView>
         <Button fx:id="btnCreateNA" blendMode="MULTIPLY" layoutX="461.0" layoutY="735.0" mnemonicParsing="false" onAction="#newUser" prefHeight="60.0" prefWidth="250.0" text="Create Account" />
       <Label fx:id="lblErrorLogin" alignment="CENTER" layoutX="355.0" layoutY="541.0" prefHeight="17.0" prefWidth="476.0" textAlignment="CENTER" textFill="RED" />
+      <Label fx:id="lblDebug" alignment="CENTER" layoutX="461.0" layoutY="259.0" prefHeight="17.0" prefWidth="250.0" textFill="RED" />
     </children>
 </AnchorPane>

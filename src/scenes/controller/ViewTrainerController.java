@@ -3,7 +3,6 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -97,6 +96,7 @@ public class ViewTrainerController implements Controller {
 
         if (name.equalsIgnoreCase("Ash")) {
             trainer = new Image("scenes/view/images/ash.png");
+        }else if(name.equalsIgnoreCase("James")){trainer = new Image("scenes/view/images/james.png");
         } else if (random == 1) {
             trainer = new Image("scenes/view/images/boy.png");
         } else if (random == 2) {

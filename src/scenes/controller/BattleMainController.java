@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class BattleMainController implements Controller {
 
     @FXML
-    Button btnFight, btnFlee, btnSwitch, btnHelp;
+    Button btnFight, btnFlee, btnSwitch, btnHelp, btnBack;
     @FXML
     Pane paneHelp;
     private Main main;
@@ -76,6 +76,7 @@ public class BattleMainController implements Controller {
         User user = main.getCurrentUser();
         Random rand = new Random();
         paneHelp.setVisible(false);
+        btnBack.setDisable(true);
 
         if (user instanceof Trainer) {
             ArrayList<PokemonMapper> mapper = ((Trainer) user).getTeam();
@@ -584,6 +585,7 @@ public class BattleMainController implements Controller {
         updateMessageBoard();
 
         battleEnded = true;
+        btnBack.setDisable(false);
     }
 
     public void showHelp() {

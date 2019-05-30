@@ -27,7 +27,7 @@ public class TrainerCollectionController implements Controller {
     // Trainer being able to see his battle team "Team"
     // Trainer being able to transfer pokemon from it's collection to it's Team
     //
-    // * Team can only be Max 6 Pokemons
+    // * Team can only be Max 6 Pokemon
 
     @FXML
     ImageView imageView;
@@ -117,6 +117,7 @@ public class TrainerCollectionController implements Controller {
                 lblSpeed.setText(Integer.toString(main.getPokemonById(pokemon.getId()).getSpeed()));
             }
         }
+        labelError.setText("");
     }
 
     private void updateListTeam() {
@@ -162,7 +163,7 @@ public class TrainerCollectionController implements Controller {
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
         if (team.size() >= 6) {
-            System.out.println("Team size at max!");
+            labelError.setText("Team size at max!");
         } else {
             ArrayList<PokemonMapper> collection = ((Trainer) user).getCollection();
 
@@ -197,7 +198,7 @@ public class TrainerCollectionController implements Controller {
         ArrayList<PokemonMapper> team = ((Trainer) user).getTeam();
 
         if (team.size() <= 1) {
-            System.out.println("Team size cannot be less than 1!");
+            labelError.setText("Team size cannot be less than 1!");
         } else {
             for (PokemonMapper mapper : team) {
                 if (mapper.getNickname().equals(listTeam.getSelectionModel().getSelectedItem())) {

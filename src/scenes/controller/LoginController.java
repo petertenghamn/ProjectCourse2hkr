@@ -20,7 +20,7 @@ public class LoginController implements Controller {
     @FXML
     PasswordField txtFieldPassword;
     @FXML
-    Label lblErrorLogin;
+    Label lblErrorLogin, lblDebug;
     @FXML
     AnchorPane anc;
     @FXML
@@ -72,7 +72,7 @@ public class LoginController implements Controller {
     }
 
     public void debugDB(){
-        System.out.println("Debug controller activated");
+        lblDebug.setText("Debug controller activated.");
         main.setDeBugLoader(true);
         main.setAllPokemon();
     }

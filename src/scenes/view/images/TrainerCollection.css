@@ -145,28 +145,6 @@
     -fx-font: 20px Garamond;
 }
 
-#btnSelect1 {
-    -fx-font: 20px Garamond;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
-#btnSelect1:hover {
-    -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
-#btnSelect2 {
-    -fx-font: 20px Garamond;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
-#btnSelect2:hover {
-    -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
 #btnRemove{
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
