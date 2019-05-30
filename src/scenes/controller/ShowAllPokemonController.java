@@ -52,9 +52,11 @@ public class ShowAllPokemonController implements Controller {
     Pane paneHelp, pane3;
     // This is Used for the Search
     @FXML
-    TextField txtSearch;
+    TextField txtSearch, txtSearchValue;
+    @FXML
+    ChoiceBox<String> choiceSearch, choiceSearchSymbol;
     private int oldID;
-    private ArrayList<String> types;
+    private ArrayList<String> types, searchTerms, searchSymbols;
     private int currency;
     private Main main;
     private Boolean help = false;
@@ -97,6 +99,22 @@ public class ShowAllPokemonController implements Controller {
         } else if (main.getCurrentUser() instanceof Trainer) {
             setUpTrainer();
         }
+
+        //setup search bar properties
+        //txtSearchValue, choiceSearch, choiceSearchSymbol
+        txtSearchValue.setText("0");
+
+        searchTerms = new ArrayList<>();
+        searchTerms.add("ID");
+        ObservableList<String> arr = FXCollections.observableArrayList(searchTerms);
+        choiceSearch.setItems(arr);
+        choiceSearch.getSelectionModel().selectFirst();
+
+        searchSymbols = new ArrayList<>();
+        searchSymbols.add("None");
+        arr = FXCollections.observableArrayList(searchSymbols);
+        choiceSearchSymbol.setItems(arr);
+        choiceSearchSymbol.getSelectionModel().selectFirst();
 
         pokeBall.setVisible(false);
         btnBuy.setVisible(false);
@@ -335,22 +353,6 @@ public class ShowAllPokemonController implements Controller {
             }
             choiceSecondType.getSelectionModel().selectFirst();
         }
-
-
-        /*
-        if (pokemon.getType().contains("and")){
-            //group by their first type listed
-            String parse = pokemon.getType().substring(0, pokemon.getType().indexOf(" "));
-            if (!typeMap.containsKey(parse)){
-                typeMap.put(parse, new ArrayList<>());
-                typeMap.get(parse).add(pokemon.getName());
-            }
-            else
-            {
-                typeMap.get(parse).add(pokemon.getName());
-            }
-        }
-        */
     }
 
     public void backButton() {
