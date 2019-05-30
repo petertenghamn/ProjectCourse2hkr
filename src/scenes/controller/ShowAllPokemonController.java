@@ -45,7 +45,7 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     TextField txtNickname;
     @FXML
-    Button btnNoNickname, btnNickname, btnSelect, btnGetNewPokemon, btnHelp;
+    Button btnNoNickname, btnNickname, btnGetNewPokemon, btnHelp;
     @FXML
     ImageView pokeBall;
     @FXML
@@ -204,7 +204,6 @@ public class ShowAllPokemonController implements Controller {
 
         txtNickname.clear();
 
-        btnSelect.setVisible(true);
         btnGetNewPokemon.setVisible(false);
         imageView.setVisible(true);
         pokeBall.setVisible(false);
@@ -291,7 +290,7 @@ public class ShowAllPokemonController implements Controller {
     }
 
     // Would be great if we could figure out how to reuse this code instead of re writing it again.
-    // This won't work if the pokemons stats change by level and not by evolution!
+    // This won't work if the pokemon stats change by level and not by evolution!
     private void showStats(String selection) {
         lblName.setText(main.getPokemonByName(selection).getName());
         lblType.setText(main.getPokemonByName(selection).getType());
@@ -415,7 +414,6 @@ public class ShowAllPokemonController implements Controller {
         txtNickname.setVisible(false);
         imageView.setVisible(false);
         btnBuy.setVisible(false);
-        btnSelect.setVisible(false);
         btnGetNewPokemon.setVisible(true);
     }
 
@@ -428,7 +426,6 @@ public class ShowAllPokemonController implements Controller {
 
         imageView.setVisible(true);
         btnBuy.setVisible(true);
-        btnSelect.setVisible(true);
         lblNickname.setVisible(false);
         txtNickname.setVisible(false);
         txtNickname.clear();

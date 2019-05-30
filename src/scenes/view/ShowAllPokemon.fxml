@@ -14,8 +14,7 @@
 
 <AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
-        <Button fx:id="btnSelect" blendMode="MULTIPLY" layoutX="63.0" layoutY="714.0" mnemonicParsing="false" onAction="#showPokemon" prefHeight="60.0" prefWidth="120.0" text="Select" />
-        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
+        <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="17.0" layoutY="714.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
         <Pane fx:id="pane1" layoutX="17.0" layoutY="98.0" prefHeight="604.0" prefWidth="442.0">
             <children>
                 <ListView fx:id="listView" layoutX="15.0" layoutY="74.0" onEditStart="#showPokemon" onMouseClicked="#showPokemon" prefHeight="505.0" prefWidth="412.0" />
@@ -118,8 +117,8 @@
             <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="202.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
             </children>
         </Pane>
-        <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="217.0" layoutY="714.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
-        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="193.0" layoutY="714.0" mnemonicParsing="false" onAction="#getNewPokemon" prefHeight="60.0" prefWidth="231.0" text="Catch a new Pokémon!" visible="false" />
+        <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="17.0" layoutY="27.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
+        <Button fx:id="btnGetNewPokemon" blendMode="MULTIPLY" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#getNewPokemon" prefHeight="60.0" prefWidth="231.0" text="Catch a new Pokémon!" visible="false" />
       <Button fx:id="btnHelp" blendMode="MULTIPLY" layoutX="1133.0" layoutY="760.0" mnemonicParsing="false" onAction="#showHelp" text="Help" />
       <Pane fx:id="paneHelp" layoutX="975.0" layoutY="267.0" prefHeight="494.0" prefWidth="211.0" visible="false">
          <children>
