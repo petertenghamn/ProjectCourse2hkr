@@ -2,6 +2,7 @@ package scenes.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -52,14 +53,13 @@ public class ShowAllPokemonController implements Controller {
     Pane paneHelp, pane3;
     // This is Used for the Search
     @FXML
-    TextField txtSearch, txtSearchValue;
+    TextField txtSearchValue;
     @FXML
     ChoiceBox<String> choiceSearch, choiceSearchSymbol;
     private int oldID;
-    private ArrayList<String> types, searchTerms, searchSymbols;
     private int currency;
     private Main main;
-    private Boolean help = false;
+    private boolean help = false, searchSetup = false;
 
     @Override
     public void setMain(Main m) {
@@ -86,7 +86,7 @@ public class ShowAllPokemonController implements Controller {
             txtSpeed.setText("0");
             txtPrice.setText("0");
 
-            types = new ArrayList<>();
+            ArrayList<String> types = new ArrayList<>();
             types.add("None");
             types.addAll(main.getTypeSelection());
             ObservableList<String> typeArr = FXCollections.observableList(types);
@@ -101,20 +101,12 @@ public class ShowAllPokemonController implements Controller {
         }
 
         //setup search bar properties
-        //txtSearchValue, choiceSearch, choiceSearchSymbol
-        txtSearchValue.setText("0");
-
-        searchTerms = new ArrayList<>();
-        searchTerms.add("ID");
-        ObservableList<String> arr = FXCollections.observableArrayList(searchTerms);
-        choiceSearch.setItems(arr);
+        if (!searchSetup){ setUpSearch(); }
         choiceSearch.getSelectionModel().selectFirst();
-
-        searchSymbols = new ArrayList<>();
-        searchSymbols.add("None");
-        arr = FXCollections.observableArrayList(searchSymbols);
-        choiceSearchSymbol.setItems(arr);
         choiceSearchSymbol.getSelectionModel().selectFirst();
+        txtSearchValue.setText("0");
+        choiceSearchSymbol.setDisable(true);
+        txtSearchValue.setDisable(true);
 
         pokeBall.setVisible(false);
         btnBuy.setVisible(false);
@@ -187,6 +179,31 @@ public class ShowAllPokemonController implements Controller {
         lblPrice.setVisible(true);
     }
 
+    private void setUpSearch(){
+        ArrayList<String> searchTerms = new ArrayList<>();
+        searchTerms.add("ID");
+        searchTerms.add("Type");
+        searchTerms.add("Name");
+        searchTerms.add("Health");
+        searchTerms.add("Attack");
+        searchTerms.add("Defence");
+        searchTerms.add("Speed");
+        searchTerms.add("Price");
+        ObservableList<String> arr = FXCollections.observableArrayList(searchTerms);
+        choiceSearch.setItems(arr);
+
+        ArrayList<String> searchSymbols = new ArrayList<>();
+        searchSymbols.add("None");
+        searchSymbols.add("=");
+        searchSymbols.add("<");
+        searchSymbols.add(">");
+        arr = FXCollections.observableArrayList(searchSymbols);
+        choiceSearchSymbol.setItems(arr);
+
+        choiceSearch.setOnAction(this::searchChoiceChanged);
+        choiceSearchSymbol.setOnAction(this::searchChoiceSymbolChanged);
+    }
+
     @Override
     public void reset() {
         listView.getSelectionModel().clearSelection();
@@ -227,7 +244,11 @@ public class ShowAllPokemonController implements Controller {
         pokeBall.setVisible(false);
         lblError.setVisible(false);
 
-        txtSearch.clear();
+        choiceSearch.getSelectionModel().selectFirst();
+        choiceSearchSymbol.getSelectionModel().selectFirst();
+        txtSearchValue.setText("0");
+        choiceSearchSymbol.setDisable(true);
+        txtSearchValue.setDisable(true);
     }
 
     private void updateCurrency() {
@@ -435,7 +456,6 @@ public class ShowAllPokemonController implements Controller {
     }
 
     public void showHelp() {
-
         if (help) {
             paneHelp.setVisible(false);
             help = false;
@@ -445,8 +465,41 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
+    //enable options according to the option selected
+    @FXML
+    private void searchChoiceChanged(ActionEvent event) {
+        try {
+            if (choiceSearch.getValue().equalsIgnoreCase("health") ||
+                    choiceSearch.getValue().equalsIgnoreCase("attack") ||
+                    choiceSearch.getValue().equalsIgnoreCase("defence") ||
+                    choiceSearch.getValue().equalsIgnoreCase("speed") ||
+                    choiceSearch.getValue().equalsIgnoreCase("price")) {
+                choiceSearchSymbol.setDisable(false);
+            } else {
+                choiceSearchSymbol.setDisable(true);
+            }
+        } catch (Exception e) {
+            //System.out.println(e);
+        }
+    }
+
+    //enable the text field if viable option selected
+    @FXML
+    private void searchChoiceSymbolChanged(ActionEvent event) {
+        try {
+            if (!choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                txtSearchValue.setDisable(false);
+            } else {
+                txtSearchValue.setDisable(true);
+            }
+        } catch (Exception e) {
+            //System.out.println(e);
+        }
+    }
+
     // All the following methods are used by the search Function
     public void search() {
+        /*
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         String search = txtSearch.getText();
 
@@ -572,6 +625,7 @@ public class ShowAllPokemonController implements Controller {
 
         ObservableList<String> observableResults = FXCollections.observableArrayList(searchResults);
         listView.setItems(observableResults);
+        */
     }
 
     private void showSortedType() {

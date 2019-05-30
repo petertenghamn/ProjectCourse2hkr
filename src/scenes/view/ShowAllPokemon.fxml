@@ -122,7 +122,6 @@
             <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" />
             <TextField fx:id="txtPrice" blendMode="MULTIPLY" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
             <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="202.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
-            <TextField fx:id="txtSearch" layoutX="55.0" layoutY="21.0" prefHeight="33.0" prefWidth="345.0" promptText="Old Search Bar &quot;REMOVE!&quot;" />
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="17.0" layoutY="27.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
