@@ -3,6 +3,7 @@ package scenes.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,7 +31,7 @@ public class ViewTrainerController implements Controller {
         listCollection.setVisible(false);
         listTeam.setVisible(false);
 
-        String email = "";
+        chkBxAllowRemoval.setSelected(false);
 
         if (listView.getItems().size() > 0){
             listView.getSelectionModel().selectFirst();
@@ -46,9 +47,10 @@ public class ViewTrainerController implements Controller {
         Image image = new Image("scenes/view/images/pokeLogo.png");
         imgView.setImage(image);
 
+        chkBxAllowRemoval.setSelected(false);
+
         listCollection.setVisible(false);
         listTeam.setVisible(false);
-        String email = "";
     }
 
     private Main main;
@@ -65,9 +67,12 @@ public class ViewTrainerController implements Controller {
 
     @FXML
     ListView listView, listTeam, listCollection;
-    String email;
+    private String email;
+    @FXML
+    CheckBox chkBxAllowRemoval;
 
     public void selectTrainer() {
+        chkBxAllowRemoval.setSelected(false);
         showImage();
         updateStats();
         showCollection();
@@ -75,6 +80,8 @@ public class ViewTrainerController implements Controller {
     }
 
     private void updateTrainers() {
+        chkBxAllowRemoval.setSelected(false);
+
         ArrayList<User> trainers = main.getTrainers();
         ArrayList<String> names = new ArrayList<>();
 
@@ -218,6 +225,27 @@ public class ViewTrainerController implements Controller {
             else if (Integer.parseInt(txtCurrency.getText()) < 0){
                 System.out.println("Currency cannot be negative!");
             }
+        }
+    }
+
+    public void removeTrainer(){
+        if (chkBxAllowRemoval.isSelected()){
+            ArrayList<User> trainers = main.getTrainers();
+
+            for (User trainer : trainers) {
+                if (trainer instanceof Trainer) {
+                    if (((Trainer) trainer).getEmail().equals(email)) {
+                        main.removeTrainer(trainer);
+
+                        //update the list shown
+                        reset();
+                        setUp();
+                    }
+                }
+            }
+        }
+        else {
+            System.out.println("Removal denied due to box not being checked!");
         }
     }
 }

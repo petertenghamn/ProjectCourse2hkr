@@ -48,12 +48,6 @@ public class DatabaseLoader {
         catch (Exception e){
             System.out.println(e);
         }
-
-        /*
-        testing encryption
-        String password = "12345";
-        System.out.println(encryptPassword(password));
-        */
     }
 
     /*
@@ -158,23 +152,41 @@ public class DatabaseLoader {
      * Add a new pokemon to the database
      */
     public void addPokemon(Pokemon pokemon){
-        System.out.println("(TODO): PokeDB addPokemon doesn't add pokemon safely to the DB yet!");
-        /*
         connectToDB();
 
         if (connected) {
             try {
-                System.out.println("(TODO): PokeDB addPokemon doesn't add type correctly to the pokemon in DB yet!");
-                statement.executeUpdate("INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES " +
-                        "(" + pokemon.getIdTag() + ", '" + pokemon.getName() + "', " + pokemon.getHealth() + ", " +
-                        pokemon.getAttack() + ", " + pokemon.getDefense() + ", " + pokemon.getSpeed() + ", '', " + pokemon.getCost() + ");");
+                if (pokemon.getType().contains(" and ")) {
+                    String[] type = pokemon.getType().split(" and ");
+                    statement.executeUpdate("INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, second_type, cost) VALUES (" +
+                            pokemon.getIdTag() + ", '" +
+                            pokemon.getName() + "', " +
+                            pokemon.getHealth() + ", " +
+                            pokemon.getAttack() + ", " +
+                            pokemon.getDefense() + ", " +
+                            pokemon.getSpeed() + ", '" +
+                            type[0] + "', '" +
+                            type[1] + "', " +
+                            pokemon.getCost() + ");");
+                }
+                else
+                {
+                    statement.executeUpdate("INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (" +
+                            pokemon.getIdTag() + ", '" +
+                            pokemon.getName() + "', " +
+                            pokemon.getHealth() + ", " +
+                            pokemon.getAttack() + ", " +
+                            pokemon.getDefense() + ", " +
+                            pokemon.getSpeed() + ", '" +
+                            pokemon.getType() + "', " +
+                            pokemon.getCost() + ");");
+                }
             } catch (SQLException ex) {
-                System.out.println("Error executing the query!");
+                System.out.println("Error executing the addPokemon query!");
             }
         }
 
         disconnectFromDB();
-        */
     }
 
     /*
@@ -229,20 +241,17 @@ public class DatabaseLoader {
      * remove a pokemon from the database
      */
     public void removePokemon(Pokemon pokemon){
-        System.out.println("(TODO): PokeDB removePokemon doesn't remove pokemon safely from the DB yet!");
-        /*
         connectToDB();
 
         if (connected) {
             try {
                 statement.executeUpdate("DELETE FROM pokemon WHERE pokemon_id = " + pokemon.getIdTag() + ";");
             } catch (SQLException ex) {
-                System.out.println("Error executing the query!");
+                System.out.println("Error executing the removePokemon query!");
             }
         }
 
         disconnectFromDB();
-        */
     }
 
     /*
@@ -309,7 +318,7 @@ public class DatabaseLoader {
     }
 
     /*
-     * update a pokemon in the database
+     * update a trainer in the database
      */
     public void editTrainer(User user){
         connectToDB();
@@ -325,7 +334,27 @@ public class DatabaseLoader {
                             "WHERE email LIKE '" + ((Trainer) user).getEmail() + "';");
                 }
             } catch (SQLException ex) {
-                System.out.println("Error executing editPokemon Update!");
+                System.out.println("Error executing editTrainer Update!");
+            }
+        }
+
+        disconnectFromDB();
+    }
+
+    /*
+     * Remove a trainer from the database
+     */
+    public void removeTrainer(User user){
+        connectToDB();
+
+        if (connected){
+            try {
+                if (user instanceof Trainer){
+                    statement.executeUpdate("DELETE FROM user_info WHERE email = '" + ((Trainer) user).getEmail() + "';");
+                }
+            }
+            catch (SQLException ex){
+                System.out.println("Error executing removeTrainer Update!");
             }
         }
 
@@ -678,7 +707,7 @@ public class DatabaseLoader {
             if (user instanceof Trainer){
                 try {
                     statement.executeUpdate("INSERT INTO user_has_team (collection_nickname, user_id) VALUES" +
-                            " ((SELECT nickname FROM collection WHERE nickname LIKE '" + pokemon.getNickname() + "')," +
+                            " ((SELECT nickname FROM collection WHERE nickname LIKE '" + pokemon.getNickname() + "' AND collection.user_id LIKE (SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'))," +
                             " (SELECT user_id FROM user WHERE user_info_email LIKE '" + ((Trainer) user).getEmail() + "'));");
                 } catch (SQLException ex) {
                     System.out.println("Error executing addPokemonUserTeam query!");
