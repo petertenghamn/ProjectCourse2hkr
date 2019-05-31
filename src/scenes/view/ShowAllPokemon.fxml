@@ -12,14 +12,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
+<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
         <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="17.0" layoutY="714.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
         <Pane fx:id="pane1" layoutX="17.0" layoutY="98.0" prefHeight="604.0" prefWidth="442.0">
             <children>
                 <ListView fx:id="listView" layoutX="15.0" layoutY="74.0" onEditStart="#showPokemon" onMouseClicked="#showPokemon" prefHeight="505.0" prefWidth="412.0" />
-            <TextField fx:id="txtSearch" layoutX="14.0" layoutY="25.0" prefHeight="33.0" prefWidth="345.0" promptText="Search" />
             <Button fx:id="btnSearch" blendMode="MULTIPLY" layoutX="365.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" text="Search" />
+            <ChoiceBox fx:id="choiceSearch" layoutX="16.0" layoutY="27.0" prefHeight="28.0" prefWidth="150.0" />
+            <Label layoutX="172.0" layoutY="22.0" text=":">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="choiceSearchSymbol" layoutX="186.0" layoutY="28.0" prefHeight="28.0" prefWidth="73.0" />
+            <TextField fx:id="txtSearchValue" layoutX="266.0" layoutY="26.0" prefHeight="33.0" prefWidth="91.0" promptText="Value" />
             </children>
         </Pane>
         <Pane fx:id="pane2" layoutX="466.0" layoutY="46.0" prefHeight="724.0" prefWidth="456.0">

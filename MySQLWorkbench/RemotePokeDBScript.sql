@@ -183,3 +183,6 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 -- INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (4, 'Charmander', 39, 5, 4, 65, 'Fire', 50);
 
 -- SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';
+
+-- DELETE FROM user_info WHERE email = 'james@teamrocket';
+-- DELETE FROM user WHERE user_id = (SELECT user_id FROM user WHERE user_info_email = 'james@teamrocket');

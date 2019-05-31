@@ -2,6 +2,7 @@ package scenes.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -52,12 +53,13 @@ public class ShowAllPokemonController implements Controller {
     Pane paneHelp, pane3;
     // This is Used for the Search
     @FXML
-    TextField txtSearch;
+    TextField txtSearchValue;
+    @FXML
+    ChoiceBox<String> choiceSearch, choiceSearchSymbol;
     private int oldID;
-    private ArrayList<String> types;
     private int currency;
     private Main main;
-    private Boolean help = false;
+    private boolean help = false, searchSetup = false;
 
     @Override
     public void setMain(Main m) {
@@ -84,7 +86,7 @@ public class ShowAllPokemonController implements Controller {
             txtSpeed.setText("0");
             txtPrice.setText("0");
 
-            types = new ArrayList<>();
+            ArrayList<String> types = new ArrayList<>();
             types.add("None");
             types.addAll(main.getTypeSelection());
             ObservableList<String> typeArr = FXCollections.observableList(types);
@@ -97,6 +99,14 @@ public class ShowAllPokemonController implements Controller {
         } else if (main.getCurrentUser() instanceof Trainer) {
             setUpTrainer();
         }
+
+        //setup search bar properties
+        if (!searchSetup){ setUpSearch(); }
+        choiceSearch.getSelectionModel().selectFirst();
+        choiceSearchSymbol.getSelectionModel().selectFirst();
+        txtSearchValue.setText("0");
+        choiceSearchSymbol.setDisable(true);
+        txtSearchValue.setDisable(true);
 
         pokeBall.setVisible(false);
         btnBuy.setVisible(false);
@@ -169,6 +179,33 @@ public class ShowAllPokemonController implements Controller {
         lblPrice.setVisible(true);
     }
 
+    private void setUpSearch(){
+        ArrayList<String> searchTerms = new ArrayList<>();
+        searchTerms.add("ID");
+        searchTerms.add("Type");
+        searchTerms.add("Name");
+        searchTerms.add("Health");
+        searchTerms.add("Attack");
+        searchTerms.add("Defense");
+        searchTerms.add("Speed");
+        searchTerms.add("Price");
+        ObservableList<String> arr = FXCollections.observableArrayList(searchTerms);
+        choiceSearch.setItems(arr);
+
+        ArrayList<String> searchSymbols = new ArrayList<>();
+        searchSymbols.add("None");
+        searchSymbols.add("=");
+        searchSymbols.add("<");
+        searchSymbols.add(">");
+        arr = FXCollections.observableArrayList(searchSymbols);
+        choiceSearchSymbol.setItems(arr);
+
+        choiceSearch.setOnAction(this::searchChoiceChanged);
+        choiceSearchSymbol.setOnAction(this::searchChoiceSymbolChanged);
+
+        searchSetup = true;
+    }
+
     @Override
     public void reset() {
         listView.getSelectionModel().clearSelection();
@@ -209,7 +246,11 @@ public class ShowAllPokemonController implements Controller {
         pokeBall.setVisible(false);
         lblError.setVisible(false);
 
-        txtSearch.clear();
+        choiceSearch.getSelectionModel().selectFirst();
+        choiceSearchSymbol.getSelectionModel().selectFirst();
+        txtSearchValue.setText("0");
+        choiceSearchSymbol.setDisable(true);
+        txtSearchValue.setDisable(true);
     }
 
     private void updateCurrency() {
@@ -335,22 +376,6 @@ public class ShowAllPokemonController implements Controller {
             }
             choiceSecondType.getSelectionModel().selectFirst();
         }
-
-
-        /*
-        if (pokemon.getType().contains("and")){
-            //group by their first type listed
-            String parse = pokemon.getType().substring(0, pokemon.getType().indexOf(" "));
-            if (!typeMap.containsKey(parse)){
-                typeMap.put(parse, new ArrayList<>());
-                typeMap.get(parse).add(pokemon.getName());
-            }
-            else
-            {
-                typeMap.get(parse).add(pokemon.getName());
-            }
-        }
-        */
     }
 
     public void backButton() {
@@ -433,7 +458,6 @@ public class ShowAllPokemonController implements Controller {
     }
 
     public void showHelp() {
-
         if (help) {
             paneHelp.setVisible(false);
             help = false;
@@ -443,129 +467,328 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
+    //enable options according to the option selected
+    @FXML
+    private void searchChoiceChanged(ActionEvent event) {
+        try {
+            if (choiceSearch.getValue().equalsIgnoreCase("health") ||
+                    choiceSearch.getValue().equalsIgnoreCase("attack") ||
+                    choiceSearch.getValue().equalsIgnoreCase("defense") ||
+                    choiceSearch.getValue().equalsIgnoreCase("speed") ||
+                    choiceSearch.getValue().equalsIgnoreCase("price")) {
+                choiceSearchSymbol.setDisable(false);
+            } else {
+                choiceSearchSymbol.setDisable(true);
+            }
+        } catch (Exception e) {
+            //System.out.println(e);
+        }
+    }
+
+    //enable the text field if viable option selected
+    @FXML
+    private void searchChoiceSymbolChanged(ActionEvent event) {
+        try {
+            if (!choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                txtSearchValue.setDisable(false);
+            } else {
+                txtSearchValue.setDisable(true);
+            }
+        } catch (Exception e) {
+            //System.out.println(e);
+        }
+    }
+
     // All the following methods are used by the search Function
     public void search() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
-        String search = txtSearch.getText();
 
         // The Name of the Pokemon should be returned to the ListView
         ArrayList<String> searchResults = new ArrayList<>();
 
-        // The following searches should be future proof
-        // Search for certain types
-        for (Pokemon pokemon : allPokemon) {
-            if (search.contains(pokemon.getType())) {
-                searchResults.add(pokemon.getName());
-            }
-            // Using Type: Modifier sorts all Pokemon by type
-            else if (search.contains("Type") || search.contains("type")) {
-                showSortedType();
-                return; // Return Needs to be there or else the program shows no results! // The return just exits this method
-            }
+        if (choiceSearch.getValue().equalsIgnoreCase("id")){
+            showSortedID();
+            return;
         }
-
-        // Search for a specific Pokemon
-        for (Pokemon pokemon : allPokemon) {
-            if (search.equalsIgnoreCase(pokemon.getName())) {
-                searchResults.add(pokemon.getName());
-            }
-            // Using Name: modifier sorts all Pokemon by Name
-            else if (search.contains("Name") || search.contains("name")) {
-                showSortedName();
-                return; // Return Needs to be there or else the program shows no results! // The return just exits this method
-            }
+        else if (choiceSearch.getValue().equalsIgnoreCase("type")){
+            showSortedType();
+            return;
         }
-
-        // Specify the Search to:
-        if (search.contains("ID:") || search.contains("id:")) {
-            // Search for Pokemon by ID
-            for (Pokemon pokemon : allPokemon) {
-                // ID the Same as:
-                if (search.contains("=")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("=") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getIdTag() == number) {
-                        searchResults.add(pokemon.getName());
-                    }
-                }
-                // ID is less than:
-                else if (search.contains(">")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf(">") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getIdTag() >= number) {
-                        searchResults.add(pokemon.getName());
-                    }
-                }
-                // ID is greater than:
-                else if (search.contains("<")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("<") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getIdTag() <= number) {
-                        searchResults.add(pokemon.getName());
-                    }
-                }
-                // IF no search modifier then the program just sorts by ID
-                else {
-                    showSortedID();
-                    return; // Return Needs to be there or else the program shows no results! // The return just exits this method
-                }
-            }
+        else if (choiceSearch.getValue().equalsIgnoreCase("name")){
+            showSortedName();
+            return;
         }
-
-        // Specify the Search to:
-        if (search.contains("HP:") || search.contains("hp:") || search.contains("Health:") || search.contains("health:")) {
-            // Search for Pokemon by HP
-            for (Pokemon pokemon : allPokemon) {
-                // Higher HP Than:
-                if (search.contains(">")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf(">") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getHealth() >= number) {
-                        searchResults.add(pokemon.getName());
+        else if (choiceSearch.getValue().equalsIgnoreCase("health")) {
+            if (choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                //sort according to order of selected value
+                showSortedHP();
+                return;
+            } else {
+                try {
+                    //check that the value entered will include a result
+                    int lowest = allPokemon.get(0).getHealth(), highest = allPokemon.get(0).getHealth();
+                    for (Pokemon p : allPokemon){
+                        if (p.getHealth() < lowest){
+                            lowest = p.getHealth();
+                        }
+                        if (p.getHealth() > highest){
+                            highest = p.getHealth();
+                        }
                     }
-                }
-                // Less HP Than:
-                else if (search.contains("<")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("<") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getHealth() <= number) {
-                        searchResults.add(pokemon.getName());
+                    int number = Integer.parseInt(txtSearchValue.getText());
+                    if (number < lowest){
+                        number = lowest;
+                        txtSearchValue.setText(Integer.toString(lowest));
+                    } else if (number > highest){
+                        number = highest;
+                        txtSearchValue.setText(Integer.toString(highest));
                     }
-                }
-                // Equal HP To:
-                else if (search.contains("=")) {
-                    //get the value entered to compare with
-                    String numericPart = search.substring(search.indexOf("=") + 1);
-                    int number = Integer.parseInt(numericPart);
-                    if (pokemon.getHealth() == number) {
-                        searchResults.add(pokemon.getName());
+                    //check for results within given bounds
+                    if (choiceSearchSymbol.getValue().equalsIgnoreCase("=")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getHealth() == number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
                     }
-                }
-                // Sort All pokemon by HP
-                else {
-                    showSortedHP();
-                    return; // Return Needs to be there or else the program shows no results! // The return just exits this method
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase("<")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getHealth() <= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase(">")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getHealth() >= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input value needs to be an int");
                 }
             }
         }
-
+        else if (choiceSearch.getValue().equalsIgnoreCase("attack")){
+            if (choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                //sort according to order of selected value
+                showSortedATK();
+                return;
+            } else {
+                try {
+                    //check that the value entered will include a result
+                    int lowest = allPokemon.get(0).getAttack(), highest = allPokemon.get(0).getAttack();
+                    for (Pokemon p : allPokemon){
+                        if (p.getAttack() < lowest){
+                            lowest = p.getAttack();
+                        }
+                        if (p.getAttack() > highest){
+                            highest = p.getAttack();
+                        }
+                    }
+                    int number = Integer.parseInt(txtSearchValue.getText());
+                    if (number < lowest){
+                        number = lowest;
+                        txtSearchValue.setText(Integer.toString(lowest));
+                    } else if (number > highest){
+                        number = highest;
+                        txtSearchValue.setText(Integer.toString(highest));
+                    }
+                    //check for results within given bounds
+                    if (choiceSearchSymbol.getValue().equalsIgnoreCase("=")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getAttack() == number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase("<")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getAttack() <= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase(">")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getAttack() >= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input value needs to be an int");
+                }
+            }
+        }
+        else if (choiceSearch.getValue().equalsIgnoreCase("defense")){
+            if (choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                //sort according to order of selected value
+                showSortedDEF();
+                return;
+            } else {
+                try {
+                    //check that the value entered will include a result
+                    int lowest = allPokemon.get(0).getDefense(), highest = allPokemon.get(0).getDefense();
+                    for (Pokemon p : allPokemon){
+                        if (p.getDefense() < lowest){
+                            lowest = p.getDefense();
+                        }
+                        if (p.getAttack() > highest){
+                            highest = p.getDefense();
+                        }
+                    }
+                    int number = Integer.parseInt(txtSearchValue.getText());
+                    if (number < lowest){
+                        number = lowest;
+                        txtSearchValue.setText(Integer.toString(lowest));
+                    } else if (number > highest){
+                        number = highest;
+                        txtSearchValue.setText(Integer.toString(highest));
+                    }
+                    //check for results within given bounds
+                    if (choiceSearchSymbol.getValue().equalsIgnoreCase("=")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getDefense() == number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase("<")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getDefense() <= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase(">")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getDefense() >= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input value needs to be an int");
+                }
+            }
+        }
+        else if (choiceSearch.getValue().equalsIgnoreCase("speed")){
+            if (choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                //sort according to order of selected value
+                showSortedSPD();
+                return;
+            } else {
+                try {
+                    //check that the value entered will include a result
+                    int lowest = allPokemon.get(0).getSpeed(), highest = allPokemon.get(0).getSpeed();
+                    for (Pokemon p : allPokemon){
+                        if (p.getSpeed() < lowest){
+                            lowest = p.getSpeed();
+                        }
+                        if (p.getSpeed() > highest){
+                            highest = p.getSpeed();
+                        }
+                    }
+                    int number = Integer.parseInt(txtSearchValue.getText());
+                    if (number < lowest){
+                        number = lowest;
+                        txtSearchValue.setText(Integer.toString(lowest));
+                    } else if (number > highest){
+                        number = highest;
+                        txtSearchValue.setText(Integer.toString(highest));
+                    }
+                    //check for results within given bounds
+                    if (choiceSearchSymbol.getValue().equalsIgnoreCase("=")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getSpeed() == number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase("<")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getSpeed() <= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase(">")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getSpeed() >= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input value needs to be an int");
+                }
+            }
+        }
+        else if (choiceSearch.getValue().equalsIgnoreCase("price")){
+            if (choiceSearchSymbol.getValue().equalsIgnoreCase("none")) {
+                //sort according to order of selected value
+                showSortedPrice();
+                return;
+            } else {
+                try {
+                    //check that the value entered will include a result
+                    int lowest = allPokemon.get(0).getCost(), highest = allPokemon.get(0).getCost();
+                    for (Pokemon p : allPokemon){
+                        if (p.getCost() < lowest){
+                            lowest = p.getCost();
+                        }
+                        if (p.getCost() > highest){
+                            highest = p.getCost();
+                        }
+                    }
+                    int number = Integer.parseInt(txtSearchValue.getText());
+                    if (number < lowest){
+                        number = lowest;
+                        txtSearchValue.setText(Integer.toString(lowest));
+                    } else if (number > highest){
+                        number = highest;
+                        txtSearchValue.setText(Integer.toString(highest));
+                    }
+                    //check for results within given bounds
+                    if (choiceSearchSymbol.getValue().equalsIgnoreCase("=")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getCost() == number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase("<")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getCost() <= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                    else if (choiceSearchSymbol.getValue().equalsIgnoreCase(">")) {
+                        for (Pokemon pokemon : allPokemon) {
+                            if (pokemon.getCost() >= number) {
+                                searchResults.add(pokemon.getName());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input value needs to be an int");
+                }
+            }
+        }
 
         // IF the results are empty tells the user
         if (searchResults.isEmpty()) {
             searchResults.add("There are no results!");
             searchResults.add("");
-            searchResults.add("Make sure your spelling is correct");
-            searchResults.add("Or try searching for something else");
+            searchResults.add("Make sure the value you entered");
+            searchResults.add("contains only numbers,");
+            searchResults.add("no letters or symbols");
             searchResults.add("");
-            searchResults.add("Tip: ");
-            searchResults.add("You can search for specific stats");
-            searchResults.add("by typing for ex) ID: = 5 or HP: > 50");
-            searchResults.add("Make sure there is space after modifiers");
+            searchResults.add("Tip: make sure the value is a");
+            searchResults.add("reasonable value to get results");
         }
 
         ObservableList<String> observableResults = FXCollections.observableArrayList(searchResults);
@@ -636,16 +859,129 @@ public class ShowAllPokemonController implements Controller {
         listView.setItems(observableListPokemons);
     }
 
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
     private void showSortedHP() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
 
-        for (Pokemon pokemon : allPokemon) {
-            for (Pokemon higherHP : allPokemon) {
-                if (higherHP.getHealth() > pokemon.getHealth()) {
-                    pokemonNames.add(higherHP.getName());
-                }
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getHealth());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
             }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
+    private void showSortedATK() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getAttack());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
+            }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
+    private void showSortedDEF() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getDefense());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
+            }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
+    private void showSortedSPD() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getSpeed());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
+            }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
+        listView.setItems(observableListPokemons);
+    }
+
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
+    private void showSortedPrice() {
+        ArrayList<Pokemon> allPokemon = main.getAllPokemon();
+        ArrayList<String> pokemonNames = new ArrayList<>();
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getCost());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
+            }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
