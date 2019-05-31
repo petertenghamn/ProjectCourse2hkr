@@ -38,7 +38,9 @@ public class ShowAllPokemonController implements Controller {
     @FXML
     ChoiceBox<String> choiceFirstType, choiceSecondType;
     @FXML
-    Button btnUpdate;
+    Button btnUpdate, btnRemove, btnAdd;
+    @FXML
+    CheckBox chkBxAllowRemoval;
     // -------------------------------------------------------- THIS PART ONWARDS IS ONLY TO BE USED BY THE TRAINER! --------------------------------------------------------
     // ---------------------------------------- NICKNAME SUBSCENE CODE STARTS HERE ----------------------------------------
     @FXML
@@ -139,8 +141,6 @@ public class ShowAllPokemonController implements Controller {
         choiceFirstType.setVisible(true);
         choiceSecondType.setVisible(true);
 
-        btnUpdate.setVisible(true);
-
         lblName.setVisible(false);
         lblID.setVisible(false);
         lblType.setVisible(false);
@@ -168,6 +168,9 @@ public class ShowAllPokemonController implements Controller {
         choiceSecondType.setVisible(false);
 
         btnUpdate.setVisible(false);
+        btnRemove.setVisible(false);
+        btnAdd.setVisible(false);
+        chkBxAllowRemoval.setVisible(false);
 
         lblName.setVisible(true);
         lblID.setVisible(true);
@@ -206,6 +209,30 @@ public class ShowAllPokemonController implements Controller {
         searchSetup = true;
     }
 
+    private void toggleBtnEdit(){
+        if (!listView.getSelectionModel().getSelectedItem().isEmpty()){
+            if (listView.getSelectionModel().getSelectedItem().equalsIgnoreCase("new pokemon")){
+                btnUpdate.setVisible(false);
+                btnRemove.setVisible(false);
+                btnAdd.setVisible(true);
+                chkBxAllowRemoval.setVisible(false);
+            }
+            else {
+                btnUpdate.setVisible(true);
+                btnRemove.setVisible(true);
+                btnAdd.setVisible(false);
+                chkBxAllowRemoval.setVisible(true);
+                chkBxAllowRemoval.setSelected(false);
+            }
+        }
+        else {
+            btnUpdate.setVisible(false);
+            btnRemove.setVisible(false);
+            btnAdd.setVisible(false);
+            chkBxAllowRemoval.setVisible(false);
+        }
+    }
+
     @Override
     public void reset() {
         listView.getSelectionModel().clearSelection();
@@ -233,6 +260,12 @@ public class ShowAllPokemonController implements Controller {
         choiceFirstType.getSelectionModel().selectFirst();
         choiceSecondType.getSelectionModel().selectFirst();
 
+        btnUpdate.setVisible(false);
+        btnRemove.setVisible(false);
+        btnAdd.setVisible(false);
+        chkBxAllowRemoval.setSelected(false);
+        chkBxAllowRemoval.setVisible(false);
+
         lblNickname.setVisible(false);
         txtNickname.setVisible(false);
         btnNoNickname.setVisible(false);
@@ -249,8 +282,8 @@ public class ShowAllPokemonController implements Controller {
         choiceSearch.getSelectionModel().selectFirst();
         choiceSearchSymbol.getSelectionModel().selectFirst();
         txtSearchValue.setText("0");
-        choiceSearchSymbol.setDisable(true);
         txtSearchValue.setDisable(true);
+        choiceSearchSymbol.setDisable(true);
     }
 
     private void updateCurrency() {
@@ -269,6 +302,7 @@ public class ShowAllPokemonController implements Controller {
     public void showPokemon() {
         if (main.getCurrentUser() instanceof Professor) {
             btnBuy.setVisible(false);
+            toggleBtnEdit();
         } else if (main.getCurrentUser() instanceof Trainer) {
             btnBuy.setVisible(true);
         }
@@ -324,6 +358,70 @@ public class ShowAllPokemonController implements Controller {
         }
     }
 
+    public void addPokemon(){
+        try {
+            //check all values
+            if (Integer.parseInt(txtID.getText()) < 1 || Integer.parseInt(txtID.getText()) > 999){
+                System.out.println("ID out of allowed range!");
+                return;
+            }
+            if (txtName.getText().isEmpty()){
+                System.out.println("Name is empty!");
+                return;
+            }
+            if (Integer.parseInt(txtHealth.getText()) < 1 || Integer.parseInt(txtHealth.getText()) > 999){
+                System.out.println("Health out of allowed range!");
+                return;
+            }
+            if (Integer.parseInt(txtAttack.getText()) < 1 || Integer.parseInt(txtAttack.getText()) > 9){
+                System.out.println("Attack out of allowed range!");
+                return;
+            }
+            if (Integer.parseInt(txtDefence.getText()) < 1 || Integer.parseInt(txtDefence.getText()) > 9){
+                System.out.println("Defense out of allowed range!");
+                return;
+            }
+            if (Integer.parseInt(txtSpeed.getText()) < 1 || Integer.parseInt(txtSpeed.getText()) > 999){
+                System.out.println("Speed out of allowed range!");
+                return;
+            }
+            if (Integer.parseInt(txtPrice.getText()) < 1 || Integer.parseInt(txtPrice.getText()) > 999){
+                System.out.println("Price out of allowed range!");
+                return;
+            }
+            if (choiceFirstType.getValue().equalsIgnoreCase("none")){
+                System.out.println("First type cannot be none!");
+                return;
+            }
+
+            Pokemon newPokemon = new Pokemon(Integer.parseInt(txtID.getText()), txtName.getText(), Integer.parseInt(txtHealth.getText()),
+                    Integer.parseInt(txtAttack.getText()), Integer.parseInt(txtDefence.getText()), Integer.parseInt(txtSpeed.getText()), Integer.parseInt(txtPrice.getText()),
+                    (choiceFirstType.getValue()) + ((choiceSecondType.getValue().equals("None")) ? "" : " and " + choiceSecondType.getValue()));
+            //add pokemon
+            main.addPokemon(newPokemon);
+
+            //update the list shown
+            chkBxAllowRemoval.setSelected(false);
+            search();
+        }
+        catch (Exception e){
+            System.out.println("One or more values is not of correct type");
+        }
+    }
+
+    public void removePokemon(){
+        if (chkBxAllowRemoval.isSelected()){
+            main.removePokemon(main.getPokemonByName(listView.getSelectionModel().getSelectedItem()));
+
+            //update the list shown
+            chkBxAllowRemoval.setSelected(false);
+            search();
+        }
+        else {
+            System.out.println("Removal denied due to box not being checked!");
+        }
+    }
+
     // Shows the Image of the Pokemon based on the pokemon's ID
     private void showImage(String selection) {
         // Moved the code to main so it could be used by other methods around the application
@@ -333,26 +431,44 @@ public class ShowAllPokemonController implements Controller {
     // Would be great if we could figure out how to reuse this code instead of re writing it again.
     // This won't work if the pokemon stats change by level and not by evolution!
     private void showStats(String selection) {
-        lblName.setText(main.getPokemonByName(selection).getName());
-        lblType.setText(main.getPokemonByName(selection).getType());
-        lblID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
-        lblHP.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
-        lblAtk.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
-        lblDf.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
-        lblSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
-        lblPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
+        if (main.getCurrentUser() instanceof Trainer) {
+            lblName.setText(main.getPokemonByName(selection).getName());
+            lblType.setText(main.getPokemonByName(selection).getType());
+            lblID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
+            lblHP.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
+            lblAtk.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
+            lblDf.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
+            lblSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
+            lblPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
+        }
+        else if (main.getCurrentUser() instanceof Professor){
+            //for professor editing
+            if (selection.equalsIgnoreCase("new pokemon")){
+                oldID = 0;
 
-        //for professor editing
-        oldID = main.getPokemonByName(selection).getIdTag();
+                txtName.setText("New");
+                txtID.setText(Integer.toString(0));
+                txtHealth.setText(Integer.toString(0));
+                txtAttack.setText(Integer.toString(0));
+                txtDefence.setText(Integer.toString(0));
+                txtSpeed.setText(Integer.toString(0));
+                txtPrice.setText(Integer.toString(0));
+                choiceFirstType.getSelectionModel().selectFirst();
+                choiceSecondType.getSelectionModel().selectFirst();
+            }
+            else {
+                oldID = main.getPokemonByName(selection).getIdTag();
 
-        txtName.setText(main.getPokemonByName(selection).getName());
-        txtID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
-        txtHealth.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
-        txtAttack.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
-        txtDefence.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
-        txtSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
-        txtPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
-        showTypeSelection(main.getPokemonByName(selection));
+                txtName.setText(main.getPokemonByName(selection).getName());
+                txtID.setText(Integer.toString(main.getPokemonByName(selection).getIdTag()));
+                txtHealth.setText(Integer.toString(main.getPokemonByName(selection).getHealth()));
+                txtAttack.setText(Integer.toString(main.getPokemonByName(selection).getAttack()));
+                txtDefence.setText(Integer.toString(main.getPokemonByName(selection).getDefense()));
+                txtSpeed.setText(Integer.toString(main.getPokemonByName(selection).getSpeed()));
+                txtPrice.setText(Integer.toString(main.getPokemonByName(selection).getCost()));
+                showTypeSelection(main.getPokemonByName(selection));
+            }
+        }
     }
 
     private void showTypeSelection(Pokemon pokemon) {
@@ -791,6 +907,10 @@ public class ShowAllPokemonController implements Controller {
             searchResults.add("reasonable value to get results");
         }
 
+        if (main.getCurrentUser() instanceof Professor) {
+            searchResults.add("New Pokemon");
+        }
+
         ObservableList<String> observableResults = FXCollections.observableArrayList(searchResults);
         listView.setItems(observableResults);
     }
@@ -826,20 +946,43 @@ public class ShowAllPokemonController implements Controller {
             pokemonNames.addAll(array);
         }
 
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
+        }
+
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
 
         listView.setItems(observableListPokemons);
     }
 
+    //This is fine... no worries... it works :D
+    @SuppressWarnings("unchecked")
     private void showSortedID() {
         ArrayList<Pokemon> allPokemon = main.getAllPokemon();
         ArrayList<String> pokemonNames = new ArrayList<>();
 
-        for (Pokemon pokemon : allPokemon) {
-            pokemonNames.add(pokemon.getName());
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (Pokemon p : allPokemon){
+            map.put(p.getName(), p.getIdTag());
+        }
+        Object[] a = map.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<String, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<String, Integer>) o1).getValue());
+            }
+        });
+        for (Object e : a) {
+            pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        Collections.reverse(pokemonNames);
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
+
         listView.setItems(observableListPokemons);
     }
 
@@ -853,6 +996,10 @@ public class ShowAllPokemonController implements Controller {
         }
 
         Collections.sort(pokemonNames);
+
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
+        }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
 
@@ -878,6 +1025,10 @@ public class ShowAllPokemonController implements Controller {
         });
         for (Object e : a) {
             pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
@@ -906,6 +1057,10 @@ public class ShowAllPokemonController implements Controller {
             pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
         }
 
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
+        }
+
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
 
         listView.setItems(observableListPokemons);
@@ -930,6 +1085,10 @@ public class ShowAllPokemonController implements Controller {
         });
         for (Object e : a) {
             pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
@@ -958,6 +1117,10 @@ public class ShowAllPokemonController implements Controller {
             pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
         }
 
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
+        }
+
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);
 
         listView.setItems(observableListPokemons);
@@ -982,6 +1145,10 @@ public class ShowAllPokemonController implements Controller {
         });
         for (Object e : a) {
             pokemonNames.add(((Map.Entry<String, Integer>) e).getKey());
+        }
+
+        if (main.getCurrentUser() instanceof Professor) {
+            pokemonNames.add("New Pokemon");
         }
 
         ObservableList<String> observableListPokemons = FXCollections.observableArrayList(pokemonNames);

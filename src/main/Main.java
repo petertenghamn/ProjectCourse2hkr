@@ -37,6 +37,7 @@ public class Main extends Application {
     //List of All Trainers in the program
     private ArrayList<User> allTrainers;
 
+
     /*
      * Main method, Java startup
      */
@@ -51,6 +52,10 @@ public class Main extends Application {
      */
     public ArrayList<Pokemon> getAllPokemon() {
         return allPokemon;
+    }
+
+    public ArrayList<User> getTrainers(){
+        return allTrainers;
     }
 
     /*
@@ -102,10 +107,16 @@ public class Main extends Application {
      *
      * @returns boolean (false if failed to add)
      */
-    public boolean addPokemon(Pokemon pokemon){
-        for (Pokemon p : allPokemon){
+    public boolean addPokemon(Pokemon pokemon) {
+        //double check id is within limits, and the name is not empty
+        if (pokemon.getIdTag() < 1 || pokemon.getIdTag() > 999 ||
+                pokemon.getName().isEmpty()) {
+            return false;
+        }
+
+        for (Pokemon p : allPokemon) {
             if (p.getIdTag() == pokemon.getIdTag() ||
-                    p.getName().equals(pokemon.getName())){
+                    p.getName().equals(pokemon.getName())) {
                 return false;
             }
         }
@@ -151,10 +162,9 @@ public class Main extends Application {
 
                 allPokemon.remove(p);
                 pokeDB.removePokemon(p);
-                return false;
+                return true;
             }
         }
-
         return false;
     }
 
@@ -163,6 +173,17 @@ public class Main extends Application {
      */
     public void editTrainerStats(User user){
         pokeDB.editTrainer(user);
+        allTrainers = new ArrayList<>();
+        allTrainers = pokeDB.getTrainers();
+    }
+
+    /*
+     * Remove the trainer from the DB
+     */
+    public void removeTrainer(User user){
+        pokeDB.removeTrainer(user);
+        allTrainers = new ArrayList<>();
+        allTrainers = pokeDB.getTrainers();
     }
 
     /*
@@ -173,6 +194,8 @@ public class Main extends Application {
         pokeDB = new DatabaseLoader();
         pokeBugDB = new DebugDatabase();
         manager = new SceneManager(this, primaryStage);
+
+        allPokemon = pokeDB.loadAllPokemon();
     }
 
     /*
@@ -218,10 +241,6 @@ public class Main extends Application {
             else
             {
                 System.out.println("Trainer not eligible for login bonus!");
-
-                //for testing
-                System.out.printf("%n%s%n%s%n%s%n%n", "For Testing", "Login bonus always is shown on login of trainer", "Disable in line ~202 of main");
-                manager.showLoginBonus();
             }
         }
     }
@@ -257,7 +276,6 @@ public class Main extends Application {
         }
 
         if (currentUser != null) {
-            allPokemon = pokeDB.loadAllPokemon();
             if (currentUser instanceof Trainer) {
                 manager.changeScene(SceneManager.sceneName.TRAINERMENU);
             } else if (currentUser instanceof Professor) {
@@ -370,16 +388,14 @@ public class Main extends Application {
         // Set default image, can't return null if the pokemon image is missing
         Image image = new Image("scenes/view/images/pokeLogo.png");
 
-        try {
-            image = new Image("scenes/view/images/" + getPokemonByName(pokemonName).getName().toLowerCase() + ".png");
-        } catch (Exception e) {
-            System.out.println("Missing image for - " + getPokemonByName(pokemonName).getName().toLowerCase());
+        if (!pokemonName.equalsIgnoreCase("new pokemon")) {
+            try {
+                image = new Image("scenes/view/images/" + getPokemonByName(pokemonName).getName().toLowerCase() + ".png");
+            } catch (Exception e) {
+                System.out.println("Missing image for - " + getPokemonByName(pokemonName).getName().toLowerCase());
+            }
         }
 
         return image;
-    }
-
-    public ArrayList<User> getTrainers(){
-        return allTrainers;
     }
 }

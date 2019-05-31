@@ -184,5 +184,5 @@ INSERT INTO user_has_team (collection_nickname, user_id) VALUES
 
 -- SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';
 
--- DELETE FROM user_info WHERE email = 'james@teamrocket';
--- DELETE FROM user WHERE user_id = (SELECT user_id FROM user WHERE user_info_email = 'james@teamrocket');
+-- DELETE FROM user_info WHERE email = 'test@remove';
+-- DELETE FROM user WHERE user_id = (SELECT user_id FROM user WHERE user_info_email = 'test@remove');

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -121,7 +122,10 @@
             </Label>
             <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" />
             <TextField fx:id="txtPrice" blendMode="MULTIPLY" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
-            <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="202.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
+            <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="138.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
+            <Button fx:id="btnRemove" blendMode="MULTIPLY" layoutX="243.0" layoutY="671.0" mnemonicParsing="false" onAction="#removePokemon" prefHeight="39.0" prefWidth="90.0" text="Remove" />
+            <Button fx:id="btnAdd" blendMode="MULTIPLY" layoutX="187.0" layoutY="671.0" mnemonicParsing="false" onAction="#addPokemon" prefHeight="39.0" prefWidth="90.0" text="Add" />
+            <CheckBox fx:id="chkBxAllowRemoval" layoutX="340.0" layoutY="682.0" mnemonicParsing="false" text="Allow Removal" />
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="17.0" layoutY="27.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
