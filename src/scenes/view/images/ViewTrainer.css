@@ -91,6 +91,10 @@
     -fx-font: 25px Garamond;
 }
 
+#chkBxAllowRemoval{
+    -fx-font: 15px Garamond;
+}
+
 #btnSelect {
     -fx-font: 20px Garamond;
     -fx-font-weight: bold;
@@ -109,6 +113,17 @@
 }
 
 #btnUpdate:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnRemove {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnRemove:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }

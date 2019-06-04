@@ -13,33 +13,33 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
+<AnchorPane fx:id="showAllPokemonAnc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@images/ShowAllPokemon.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.controller.ShowAllPokemonController">
     <children>
         <Button fx:id="btnBack" blendMode="MULTIPLY" layoutX="17.0" layoutY="714.0" mnemonicParsing="false" onAction="#backButton" prefHeight="60.0" prefWidth="120.0" text="Back" />
         <Pane fx:id="pane1" layoutX="17.0" layoutY="98.0" prefHeight="604.0" prefWidth="442.0">
             <children>
                 <ListView fx:id="listView" layoutX="15.0" layoutY="74.0" onEditStart="#showPokemon" onMouseClicked="#showPokemon" prefHeight="505.0" prefWidth="412.0" />
             <Button fx:id="btnSearch" blendMode="MULTIPLY" layoutX="365.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" text="Search" />
-            <ChoiceBox fx:id="choiceSearch" layoutX="16.0" layoutY="27.0" prefHeight="28.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="choiceSearch" blendMode="MULTIPLY" layoutX="16.0" layoutY="27.0" prefHeight="28.0" prefWidth="150.0" />
             <Label layoutX="172.0" layoutY="22.0" text=":">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="choiceSearchSymbol" layoutX="186.0" layoutY="28.0" prefHeight="28.0" prefWidth="73.0" />
-            <TextField fx:id="txtSearchValue" layoutX="266.0" layoutY="26.0" prefHeight="33.0" prefWidth="91.0" promptText="Value" />
+            <ChoiceBox fx:id="choiceSearchSymbol" blendMode="MULTIPLY" layoutX="186.0" layoutY="28.0" prefHeight="28.0" prefWidth="73.0" />
+            <TextField fx:id="txtSearchValue" blendMode="MULTIPLY" layoutX="266.0" layoutY="26.0" prefHeight="33.0" prefWidth="91.0" promptText="Value" />
             </children>
         </Pane>
-        <Pane fx:id="pane2" layoutX="466.0" layoutY="46.0" prefHeight="724.0" prefWidth="456.0">
+        <Pane fx:id="pane2" layoutX="466.0" layoutY="25.0" prefHeight="724.0" prefWidth="456.0">
             <children>
-                <Label fx:id="labelName" layoutX="27.0" layoutY="330.0" text="Name:">
+                <Label fx:id="labelName" layoutX="15.0" layoutY="266.0" text="Name:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblName" layoutX="123.0" layoutY="335.0" />
-            <TextField fx:id="txtName" blendMode="MULTIPLY" layoutX="117.0" layoutY="334.0" prefHeight="25.0" prefWidth="104.0" />
-                <Label fx:id="labelType" layoutX="228.0" layoutY="330.0" text="Type:">
+                <Label fx:id="lblName" layoutX="114.0" layoutY="276.0" />
+            <TextField fx:id="txtName" blendMode="MULTIPLY" layoutX="104.0" layoutY="273.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="labelType" layoutX="223.0" layoutY="270.0" text="Type:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -47,10 +47,10 @@
                   <Tooltip fx:id="ttType" autoFix="false" consumeAutoHidingEvents="false" text="All Pokémon are assigned certain types. &#10;Each type has several strengths and weaknesses in &#10;both attack and defence. Depending on the types &#10;of each Pokémon, they can deal double damage or &#10;be knocked out faster." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblType" layoutX="306.0" layoutY="335.0" />
-            <ChoiceBox fx:id="choiceFirstType" blendMode="MULTIPLY" layoutX="305.0" layoutY="325.0" prefHeight="25.0" prefWidth="140.0" />
-            <ChoiceBox fx:id="choiceSecondType" blendMode="MULTIPLY" layoutX="305.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" />
-                <Label fx:id="labelID" layoutX="162.0" layoutY="387.0" text="ID:">
+                <Label fx:id="lblType" layoutX="311.0" layoutY="276.0" />
+            <ChoiceBox fx:id="choiceFirstType" blendMode="MULTIPLY" layoutX="302.0" layoutY="274.0" prefHeight="25.0" prefWidth="140.0" />
+            <ChoiceBox fx:id="choiceSecondType" blendMode="MULTIPLY" layoutX="302.0" layoutY="301.0" prefHeight="25.0" prefWidth="140.0" />
+                <Label fx:id="labelID" layoutX="161.0" layoutY="343.0" text="ID:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -58,9 +58,9 @@
                   <Tooltip fx:id="ttID" autoFix="false" consumeAutoHidingEvents="false" text="Each Pokémon has its unique ID, making it easier to&#10;identify. For example, a Pikachu with a nickname it's&#10;still a Pikachu even if its name is changed. The ID helps&#10;distinguishing the Pokémon. " wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblID" layoutX="214.0" layoutY="392.0" />
-            <TextField fx:id="txtID" blendMode="MULTIPLY" layoutX="208.0" layoutY="392.0" prefHeight="25.0" prefWidth="104.0" />
-                <Label fx:id="labelHealth" layoutX="27.0" layoutY="488.0" text="Health:">
+                <Label fx:id="lblID" layoutX="218.0" layoutY="348.0" />
+            <TextField fx:id="txtID" blendMode="MULTIPLY" layoutX="208.0" layoutY="348.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="labelHealth" layoutX="22.0" layoutY="417.0" text="Health:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -68,9 +68,9 @@
                   <Tooltip fx:id="ttHP" autoFix="false" consumeAutoHidingEvents="false" text="The Health Points, or HP for short determine how much &#10;damage a Pokémon can receive before fainting. &#10;Once the HP reach 0, the Pokémon faints and is &#10;either replaced by anothe one or the battle is over." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblHP" layoutX="130.0" layoutY="493.0" />
-            <TextField fx:id="txtHealth" blendMode="MULTIPLY" layoutX="123.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
-                <Label fx:id="labelSpeed" layoutX="232.0" layoutY="488.0" text="Speed:">
+                <Label fx:id="lblHP" layoutX="129.0" layoutY="426.0" />
+            <TextField fx:id="txtHealth" blendMode="MULTIPLY" layoutX="117.0" layoutY="424.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="labelSpeed" layoutX="227.0" layoutY="421.0" text="Speed:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -78,9 +78,9 @@
                   <Tooltip fx:id="ttSpeed" autoFix="false" consumeAutoHidingEvents="false" text="The Speed stat determines the order of Pokémon that &#10;can act in battle. Pokémon with higher Speed at the start &#10;of any turn will generally make a move before ones with &#10;lower Speed; in the case that two Pokémon have the same &#10;Speed, one of them will randomly go first." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblSpeed" layoutX="347.0" layoutY="493.0" />
-            <TextField fx:id="txtSpeed" blendMode="MULTIPLY" layoutX="320.0" layoutY="494.0" prefHeight="25.0" prefWidth="104.0" />
-                <Label fx:id="labelAttack" layoutX="25.0" layoutY="561.0" text="Attack:">
+                <Label fx:id="lblSpeed" layoutX="326.0" layoutY="426.0" />
+            <TextField fx:id="txtSpeed" blendMode="MULTIPLY" layoutX="320.0" layoutY="421.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="labelAttack" layoutX="24.0" layoutY="493.0" text="Attack:">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -88,9 +88,9 @@
                   <Tooltip fx:id="ttAttack" autoFix="false" consumeAutoHidingEvents="false" text="The Attack stat determines how much damage a &#10;Pokémon deals when using a physical move." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblAtk" layoutX="130.0" layoutY="566.0" />
-            <TextField fx:id="txtAttack" blendMode="MULTIPLY" layoutX="117.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
-                <Label fx:id="labelDefence" layoutX="228.0" layoutY="561.0" text="Defence: ">
+                <Label fx:id="lblAtk" layoutX="124.0" layoutY="499.0" />
+            <TextField fx:id="txtAttack" blendMode="MULTIPLY" layoutX="117.0" layoutY="497.0" prefHeight="25.0" prefWidth="104.0" />
+                <Label fx:id="labelDefence" layoutX="228.0" layoutY="494.0" text="Defence: ">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
@@ -98,34 +98,34 @@
                   <Tooltip fx:id="ttDefence" autoFix="false" consumeAutoHidingEvents="false" text="The Defence stat  determines how much damage a &#10;Pokémon receives when it is hit with a physical move." wrapText="true" />
                </tooltip>
                 </Label>
-                <Label fx:id="lblDf" layoutX="347.0" layoutY="566.0" />
-            <TextField fx:id="txtDefence" blendMode="MULTIPLY" layoutX="343.0" layoutY="567.0" prefHeight="25.0" prefWidth="104.0" />
-                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="132.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                <Label fx:id="lblDf" layoutX="355.0" layoutY="499.0" />
+            <TextField fx:id="txtDefence" blendMode="MULTIPLY" layoutX="347.0" layoutY="497.0" prefHeight="25.0" prefWidth="104.0" />
+                <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="137.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/pokeLogo.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="104.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                <ImageView fx:id="pokeBall" fitHeight="238.0" fitWidth="388.0" layoutX="99.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" visible="false">
                     <image>
                         <Image url="@images/pokeball.gif" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnNickname" blendMode="MULTIPLY" layoutX="372.0" layoutY="269.0" mnemonicParsing="false" onAction="#pokemonNickname" text="Ok" visible="false" />
-                <TextField fx:id="txtNickname" blendMode="MULTIPLY" layoutX="138.0" layoutY="274.0" prefHeight="25.0" prefWidth="218.0" promptText="Choose a name" visible="false" />
-                <Button fx:id="btnNoNickname" blendMode="MULTIPLY" layoutX="15.0" layoutY="269.0" mnemonicParsing="false" onAction="#pokemonNoNickname" text="Keep its name" visible="false" />
-                <Label fx:id="lblNickname" alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="35.0" prefWidth="456.0" text="Give your new friend a nickname!" textAlignment="CENTER" visible="false" />
+                <Button fx:id="btnNickname" blendMode="MULTIPLY" layoutX="379.0" layoutY="228.0" mnemonicParsing="false" onAction="#pokemonNickname" text="Ok" visible="false" />
+                <TextField fx:id="txtNickname" blendMode="MULTIPLY" layoutX="146.0" layoutY="229.0" prefHeight="25.0" prefWidth="218.0" promptText="Choose a name" visible="false" />
+                <Button fx:id="btnNoNickname" blendMode="MULTIPLY" layoutX="14.0" layoutY="227.0" mnemonicParsing="false" onAction="#pokemonNoNickname" text="Keep its name" visible="false" />
+                <Label fx:id="lblNickname" alignment="CENTER" contentDisplay="CENTER" layoutY="-3.0" prefHeight="35.0" prefWidth="456.0" text="Give your new friend a nickname!" textAlignment="CENTER" visible="false" />
                 <Label fx:id="lblError" alignment="CENTER" layoutY="306.0" prefHeight="17.0" prefWidth="456.0" textAlignment="CENTER" textFill="#eb0000" visible="false" />
-            <Label fx:id="labelPrice" layoutX="147.0" layoutY="617.0" text="Price:">
+            <Label fx:id="labelPrice" layoutX="146.0" layoutY="561.0" text="Price:">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="lblPrice" layoutX="227.0" layoutY="622.0" />
-            <TextField fx:id="txtPrice" blendMode="MULTIPLY" layoutX="224.0" layoutY="623.0" prefHeight="25.0" prefWidth="104.0" />
-            <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="138.0" layoutY="671.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
-            <Button fx:id="btnRemove" blendMode="MULTIPLY" layoutX="243.0" layoutY="671.0" mnemonicParsing="false" onAction="#removePokemon" prefHeight="39.0" prefWidth="90.0" text="Remove" />
-            <Button fx:id="btnAdd" blendMode="MULTIPLY" layoutX="187.0" layoutY="671.0" mnemonicParsing="false" onAction="#addPokemon" prefHeight="39.0" prefWidth="90.0" text="Add" />
-            <CheckBox fx:id="chkBxAllowRemoval" layoutX="340.0" layoutY="682.0" mnemonicParsing="false" text="Allow Removal" />
+            <Label fx:id="lblPrice" layoutX="236.0" layoutY="567.0" />
+            <TextField fx:id="txtPrice" blendMode="MULTIPLY" layoutX="225.0" layoutY="565.0" prefHeight="25.0" prefWidth="104.0" />
+            <Button fx:id="btnUpdate" blendMode="MULTIPLY" layoutX="130.0" layoutY="615.0" mnemonicParsing="false" onAction="#updatePokemon" text="Update" />
+            <Button fx:id="btnRemove" blendMode="MULTIPLY" layoutX="236.0" layoutY="615.0" mnemonicParsing="false" onAction="#removePokemon" prefHeight="39.0" prefWidth="104.0" text="Remove" />
+            <Button fx:id="btnAdd" blendMode="MULTIPLY" layoutX="182.0" layoutY="615.0" mnemonicParsing="false" onAction="#addPokemon" prefHeight="39.0" prefWidth="90.0" text="Add" />
+            <CheckBox fx:id="chkBxAllowRemoval" layoutX="178.0" layoutY="679.0" mnemonicParsing="false" text="Allow Removal" />
             </children>
         </Pane>
         <Button fx:id="btnBuy" blendMode="MULTIPLY" layoutX="17.0" layoutY="27.0" mnemonicParsing="false" onAction="#reArrangeScene" prefHeight="60.0" prefWidth="183.0" text="Catch Pokémon!" />
