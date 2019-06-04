@@ -31,7 +31,15 @@
     -fx-font: 15px Garamond;
 }
 
-#txtSearch {
+#choiceSearch {
+    -fx-font: 15px Garamond;
+}
+
+#choiceSearchSymbol {
+    -fx-font: 15px Garamond;
+}
+
+#txtSearchValue {
     -fx-font: 17px Garamond;
 }
 
@@ -189,6 +197,10 @@
     -fx-font: 30px Garamond;
 }
 
+#chkBxAllowRemoval{
+    -fx-font: 15px Garamond;
+}
+
 #btnSearch {
     -fx-font: 15px Garamond;
     -fx-font-weight: bold;
@@ -240,6 +252,28 @@
 }
 
 #btnSelect:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnAdd {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnAdd:hover {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnRemove {
+    -fx-font: 20px Garamond;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#btnRemove:hover {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
