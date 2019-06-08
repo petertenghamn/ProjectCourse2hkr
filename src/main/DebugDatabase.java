@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 public class DebugDatabase {
 
+    //the idea of this class is to have a hardcoded Database to use if there was none to connect to, though this is not implemented in current version
+
     private ArrayList<Pokemon> pokemons;
     private ArrayList<User> users;
     private HashMap<String, String> userPasswords;

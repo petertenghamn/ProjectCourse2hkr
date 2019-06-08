@@ -116,10 +116,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- Insert users into the database
 insert into user_info (email, password) values 
-('oak@professor', '12345');
+('oak@professor', 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ');
 
 insert into user_info (email, password, username, currency, login_bonus, win_count, loss_count) values
-('ash@trainer', '12345', 'Ash', 300, curdate(), 0, 0);
+('ash@trainer', 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ', 'Ash', 300, curdate(), 0, 0);
 
 -- Create stats for the test users to use
 insert into user (is_professor, user_info_email) values
@@ -151,38 +151,3 @@ INSERT INTO collection (nickname, user_id, pokemon_id) VALUES
 INSERT INTO user_has_team (collection_nickname, user_id) VALUES
  ((SELECT nickname FROM collection WHERE nickname LIKE 'ElectroRat'),
  (SELECT user_id FROM user WHERE user_info_email LIKE 'ash@trainer'));
- 
- 
--- some queries
-
--- SELECT * FROM user;
--- SELECT * FROM user_info;
--- SELECT * FROM pokemon;
--- SELECT * FROM collection;
--- SELECT * FROM user_has_team;
-
--- SELECT collection.user_id, pokemon_id, nickname FROM collection INNER JOIN user_has_team WHERE nickname LIKE collection_nickname AND collection.user_id = user_has_team.user_id;
-
--- UPDATE user_info SET login_bonus = '2019-05-09' WHERE email LIKE 'ash@trainer';
--- UPDATE user_info SET currency = 500 WHERE email LIKE 'ash@trainer';
--- UPDATE user_info SET win_count = 2, loss_count = 3 WHERE email LIKE 'ash@trainer';
--- UPDATE user_info SET password = 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ' WHERE email LIKE 'ash@trainer';
--- UPDATE user_info SET password = 'ﾋￍTﾕﾂ$ﾗtﾪﾙyￅﾤ' WHERE email LIKE 'oak@professor';
-
--- UPDATE user_info SET username = '', win_count = 0, loss_count = 0, currency = 0 WHERE email LIKE 'james@teamrocket';
-
--- insert into pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) values
--- (99, 'FireLizard', 39, 5, 4, 65, 'Fire', 50);
-
--- UPDATE pokemon SET pokemon_id = 100 WHERE pokemon_id = 99;
- 
--- UPDATE pokemon SET name = 'Slizard', health = 999, attack = 99, defense = 99, speed = 99, first_type = 'Fire', second_type = ' ', cost = 1000 WHERE pokemon_id = 100;
-
--- DELETE FROM pokemon WHERE pokemon_id = 100;
-
--- INSERT INTO pokemon (pokemon_id, name, health, attack, defense, speed, first_type, cost) VALUES (4, 'Charmander', 39, 5, 4, 65, 'Fire', 50);
-
--- SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pokemon' AND COLUMN_NAME = 'first_type';
-
--- DELETE FROM user_info WHERE email = 'test@remove';
--- DELETE FROM user WHERE user_id = (SELECT user_id FROM user WHERE user_info_email = 'test@remove');
