@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
 
 public class DatabaseLoader {
 
-    //mysqlserver
-    private String remoteUsername = "pokedb";
-    private String remotePassword = "electrorat!";
+    //mysql server
+    private String username = "root";
+    private String password = "root";
 
-    private String url = "jdbc:mysql://den1.mysql4.gear.host:3306/pokedb?user=" + remoteUsername + "&password=" + remotePassword;
+    private String url = "jdbc:mysql://localhost:3306/pokedb?user=" + username + "&password=" + password;
     private Statement statement;
 
     private Connection con;
